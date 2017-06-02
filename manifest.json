@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "Chestnut",
+    "version": "0.0.1",
+    "description": "Collect Pages To Your Chestnut Server.",
+    "icons": {
+        "48": "pic/cn_0.png"
+    },
+    "applications": {
+        "gecko": {
+            "id": "m@amastigote.com"
+        }
+    },
+    "permissions": [
+        "*://*/",
+        "activeTab",
+        "tabs"
+    ],
+    "content_security_policy": "script-src 'self'; object-src 'self' https:",
+    "browser_action": {
+        "browser_style": false,
+        "default_icon": "pic/cn_0.png",
+        "default_title": "Chestnut",
+        "default_popup": "html/popup.html"
+    }
+}
