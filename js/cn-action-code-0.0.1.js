@@ -7,6 +7,5 @@ var action_code = {
 
     // error codes
     800: "item not found",
-    801: "item already exists",
-    802: "tag not found"
+    801: "item already exists"
 };
