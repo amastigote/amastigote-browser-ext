@@ -14,17 +14,8 @@ querying.then(function (tabs) {
 });
 
 add_btn.click(function () {
-    var item = {
-        name: title_input.val(),
-        url: url_input.val(),
-        /*
-         todo tag cannot be empty
-         */
-        tag: tag_input.val(),
-        auto_add_tag: true
-    };
     change_buttons_clickability(false);
-    create(item, "https://localhost:8443/item", function (result) {
+    create(collect_item(), "https://localhost:8443/item", function (result) {
         translate_action_result(result);
         change_buttons_clickability(true);
     });
@@ -34,10 +25,25 @@ var change_buttons_clickability = function (clickable) {
     add_btn.prop('disabled', !clickable);
 };
 
+var collect_item = function () {
+    return {
+        name: escape(title_input.val()),
+        url: url_input.val(),
+        /*
+         todo tag cannot be empty
+         */
+        tag: tag_input.val().split(",").map(function (e) { return escape(e.trim()); }),
+        auto_add_tag: true
+    };
+}
+
 $(document).ready(function () {
     get_item({ url: url_input.val() }, "", function (result) {
         if (result.code === 700) {
             add_btn.prop('disabled', true);
+            title_input.val(result.object.name);
+            // tag_input.val(result.object.tag);
+            console.log(result.tag);
         }
         else if (result.code === 800) {
             update_btn.prop('disabled', true);

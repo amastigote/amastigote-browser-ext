@@ -14,7 +14,7 @@ Currently under development.
 
 - Add/update/delete pages to/on/from your chestnut server
 - Modify tags of pages
-- Detect if the current page already exists on your chestnut server and display relevant color for the browser-action
+- Change browser-action icon color automatically according to the current page's existence in the chestnut server
 
 #### Todo
 
