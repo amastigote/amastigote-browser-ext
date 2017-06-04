@@ -4,26 +4,15 @@ var delete_btn = $('#btn_delete');
 var title_input = $('#input_title');
 var url_input = $('#input_url');
 var tag_input = $('#input_tag');
-var querying = browser.tabs.query({ currentWindow: true, active: true });
-
-querying.then(function (tabs) {
-    if (tabs[0]) {
-        title_input.val(tabs[0].title);
-        url_input.val(tabs[0].url);
-    }
-});
 
 add_btn.click(function () {
-    change_buttons_clickability(false);
+    add_btn.prop('disabled', true);
     create(collect_item(), "https://localhost:8443/item", function (result) {
         translate_action_result(result);
-        change_buttons_clickability(true);
+        update_btn.prop('disabled', false);
+        delete_btn.prop('disabled', false);
     });
 });
-
-var change_buttons_clickability = function (clickable) {
-    add_btn.prop('disabled', !clickable);
-};
 
 var collect_item = function () {
     return {
@@ -37,17 +26,23 @@ var collect_item = function () {
     };
 }
 
-$(document).ready(function () {
-    get_item({ url: url_input.val() }, "", function (result) {
-        if (result.code === 700) {
-            add_btn.prop('disabled', true);
-            title_input.val(result.object.name);
-            // tag_input.val(result.object.tag);
-            console.log(result.tag);
-        }
-        else if (result.code === 800) {
-            update_btn.prop('disabled', true);
-            delete_btn.prop('disabled', true);
+browser.tabs
+    .query({ currentWindow: true, active: true })
+    .then(function (tabs) {
+        if (tabs[0]) {
+            title_input.val(tabs[0].title);
+            url_input.val(tabs[0].url);
+
+            get_item({ url: url_input.val() }, "", function (result) {
+                if (result.code === 700) {
+                    add_btn.prop('disabled', true);
+                    title_input.val(unescape(result.object.name));
+                    tag_input.val(result.object.tag.map(function (e) { return unescape(e.name); }).join(", "));
+                }
+                else if (result.code === 800) {
+                    update_btn.prop('disabled', true);
+                    delete_btn.prop('disabled', true);
+                }
+            });
         }
     });
-});
