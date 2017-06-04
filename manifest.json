@@ -16,11 +16,18 @@
         "activeTab",
         "tabs"
     ],
-    "content_security_policy": "script-src 'self'; object-src 'self' https:",
+    "content_security_policy": "script-src 'self'; object-src 'self'",
     "browser_action": {
         "browser_style": false,
         "default_icon": "pic/cn_0.png",
         "default_title": "Chestnut",
         "default_popup": "html/popup.html"
+    },
+    "background": {
+        "scripts": [
+            "js/cn-background-0.0.1.js",
+            "js/cn-core-0.0.1.js",
+            "js/jquery-3.2.1.min.js"
+        ]
     }
 }
