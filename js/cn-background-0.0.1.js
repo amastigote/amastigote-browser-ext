@@ -28,5 +28,25 @@ var update_active_tab = function () {
     );
 }
 
+var update_tags = function (result) {
+    if (result.code === 751) {
+        browser.storage.local.set({
+            tag_serial: result.message,
+            tags: result.object
+        })
+    }
+}
+
 browser.tabs.onUpdated.addListener(update_active_tab);
 browser.tabs.onActivated.addListener(update_active_tab);
+
+setInterval(function () {
+    var tag_serial = browser.storage.local.get('tag_serial');
+    tag_serial.then(function (result) {
+        get_tags(
+            result,
+            "",
+            update_tags
+        );
+    });
+}, 30000);

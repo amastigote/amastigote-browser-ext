@@ -1,23 +1,43 @@
-var create = function (item, server_url, success_method) {
-    general_query(JSON.stringify(item), server_url, "POST", success_method);
+var create = function (item, server_url, success_callback) {
+    general_query(
+        JSON.stringify(item),
+        "https://localhost:8443/item",
+        "POST",
+        success_callback
+    );
 };
 
-var update = function (item, server_url, success_method) {
-    general_query(JSON.stringify(item), server_url, "PUT", success_method);
+var update = function (item, server_url, success_callback) {
+    general_query(
+        JSON.stringify(item),
+        "https://localhost:8443/item",
+        "PUT",
+        success_callback
+    );
 };
 
-var remove = function (item, server_url, success_method) {
-    general_query(JSON.stringify(item), server_url, "DELETE", success_method);
+var remove = function (item, server_url, success_callback) {
+    general_query(
+        JSON.stringify(item),
+        "https://localhost:8443/item",
+        "DELETE",
+        success_callback
+    );
 };
 
-var get_item = function (item, server_url, success_method) {
-    general_query(item, server_url, "GET", success_method);
+var get_item = function (item, server_url, success_callback) {
+    general_query(
+        item,
+        "https://localhost:8443/item",
+        "GET",
+        success_callback
+    );
 };
 
 var general_query = function (item, server_url, query_method, success_callback) {
     $.ajax({
         type: query_method,
-        url: "https://localhost:8443/item",
+        url: server_url,
         data: item,
         contentType: "application/json",
         dataType: "json",
@@ -28,8 +48,13 @@ var general_query = function (item, server_url, query_method, success_callback) 
     });
 };
 
-var get_tags = function (server_url) {
-
+var get_tags = function (tag_serial, server_url, success_callback) {
+    general_query(
+        tag_serial,
+        "https://localhost:8443/tag",
+        "GET",
+        success_callback
+    );
 };
 
 var check_connection = function (server_url) {
