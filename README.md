@@ -2,7 +2,7 @@
 
 Collect Pages To Your Chestnut Server.
 
-Powered by [@hwding](https://github.com/hwding) with ❤ and solitude.
+Made with ❤ and solitude.
 
 ## Status
 
