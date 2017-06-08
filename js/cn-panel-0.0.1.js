@@ -54,7 +54,7 @@ var collect_item = function () {
     return {
         name: escape(title_input.val()),
         url: url_input.val(),
-        tag: tag_input.val().split(",").map(function (e) { return escape(e.trim()); }),
+        tag: tag_input.val().replace("，", ",").split(",").map(function (e) { return escape(e.trim()); }),
         auto_add_tag: true
     };
 }
