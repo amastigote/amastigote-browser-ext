@@ -9,7 +9,9 @@ browser.storage.local.get('tags').then(
     function (result) {
         new Awesomplete(document.getElementById("input_tag"),
             {
-                list: result.tags.map(function (e) { return unescape(e.trim()); }),
+                list: result.tags.map(function (e) {
+                    return unescape(e.trim());
+                }),
                 filter: function (text, input) {
                     return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
                 },
@@ -54,22 +56,29 @@ var collect_item = function () {
     return {
         name: escape(title_input.val()),
         url: url_input.val(),
-        tag: tag_input.val().replace(new RegExp("，", 'g'), ",").split(",").map(function (e) { return escape(e.trim()); }),
+        tag: tag_input.val()
+            .replace(new RegExp("，", 'g'), ",")
+            .split(",")
+            .map(function (e) {
+                return escape(e.trim());
+            }),
         auto_add_tag: true
     };
-}
+};
 
-browser.tabs.query({ currentWindow: true, active: true })
+browser.tabs.query({currentWindow: true, active: true})
     .then(function (tabs) {
         if (tabs[0]) {
             title_input.val(tabs[0].title);
             url_input.val(tabs[0].url);
 
-            get_item({ url: url_input.val() }, "", function (result) {
+            get_item({url: url_input.val()}, "", function (result) {
                 if (result.code === 700) {
                     add_btn.prop('disabled', true);
                     title_input.val(unescape(result.object.name));
-                    tag_input.val(result.object.tag.map(function (e) { return unescape(e.name); }).join(", "));
+                    tag_input.val(result.object.tag.map(function (e) {
+                        return unescape(e.name);
+                    }).join(", "));
                 }
                 else if (result.code === 800) {
                     update_btn.prop('disabled', true);
