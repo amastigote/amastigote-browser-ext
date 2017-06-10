@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Collect Pages To Your Chestnut Server.",
   "icons": {
-    "48": "pic/cn_0.png"
+    "48": "pic/cn_1.png"
   },
   "applications": {
     "gecko": {
