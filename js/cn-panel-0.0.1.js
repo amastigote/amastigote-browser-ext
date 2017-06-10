@@ -66,6 +66,9 @@ var collect_item = function () {
         tag: tag_input.val()
             .replace(new RegExp("，", 'g'), ",")
             .split(",")
+            .filter(function (e) {
+                return e !== ''
+            })
             .map(function (e) {
                 return escape(e.trim());
             }),
