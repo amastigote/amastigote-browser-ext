@@ -32,7 +32,7 @@ browser.storage.local.get('tags').then(
 
 browse_btn.click(function () {
     browser.tabs.create({
-        "url": '/html/tray.html'
+        "url": '/tray/html/tray.html'
     });
 });
 
