@@ -1,6 +1,7 @@
 var add_btn = $('#btn_add');
 var update_btn = $('#btn_update');
 var delete_btn = $('#btn_delete');
+var browse_btn = $('#btn_browse');
 var title_input = $('#input_title');
 var url_input = $('#input_url');
 var tag_input = $('#input_tag');
@@ -28,6 +29,12 @@ browser.storage.local.get('tags').then(
             });
     }
 );
+
+browse_btn.click(function () {
+    browser.tabs.create({
+        "url": '/html/tray.html'
+    });
+});
 
 add_btn.click(function () {
     add_btn.prop('disabled', true);

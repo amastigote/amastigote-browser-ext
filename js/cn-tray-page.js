@@ -4,29 +4,6 @@
 
   currentPage = 0;
 
-  $(function() {
-    var btnPre, btnSuc, container, pageIndicator;
-    container = $('#tableBody');
-    btnPre = $('.btnPre');
-    btnSuc = $('.btnSuc');
-    pageIndicator = $('.pageIndicator');
-    btnPre.click(function() {
-      return loadItems(currentPage - 2, container, btnPre, btnSuc, pageIndicator);
-    });
-    btnSuc.click(function() {
-      return loadItems(currentPage, container, btnPre, btnSuc, pageIndicator);
-    });
-    return loadItems(0, container, btnPre, btnSuc, pageIndicator);
-  });
-
-  generateRow = function(item) {
-    var tagsBadges;
-    tagsBadges = item['tag'].map(function(e) {
-      return "<span class=\"badge badge-default\">" + (unescape(e['name'])) + "</span>";
-    }).join(' ');
-    return "<tr><td>" + item['id'] + "</td><td> <a href=\'" + item['url'] + "\'>" + (unescape(item['name'])) + "</a> </td><td>" + tagsBadges + " </td><td>n/a</td><td></td></tr>";
-  };
-
   loadItems = function(page, container, btnPre, btnSuc, pageIndicator) {
     return listItems({
       page: page
@@ -61,6 +38,27 @@
     });
   };
 
-}).call(this);
+  $(function() {
+    var btnPre, btnSuc, container, pageIndicator;
+    container = $('#tableBody');
+    btnPre = $('.btnPre');
+    btnSuc = $('.btnSuc');
+    pageIndicator = $('.pageIndicator');
+    btnPre.click(function() {
+      return loadItems(currentPage - 2, container, btnPre, btnSuc, pageIndicator);
+    });
+    btnSuc.click(function() {
+      return loadItems(currentPage, container, btnPre, btnSuc, pageIndicator);
+    });
+    return loadItems(0, container, btnPre, btnSuc, pageIndicator);
+  });
 
-//# sourceMappingURL=cn-tray-page.js.map
+  generateRow = function(item) {
+    var tagsBadges;
+    tagsBadges = item['tag'].map(function(e) {
+      return "<span class=\"badge badge-default\">" + (unescape(e['name'])) + "</span>";
+    }).join(' ');
+    return "<tr><td>" + item['id'] + "</td><td> <a href=\'" + item['url'] + "\'>" + (unescape(item['name'])) + "</a> </td><td>" + tagsBadges + " </td><td>n/a</td><td></td></tr>";
+  };
+
+}).call(this);
