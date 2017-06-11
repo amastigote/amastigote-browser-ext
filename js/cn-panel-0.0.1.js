@@ -5,6 +5,27 @@ var browse_btn = $('#btn_browse');
 var title_input = $('#input_title');
 var url_input = $('#input_url');
 var tag_input = $('#input_tag');
+var server_input = $('#input_server');
+var port_input = $('#input_port');
+
+browser.storage.local.get(['cnServer', 'cnPort']).then(
+    function (result) {
+        server_input.val(result['cnServer']);
+        port_input.val(result['cnPort']);
+    }
+);
+
+server_input.change(function () {
+    browser.storage.local.set({
+        cnServer: server_input.val().trim()
+    })
+});
+
+port_input.change(function () {
+    browser.storage.local.set({
+        cnPort: port_input.val().trim()
+    })
+});
 
 browser.storage.local.get('tags').then(
     function (result) {
@@ -38,7 +59,7 @@ browse_btn.click(function () {
 
 add_btn.click(function () {
     add_btn.prop('disabled', true);
-    create(collect_item(), "", function (result) {
+    create(collect_item(), function (result) {
         update_btn.prop('disabled', false);
         delete_btn.prop('disabled', false);
     });
@@ -46,14 +67,14 @@ add_btn.click(function () {
 
 update_btn.click(function () {
     update_btn.prop('disabled', true);
-    update(collect_item(), "", function (result) {
+    update(collect_item(), function (result) {
         update_btn.prop('disabled', false);
     });
 });
 
 delete_btn.click(function () {
     delete_btn.prop('disabled', true);
-    remove(collect_item(), "", function (result) {
+    remove(collect_item(), function (result) {
         add_btn.prop('disabled', false);
         update_btn.prop('disabled', true);
     });
@@ -82,7 +103,7 @@ browser.tabs.query({currentWindow: true, active: true})
             title_input.val(tabs[0].title);
             url_input.val(tabs[0].url);
 
-            get_item({url: url_input.val()}, "", function (result) {
+            get_item({url: url_input.val()}, function (result) {
                 if (result.code === 700) {
                     add_btn.prop('disabled', true);
                     title_input.val(unescape(result.object.name));

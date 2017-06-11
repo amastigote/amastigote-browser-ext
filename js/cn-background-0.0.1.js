@@ -9,7 +9,7 @@ var update_icon = function (has_color, tab_id) {
 };
 
 var check_current_page = function (tab) {
-    get_item({url: tab.url}, "", function (result) {
+    get_item({url: tab.url}, function (result) {
         if (result.code === 700) {
             update_icon(true, tab.id);
         } else if (result.code === 800) {
@@ -45,7 +45,6 @@ setInterval(function () {
     tag_serial.then(function (result) {
         get_tags(
             result,
-            "",
             update_tags
         );
     });
