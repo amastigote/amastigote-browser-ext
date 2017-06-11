@@ -61,7 +61,7 @@ browse_btn.click(function () {
 
 add_btn.click(function () {
     add_btn.prop('disabled', true);
-    create(collect_item(), function (result) {
+    create(collect_item(), function () {
         update_btn.prop('disabled', false);
         delete_btn.prop('disabled', false);
     });
@@ -69,14 +69,14 @@ add_btn.click(function () {
 
 update_btn.click(function () {
     update_btn.prop('disabled', true);
-    update(collect_item(), function (result) {
+    update(collect_item(), function () {
         update_btn.prop('disabled', false);
     });
 });
 
 delete_btn.click(function () {
     delete_btn.prop('disabled', true);
-    remove(collect_item(), function (result) {
+    remove(collect_item(), function () {
         add_btn.prop('disabled', false);
         update_btn.prop('disabled', true);
     });
