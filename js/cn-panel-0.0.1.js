@@ -52,8 +52,10 @@ browser.storage.local.get('tags').then(
 );
 
 browse_btn.click(function () {
-    browser.tabs.create({
-        "url": '/tray/html/tray.html'
+    browser.storage.local.get(['cnServer', 'cnPort']).then(function (result) {
+        browser.tabs.create({
+            "url": '/tray/html/tray.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
+        });
     });
 });
 
