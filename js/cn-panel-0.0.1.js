@@ -32,17 +32,19 @@ browser.storage.local.get('tags').then(
         new Awesomplete(document.getElementById("input_tag"),
             {
                 list: result.tags.map(function (e) {
-                    return unescape(e.trim());
+                    return unescape(e);
                 }),
-                filter: function (text, input) {
+                filter: function(text, input) {
                     return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
                 },
-                item: function (text, input) {
+
+                item: function(text, input) {
                     return Awesomplete.ITEM(text, input.match(/[^,]*$/)[0]);
                 },
-                replace: function (text) {
+
+                replace: function(text) {
                     var before = this.input.value.match(/^.+,\s*|/)[0];
-                    this.input.value = before + text;
+                    this.input.value = before + text + ", ";
                 },
                 minChars: 1,
                 maxItems: 2,
@@ -89,11 +91,14 @@ var collect_item = function () {
         tag: tag_input.val()
             .replace(new RegExp("，", 'g'), ",")
             .split(",")
+            .map(function (e) {
+                return e.trim();
+            })
             .filter(function (e) {
                 return e !== ''
             })
             .map(function (e) {
-                return escape(e.trim());
+                return escape(e);
             }),
         auto_add_tag: true
     };
