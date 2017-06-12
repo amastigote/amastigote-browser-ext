@@ -56,7 +56,7 @@ browser.storage.local.get('tags').then(
 browse_btn.click(function () {
     browser.storage.local.get(['cnServer', 'cnPort']).then(function (result) {
         browser.tabs.create({
-            "url": '/tray/html/tray.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
+            "url": '/amastigote-page/html/page.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
         });
     });
 });
@@ -66,6 +66,12 @@ add_btn.click(function () {
     create(collect_item(), function () {
         update_btn.prop('disabled', false);
         delete_btn.prop('disabled', false);
+        browser.tabs.query({currentWindow: true, active: true})
+            .then(function (tabs) {
+                if (tabs[0]) {
+                    update_icon(true, tabs[0].id)
+                }
+            });
     });
 });
 
@@ -81,8 +87,24 @@ delete_btn.click(function () {
     remove(collect_item(), function () {
         add_btn.prop('disabled', false);
         update_btn.prop('disabled', true);
+        browser.tabs.query({currentWindow: true, active: true})
+            .then(function (tabs) {
+                if (tabs[0]) {
+                    update_icon(false, tabs[0].id);
+                }
+            });
     });
 });
+
+var update_icon = function (hasColor, tabId) {
+    browser.browserAction.setIcon({
+        path: hasColor ?
+            {48: "../pic/cn_1.png"}
+            :
+            {48: "../pic/cn_0.png"},
+        tabId: tabId
+    });
+};
 
 var collect_item = function () {
     return {
