@@ -46,19 +46,23 @@ var get_tags = function (tag_serial, success_callback) {
 var general_query = function (item, urlEndPoint, query_method, success_callback) {
     browser.storage.local.get(['cnServer', 'cnPort']).then(
         function (result) {
-            var server = result['cnServer'];
-            var port = result['cnPort'];
-            $.ajax({
-                type: query_method,
-                url: "https://" + server + ":" + port + "/" + urlEndPoint,
-                data: item,
-                contentType: "application/json",
-                dataType: "json",
-                success: success_callback,
-                error: function (request, status) {
-                    // todo
-                }
-            });
+            if (result['cnServer'] !== undefined && result['cnPort'] !== undefined) {
+                var server = result['cnServer'];
+                var port = result['cnPort'];
+                $.ajax({
+                    type: query_method,
+                    url: "https://" + server + ":" + port + "/" + urlEndPoint,
+                    data: item,
+                    contentType: "application/json",
+                    dataType: "json",
+                    crossDomain: true,
+                    crossOrigin: true,
+                    success: success_callback,
+                    error: function (request, status) {
+                        // todo
+                    }
+                });
+            }
         }
     );
 };

@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
-  "name": "Chestnut",
-  "version": "0.0.1",
-  "description": "Collect Pages To Your Chestnut Server.",
+  "name": "amastigote",
+  "version": "0.1.2",
+  "description": "n/a",
   "icons": {
-    "48": "pic/cn_1.png"
+    "48": "/pic/cn_1.png"
   },
   "applications": {
     "gecko": {
@@ -20,15 +20,18 @@
   "content_security_policy": "script-src 'self'; object-src 'self'",
   "browser_action": {
     "browser_style": false,
-    "default_icon": "pic/cn_0.png",
-    "default_title": "Chestnut",
-    "default_popup": "html/popup.html"
+    "default_icon": "/pic/cn_0.png",
+    "default_popup": "/html/popup.html"
   },
   "background": {
     "scripts": [
-      "js/cn-background-0.0.1.js",
-      "js/cn-core-0.0.1.js",
-      "js/jquery-3.2.1.min.js"
+      "/js/jquery-3.2.1.min.js",
+      "/js/ext-core.js",
+      "/js/ext-background.js"
     ]
+  },
+  "options_ui": {
+    "page": "/html/preference.html",
+    "browser_style": false
   }
 }

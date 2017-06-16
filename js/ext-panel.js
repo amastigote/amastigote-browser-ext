@@ -5,30 +5,12 @@ var browse_btn = $('#btn_browse');
 var title_input = $('#input_title');
 var url_input = $('#input_url');
 var tag_input = $('#input_tag');
-var server_input = $('#input_server');
-var port_input = $('#input_port');
-
-browser.storage.local.get(['cnServer', 'cnPort']).then(
-    function (result) {
-        server_input.val(result['cnServer']);
-        port_input.val(result['cnPort']);
-    }
-);
-
-server_input.change(function () {
-    browser.storage.local.set({
-        cnServer: server_input.val().trim()
-    })
-});
-
-port_input.change(function () {
-    browser.storage.local.set({
-        cnPort: port_input.val().trim()
-    })
-});
 
 browser.storage.local.get('tags').then(
     function (result) {
+        if (result['tags'] === undefined)
+            result = {tags: []};
+
         new Awesomplete(document.getElementById("input_tag"),
             {
                 list: result.tags.map(function (e) {
