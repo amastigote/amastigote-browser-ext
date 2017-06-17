@@ -2,6 +2,7 @@ var server_input = $('#input_server');
 var port_input = $('#input_port');
 var save_button = $('#buttonSave');
 var clear_button = $('#buttonClear');
+var saveHint = $('#saveHint');
 
 browser.storage.local
     .get(['cnServer', 'cnPort'])
@@ -16,7 +17,11 @@ save_button.click(function () {
     browser.storage.local.set({
         cnServer: server_input.val().trim(),
         cnPort: port_input.val().trim()
-    })
+    });
+    saveHint.text('All preferences saved.');
+    setTimeout(function () {
+        location.reload();
+    }, 1000);
 });
 
 clear_button.click(function () {

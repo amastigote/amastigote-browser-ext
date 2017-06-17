@@ -5,6 +5,7 @@ var browse_btn = $('#btn_browse');
 var title_input = $('#input_title');
 var url_input = $('#input_url');
 var tag_input = $('#input_tag');
+var img_settings = $('#img_settings');
 
 browser.storage.local.get('tags').then(
     function (result) {
@@ -76,6 +77,10 @@ delete_btn.click(function () {
                 }
             });
     });
+});
+
+img_settings.click(function () {
+   browser.runtime.openOptionsPage();
 });
 
 var update_icon = function (hasColor, tabId) {
