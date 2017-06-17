@@ -1,6 +1,6 @@
-# chestnut-mozilla-ext
+# amastigote-browser-ext
 
-Collect Pages To Your Chestnut Server.
+Cooperative WebPage Archiving List for Groups/Teams/Individuals.
 
 Made with ❤ and solitude.
 
