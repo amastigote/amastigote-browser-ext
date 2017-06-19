@@ -2,6 +2,7 @@ var server_input = $('#input_server');
 var port_input = $('#input_port');
 var save_button = $('#buttonSave');
 var clear_button = $('#buttonClear');
+var github_button = $('#buttonGithub');
 var saveHint = $('#saveHint');
 
 browser.storage.local
@@ -27,4 +28,8 @@ save_button.click(function () {
 clear_button.click(function () {
     server_input.val('');
     port_input.val('');
+});
+
+github_button.click(function () {
+    window.open("https://github.com/amastigote");
 });
