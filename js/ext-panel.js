@@ -8,7 +8,7 @@
 
   delete_btn = $('#btn_delete');
 
-  browse_btn = $('#btn_browse');
+  browse_btn = $('#img_page');
 
   title_input = $('#input_title');
 

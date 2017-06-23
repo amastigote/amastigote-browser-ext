@@ -1,7 +1,7 @@
 add_btn = $('#btn_add')
 update_btn = $('#btn_update')
 delete_btn = $('#btn_delete')
-browse_btn = $('#btn_browse')
+browse_btn = $('#img_page')
 title_input = $('#input_title')
 url_input = $('#input_url')
 tag_input = $('#input_tag')
