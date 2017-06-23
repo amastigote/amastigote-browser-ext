@@ -6,6 +6,7 @@ title_input = $('#input_title')
 url_input = $('#input_url')
 tag_input = $('#input_tag')
 img_settings = $('#img_settings')
+img_mail = $('#img_mail')
 
 browser.storage.local.get('tags').then (result) ->
   if result['tags'] == undefined
@@ -39,6 +40,7 @@ add_btn.click ->
   create collect_item(), ->
     update_btn.prop 'disabled', false
     delete_btn.prop 'disabled', false
+    delete_btn.css('color', '#c12e2a')
     browser.tabs.query(
       currentWindow: true
       active: true).then (tabs) ->
@@ -52,6 +54,7 @@ update_btn.click ->
 
 delete_btn.click ->
   delete_btn.prop 'disabled', true
+  delete_btn.css('color', '#c68783')
   remove collect_item(), ->
     add_btn.prop 'disabled', false
     update_btn.prop 'disabled', true
@@ -63,6 +66,9 @@ delete_btn.click ->
 
 img_settings.click ->
   browser.runtime.openOptionsPage()
+
+img_mail.click ->
+  window.location.href = "mailto:?subject=Page shared from AMASTIGOTE&body=#{title_input.val()}: #{url_input.val()}"
 
 update_icon = (hasColor, tabId) ->
   browser.browserAction.setIcon
