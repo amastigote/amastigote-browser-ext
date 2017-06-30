@@ -148,7 +148,8 @@
           }).join(', '));
         } else if (result.code === 800) {
           update_btn.prop('disabled', true);
-          return delete_btn.prop('disabled', true);
+          delete_btn.prop('disabled', true);
+          return delete_btn.css('color', '#c68783');
         }
       });
     }
