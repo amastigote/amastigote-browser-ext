@@ -49,9 +49,10 @@
 
   browse_btn.click(function() {
     return browser.storage.local.get(['cnServer', 'cnPort']).then(function(result) {
-      return browser.tabs.create({
+      browser.tabs.create({
         'url': '/amastigote-page/html/page.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
       });
+      return window.close();
     });
   });
 
@@ -97,11 +98,13 @@
   });
 
   img_settings.click(function() {
-    return browser.runtime.openOptionsPage();
+    browser.runtime.openOptionsPage();
+    return window.close();
   });
 
   img_mail.click(function() {
-    return window.location.href = "mailto:?subject=Page shared from AMASTIGOTE&body=" + (title_input.val()) + ": " + (url_input.val());
+    window.location.href = "mailto:?subject=Page shared from AMASTIGOTE&body=" + (title_input.val()) + ": " + (url_input.val());
+    return window.close();
   });
 
   update_icon = function(hasColor, tabId) {

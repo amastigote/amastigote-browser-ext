@@ -34,6 +34,7 @@ browse_btn.click ->
     'cnPort'
   ]).then (result) ->
     browser.tabs.create 'url': '/amastigote-page/html/page.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
+    window.close()
 
 add_btn.click ->
   add_btn.prop 'disabled', true
@@ -66,9 +67,11 @@ delete_btn.click ->
 
 img_settings.click ->
   browser.runtime.openOptionsPage()
+  window.close()
 
 img_mail.click ->
   window.location.href = "mailto:?subject=Page shared from AMASTIGOTE&body=#{title_input.val()}: #{url_input.val()}"
+  window.close()
 
 update_icon = (hasColor, tabId) ->
   browser.browserAction.setIcon
