@@ -30,7 +30,7 @@
         port = result['cnPort'];
         return $.ajax({
           type: query_method,
-          url: 'https://' + server + ':' + port + '/' + urlEndPoint,
+          url: 'http://' + server + ':' + port + '/' + urlEndPoint,
           data: item,
           contentType: 'application/json',
           dataType: 'json',

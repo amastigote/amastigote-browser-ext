@@ -23,7 +23,7 @@ general_query = (item, urlEndPoint, query_method, success_callback) ->
       port = result['cnPort']
       $.ajax
         type: query_method
-        url: 'https://' + server + ':' + port + '/' + urlEndPoint
+        url: 'http://' + server + ':' + port + '/' + urlEndPoint
         data: item
         contentType: 'application/json'
         dataType: 'json'
