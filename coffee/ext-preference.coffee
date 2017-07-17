@@ -21,7 +21,6 @@ save_button.click ->
   saveHint.text 'All preferences saved.'
   setTimeout (->
     location.reload()
-
   ), 1000
 
 clear_button.click ->
