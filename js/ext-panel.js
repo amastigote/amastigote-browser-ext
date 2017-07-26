@@ -137,9 +137,11 @@
     currentWindow: true,
     active: true
   }).then(function(tabs) {
+    var url;
     if (tabs[0]) {
-      title_input.val(tabs[0].title);
-      url_input.val(tabs[0].url);
+      url = tabs[0].url;
+      title_input.val(removeSuffix(url, tabs[0].title));
+      url_input.val(url);
       return get_item({
         url: url_input.val()
       }, function(result) {

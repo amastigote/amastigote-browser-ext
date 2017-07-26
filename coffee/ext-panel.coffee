@@ -96,8 +96,10 @@ browser.tabs.query(
   currentWindow: true
   active: true).then (tabs) ->
     if tabs[0]
-      title_input.val tabs[0].title
-      url_input.val tabs[0].url
+      url = tabs[0].url
+#      title_input.val tabs[0].title
+      title_input.val removeSuffix(url, tabs[0].title)
+      url_input.val url
       get_item { url: url_input.val() }, (result) ->
         if result.code == 700
           add_btn.prop 'disabled', true
