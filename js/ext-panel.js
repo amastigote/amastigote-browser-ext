@@ -61,7 +61,6 @@
     return create(collect_item(), function() {
       update_btn.prop('disabled', false);
       delete_btn.prop('disabled', false);
-      delete_btn.css('color', '#c12e2a');
       return browser.tabs.query({
         currentWindow: true,
         active: true
@@ -82,7 +81,6 @@
 
   delete_btn.click(function() {
     delete_btn.prop('disabled', true);
-    delete_btn.css('color', '#c68783');
     return remove(collect_item(), function() {
       add_btn.prop('disabled', false);
       update_btn.prop('disabled', true);
@@ -153,8 +151,7 @@
           }).join(', '));
         } else if (result.code === 800) {
           update_btn.prop('disabled', true);
-          delete_btn.prop('disabled', true);
-          return delete_btn.css('color', '#c68783');
+          return delete_btn.prop('disabled', true);
         }
       });
     }

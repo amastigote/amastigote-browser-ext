@@ -1,54 +1,71 @@
+<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/awesomplete.css"/>
+    <link rel="stylesheet" href="../css/tether.min.css"/>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: monospace;
+        }
+
+        .spacer {
+            height: 10px;
         }
     </style>
 </head>
 
 <body>
-<table style="width: 100%">
+<table style="width: 320px">
     <tr style="height: 30px">
-        <td colspan="2" style="font-size: 14px; position: absolute; top: 12px; color: rebeccapurple; font-weight: bold">
-            AMASTIGOTE
+        <td colspan="2"
+            style="font-size: 14px; position: absolute; top: 9px; left: 10px;color: rebeccapurple; font-weight: bold">
+            AMA-FF-EXT-DEV
         </td>
     </tr>
+    <tr class="spacer"></tr>
     <tr>
-        <td><span style="font-size: 12px">Title: </span></td>
-        <td><label><input id="input_title"/></label></td>
+        <td style="font-size: 12px; padding-left: 12px">Title:</td>
+        <td><label><input class="form-control" style="font-size: 12px; width: 240px" id="input_title"/></label></td>
         <td style="top: 10px; right: 10px; position: absolute; font-size: 12px">
             <a href="javascript: void(0)">
                 <img style="margin-right: 4px" id="img_mail" src="../pic/mail.png"/></a>
             <a href="javascript: void(0)">
-                <img style="margin-bottom: 1px" id="img_page" src="../pic/page.png"/></a><a style="margin-left: 10px"
-                                                                                            href="javascript: void(0)"><img
-                id="img_settings" src="../pic/settings.png"/>
-        </a>
+                <img style="margin-bottom: 1px" id="img_page" src="../pic/page.png"/></a>
+            <a style="margin-left: 7px"
+               href="javascript: void(0)">
+                <img id="img_settings" src="../pic/settings.png"/>
+            </a>
         </td>
     </tr>
     <tr>
-        <td><span style="font-size: 12px">URL: </span></td>
-        <td><label><input disabled id="input_url"/></label></td>
+        <td style="font-size: 12px; padding-left: 12px">URL:</td>
+        <td><label><input class="form-control" style="font-size: 12px; width: 240px" disabled id="input_url"/></label>
+        </td>
     </tr>
     <tr>
-        <td><span style="font-size: 12px">Tags: </span></td>
-        <td><label><input id="input_tag"/></label></td>
+        <td style="font-size: 12px; padding-left: 12px">Tags:</td>
+        <td><label><input class="form-control" style="font-size: 12px; width: 240px" id="input_tag"/></label></td>
     </tr>
 </table>
-<div style="margin-top:10px">
-    <button id="btn_add">ADD</button>
-    <button id="btn_update">UPDATE</button>
-    <button id="btn_delete" style="color: #c12e2a; font-weight: bold">DELETE</button>
+<div style="margin-top:4px; width: 100%; text-align: center">
+    <button style="width: 25%" id="btn_add" type="button" class="btn btn-outline-success btn-sm"><i
+            class="fa fa-plus"></i> 添加
+    </button>
+    <button style="width: 25%" id="btn_update" class="btn btn-outline-primary btn-sm"><i class="fa fa-refresh"></i> 更新
+    </button>
+    <button style="width: 25%" id="btn_delete" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i> 移除
+    </button>
 </div>
-<div style="background-color: rebeccapurple; margin: 10px -8px -8px;text-align: center">
+<div style="background-color: rebeccapurple; margin-top: 10px; text-align: center">
     <span style="color: ghostwhite; font-size: 12px">Made with ❤ and solitude.</span>
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../js/tether.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/awesomplete.min.js"></script>
 <script type="text/javascript" src="../js/ext-core.js"></script>
 <script type="text/javascript" src="../js/ext-recognition.js"></script>

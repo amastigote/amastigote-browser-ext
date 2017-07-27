@@ -41,7 +41,6 @@ add_btn.click ->
   create collect_item(), ->
     update_btn.prop 'disabled', false
     delete_btn.prop 'disabled', false
-    delete_btn.css('color', '#c12e2a')
     browser.tabs.query(
       currentWindow: true
       active: true).then (tabs) ->
@@ -55,7 +54,6 @@ update_btn.click ->
 
 delete_btn.click ->
   delete_btn.prop 'disabled', true
-  delete_btn.css('color', '#c68783')
   remove collect_item(), ->
     add_btn.prop 'disabled', false
     update_btn.prop 'disabled', true
@@ -97,7 +95,6 @@ browser.tabs.query(
   active: true).then (tabs) ->
     if tabs[0]
       url = tabs[0].url
-#      title_input.val tabs[0].title
       title_input.val removeSuffix(url, tabs[0].title)
       url_input.val url
       get_item { url: url_input.val() }, (result) ->
@@ -110,4 +107,3 @@ browser.tabs.query(
         else if result.code == 800
           update_btn.prop 'disabled', true
           delete_btn.prop 'disabled', true
-          delete_btn.css('color', '#c68783')
