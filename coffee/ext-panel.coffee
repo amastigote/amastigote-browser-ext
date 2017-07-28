@@ -6,7 +6,6 @@ title_input = $('#input_title')
 url_input = $('#input_url')
 tag_input = $('#input_tag')
 img_settings = $('#img_settings')
-img_mail = $('#img_mail')
 
 browser.storage.local.get('tags').then (result) ->
   if result['tags'] == undefined
@@ -65,10 +64,6 @@ delete_btn.click ->
 
 img_settings.click ->
   browser.runtime.openOptionsPage()
-  window.close()
-
-img_mail.click ->
-  window.location.href = "mailto:?subject=Page shared from AMASTIGOTE&body=#{title_input.val()}: #{url_input.val()}"
   window.close()
 
 update_icon = (hasColor, tabId) ->
