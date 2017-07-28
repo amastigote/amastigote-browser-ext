@@ -28,7 +28,7 @@
       cnServer: server_input.val().trim(),
       cnPort: port_input.val().trim()
     });
-    saveHint.text('All preferences saved.');
+    saveHint.text('设置保存成功');
     return setTimeout((function() {
       return location.reload();
     }), 1000);

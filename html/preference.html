@@ -7,23 +7,32 @@
             font-family: sans-serif;
         }
     </style>
+    <link rel="stylesheet" href="../css/tether.min.css"/>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
 </head>
-<body>
-<table>
-    <tr>
-        <td><strong style="font-size: 12px">Server: </strong></td>
-        <td><label><input placeholder="example.com" id="input_server"/></label></td>
-    </tr>
-    <tr>
-        <td><strong style="font-size: 12px">Port: </strong></td>
-        <td><label><input max="5" placeholder="443" id="input_port" style="width: 65px" maxlength="5"/></label></td>
-    </tr>
-</table>
-<button id="buttonSave" style="margin-top: 5px; margin-left: 2px">SAVE</button>
-<button id="buttonClear">CLEAR</button>
-<button id="buttonGithub">GITHUB</button>
+<body style="background-color: #FAFAFA">
+<form>
+    <div class="form-group">
+        <label style="font-size: 14px">Server Address
+        <input class="form-control" placeholder="example.com" id="input_server"
+               style="font-size: 12px"/></label>
+    </div>
+    <div class="form-group" style="margin-top: -16px">
+        <label style="font-size: 14px">Server Port
+        <input class="form-control" max="5" placeholder="8080" id="input_port"
+               style="font-size: 12px; width: 65px" maxlength="5"/></label>
+    </div>
+</form>
+<button class="btn btn-outline-primary btn-sm" id="buttonSave" style="margin-left: 2px"><i class="fa fa-floppy-o"></i>
+    保存
+</button>
+<button class="btn btn-outline-warning btn-sm" id="buttonClear"><i class="fa fa-times"></i> 清除</button>
+<button class="btn btn-outline-success btn-sm" id="buttonGithub"><i class="fa fa-github"></i> Fork Me on GitHub</button>
 <div style="font-size: 12px; margin-top: 8px"><strong id="saveHint" style="color: green">&nbsp;</strong></div>
 <script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/tether.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 <script src="../js/ext-preference.js"></script>
 </body>
 </html>
