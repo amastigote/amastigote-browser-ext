@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amastigote Page</title>
+    <link rel="stylesheet" href="../../css/tether.min.css"/>
+    <link rel="stylesheet" href="../../css/awesomplete.css"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../css/font-awesome.min.css"/>
+    <style>a, a:hover, a:active, a:visited, a:link {
+        text-decoration: none
+    }</style>
+</head>
+<body style="padding: 20px; width: 1050px; margin: auto">
+
+<div class="modal" id="editModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span style="font-size: 18px" class="modal-title">编辑本条列表项</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group" id="standard">
+                        <label for="modalInputTitle" style="font-size: 16px; font-weight: 600"><i
+                                class="fa fa-bars"></i>&nbsp;&nbsp;标题</label>
+                        <input style="font-size: 14px" id="modalInputTitle" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalInputUrl" style="font-size: 16px; font-weight: 600"><i
+                                class="fa fa-link"></i>&nbsp;&nbsp;链接</label>
+                        <input disabled style="font-size: 14px" id="modalInputUrl" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <div style="display: block">
+                            <label for="modalInputTags" style="font-size: 16px; font-weight: 600"><i
+                                    class="fa fa-tags"></i>&nbsp;&nbsp;标签</label></div>
+                        <input style="font-size: 14px; display: table; width: 100%" id="modalInputTags"
+                               class="form-control"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id='editModalBtnRemove' type="button" class="btn btn-danger btn-sm"><i
+                        class="fa fa-trash-o"></i>&nbsp;&nbsp;从列表中移除
+                </button>
+                <button id="editModalBtnSubmit" type="button" class="btn btn-primary btn-sm"><i class="fa fa-check"></i>&nbsp;&nbsp;提交修改
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="alert" class="alert alert-info" role="alert" style="width: auto">
+    <div style="margin-bottom: 8px">填写一个或多个标签来过滤文章列表</div>
+    <table style="text-align: left; table-layout: fixed">
+        <tr>
+            <td>
+                <input style="width: 500px" class="form-control" id="filterByTags"
+                       placeholder="Pwn, Mobile, Web">
+            </td>
+            <td>
+                <button id="btnFilter" style="margin-left: 10px" type="button"
+                        class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;&nbsp;应用
+                </button>
+            </td>
+            <td>
+                <button id="btnClear" style="margin-left: 10px" type="button"
+                        class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;&nbsp;清除
+                </button>
+            </td>
+            <td>
+                <button type="button" style="margin-left: 10px" class="btn btn-primary" data-toggle="modal"
+                        data-target="#registerModal"><i class="fa fa-envelope"></i>&nbsp;&nbsp;订阅
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal" id="registerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span style="font-size: 18px" class="modal-title">每日推送服务</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="modalInput" class="form-control" placeholder="your@email.com"/>
+            </div>
+            <div class="modal-footer">
+                <strong id="modalSpan" style="margin-right: 10px"></strong>
+                <button id="btnModal" type="button" class="btn btn-primary">订阅</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead class="thead-inverse">
+    <tr>
+        <th>#</th>
+        <th style="width: 600px">标题</th>
+        <th>标签</th>
+        <th style="width: 100px">添加者</th>
+        <th style="width: 80px">操作</th>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+
+    </tbody>
+</table>
+<div style="text-align: center">
+    <div class="btn-group btn-group-sm" role="group"
+         style="margin: 0 auto;text-align: center;width: inherit;display: inline-block;">
+        <button type="button" class="btnPre btn btn-secondary">上一页</button>
+        <button type="button" class="pageIndicator btn btn-secondary" disabled>0</button>
+        <button type="button" class="btnSuc btn btn-secondary">下一页</button>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../../js/tether.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/awesomplete.min.js"></script>
+<script type="text/javascript" src="../js/page-core.js"></script>
+<script type="text/javascript" src="../../js/ext-core.js"></script>
+<script type="text/javascript" src="../js/page-edit.js"></script>
+<script type="text/javascript" src="../js/page.js"></script>
+</body>
+</html>

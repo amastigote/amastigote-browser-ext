@@ -56,7 +56,7 @@
   browse_btn.click(function() {
     return browser.storage.local.get(['cnServer', 'cnPort']).then(function(result) {
       browser.tabs.create({
-        'url': '/amastigote-page/html/page.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
+        'url': '/page/html/page.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
       });
       return window.close();
     });

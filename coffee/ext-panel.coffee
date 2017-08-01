@@ -37,7 +37,7 @@ browse_btn.click ->
     'cnServer'
     'cnPort'
   ]).then (result) ->
-    browser.tabs.create 'url': '/amastigote-page/html/page.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
+    browser.tabs.create 'url': '/page/html/page.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
     window.close()
 
 add_btn.click ->
