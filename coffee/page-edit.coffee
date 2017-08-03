@@ -56,6 +56,10 @@ submitBtnModal.click ->
   update collectItem(), ->
     location.reload()
 
+removeBtnModal.click ->
+  remove collectItem(), ->
+    location.reload()
+
 collectItem = ->
   name: escape(titleInputModal.val())
   url: urlInputModal.val()
@@ -67,5 +71,3 @@ collectItem = ->
     escape e
   )
   auto_add_tag: true
-
-

@@ -9,6 +9,11 @@
     <style>
         body {
             font-family: monospace;
+
+            /*
+             * only for moz-firefox's non-selection
+             */
+            -moz-user-select: none;
         }
 
         .spacer {
@@ -50,13 +55,13 @@
     <tr style="height: 30px">
         <td colspan="2"
             style="font-size: 14px; position: absolute; top: 9px; left: 10px;color: rebeccapurple; font-weight: bold">
-            AMA-FF-EXT-DEV
+            amastigote™
         </td>
     </tr>
     <tr class="spacer"></tr>
     <tr>
-        <td style="font-size: 12px; padding-left: 12px">Title:</td>
-        <td><label><input class="form-control" style="font-size: 12px; width: 240px" id="input_title"/></label></td>
+        <td style="font-size: 12px; padding-left: 12px">标题:</td>
+        <td><label><input class="form-control" style="font-size: 12px; width: 250px" id="input_title"/></label></td>
         <td style="top: 8px; right: 10px; position: absolute">
             <a href="javascript: void(0);">
                 <i class="fa fa-list-ul" id="img_page"></i></a>
@@ -65,13 +70,13 @@
         </td>
     </tr>
     <tr>
-        <td style="font-size: 12px; padding-left: 12px">URL:</td>
-        <td><label><input class="form-control" style="font-size: 12px; width: 240px" disabled id="input_url"/></label>
+        <td style="font-size: 12px; padding-left: 12px">链接:</td>
+        <td><label><input class="form-control" style="font-size: 12px; width: 250px" disabled id="input_url"/></label>
         </td>
     </tr>
     <tr>
-        <td style="font-size: 12px; padding-left: 12px">Tags:</td>
-        <td><label><input class="form-control" style="font-size: 12px; width: 240px" id="input_tag"/></label></td>
+        <td style="font-size: 12px; padding-left: 12px">标签:</td>
+        <td><label><input class="form-control" style="font-size: 12px; width: 250px" id="input_tag"/></label></td>
     </tr>
 </table>
 <div style="margin-top:4px; width: 100%; text-align: center">

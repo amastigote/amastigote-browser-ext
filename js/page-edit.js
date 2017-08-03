@@ -79,6 +79,12 @@
     });
   });
 
+  removeBtnModal.click(function() {
+    return remove(collectItem(), function() {
+      return location.reload();
+    });
+  });
+
   collectItem = function() {
     return {
       name: escape(titleInputModal.val()),
