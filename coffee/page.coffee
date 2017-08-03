@@ -70,15 +70,14 @@ bindListenerForEditHref = ->
 
 packageFilterParam = (rawVal, page) ->
   filteredTags = rawVal
-    .replace(new RegExp('，', 'g'), ',')
+    .replace(/[， 、]/g, ',')
     .split(',')
     .map((e) -> e.trim())
     .filter((e) -> e != '')
     .map((e) -> escape(e))
-  {
-    page: page
-    tag: filteredTags
-  }
+
+  page: page
+  tag: filteredTags
 
 $ ->
   container = $('#tableBody')

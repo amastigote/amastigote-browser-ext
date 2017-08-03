@@ -80,7 +80,7 @@
   };
 
   packageFilterParam = function(rawVal, page) {
-    filteredTags = rawVal.replace(new RegExp('，', 'g'), ',').split(',').map(function(e) {
+    filteredTags = rawVal.replace(/[， 、]/g, ',').split(',').map(function(e) {
       return e.trim();
     }).filter(function(e) {
       return e !== '';

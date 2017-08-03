@@ -87,18 +87,15 @@ update_icon = (hasColor, tabId) ->
     tabId: tabId
 
 collect_item = ->
-  {
-    name: escape(title_input.val())
-    url: url_input.val()
-    tag: tag_input.val().replace(new RegExp('，', 'g'), ',').split(',').map((e) ->
-      e.trim()
-    ).filter((e) ->
-      e != ''
-    ).map((e) ->
-      escape e
-    )
-    auto_add_tag: true
-  }
+  name: escape(title_input.val())
+  url: url_input.val()
+  tag: tag_input.val().replace(/[， 、]/g, ',').split(',').map((e) ->
+    e.trim()
+  ).filter((e) ->
+    e != ''
+  ).map (e) ->
+    escape e
+  auto_add_tag: true
 
 browser.tabs.query(
   currentWindow: true

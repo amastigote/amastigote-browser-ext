@@ -132,7 +132,7 @@
     return {
       name: escape(title_input.val()),
       url: url_input.val(),
-      tag: tag_input.val().replace(new RegExp('，', 'g'), ',').split(',').map(function(e) {
+      tag: tag_input.val().replace(/[， 、]/g, ',').split(',').map(function(e) {
         return e.trim();
       }).filter(function(e) {
         return e !== '';
