@@ -57,7 +57,7 @@
 
 </div>
 
-<div id="alert" class="alert alert-info" role="alert" style="width: auto">
+<div id="alert" class="alert alert-success" role="alert" style="width: auto">
     <div style="margin-bottom: 8px">填写一个或多个标签来过滤文章列表</div>
     <table style="text-align: left; table-layout: fixed">
         <tr>
@@ -94,23 +94,23 @@
                 </button>
             </div>
             <div class="modal-body">
+                <label for="modalInput">您的邮箱地址</label>
                 <input id="modalInput" class="form-control" placeholder="your@email.com"/>
             </div>
             <div class="modal-footer">
                 <strong id="modalSpan" style="margin-right: 10px"></strong>
-                <button id="btnModal" type="button" class="btn btn-primary">订阅</button>
+                <button id="btnModal" type="button" class="btn btn-primary">发送验证邮件</button>
             </div>
         </div>
     </div>
 </div>
 
-<table class="table table-striped">
-    <thead class="thead-inverse">
+<table id="itemTable" class="table table-striped">
+    <thead class="thead thead-inverse">
     <tr>
         <th>#</th>
         <th style="width: 600px">标题</th>
         <th>标签</th>
-        <th style="width: 100px">添加者</th>
         <th style="width: 80px">操作</th>
     </tr>
     </thead>
@@ -131,6 +131,7 @@
 <script type="text/javascript" src="../js/tether.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/awesomplete.min.js"></script>
+<script type="text/javascript" src="../js/jquery.stickytableheaders.js"></script>
 <script type="text/javascript" src="../js/page-core.js"></script>
 <script type="text/javascript" src="../js/ext-core.js"></script>
 <script type="text/javascript" src="../js/page-edit.js"></script>

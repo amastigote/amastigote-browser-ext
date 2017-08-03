@@ -18,18 +18,20 @@
     return registerEmail({
       mail: email
     }, function(result) {
+      modalSpan.removeClass();
       if (result.code === 770) {
         modalSpan.addClass('text-primary');
         modalSpan.text('验证邮件已发送至您的邮箱');
-      }
-      if (result.code === 771) {
+      } else if (result.code === 771) {
         modalSpan.addClass('text-success');
         modalSpan.text('您已订阅过此文章列表');
-      }
-      if (result.code === 772) {
+      } else if (result.code === 772) {
         modalSpan.addClass('text-warning');
-        return modalSpan.text('近期已向您发送验证邮件，请稍后再试');
+        modalSpan.text('已向您发送过邮件，请稍后再试');
       }
+      return setTimeout(function() {
+        return location.reload();
+      }, 1500);
     });
   };
 
@@ -61,10 +63,11 @@
           item = ref[i];
           container.append(generateRow(item));
         }
-        return bindListenerForEditHref();
+        bindListenerForEditHref();
+        return window.scrollTo(0, 0);
       } else {
         if (result['code'] === 802) {
-          return console.log("802");
+          return location.reload();
         }
       }
     });
@@ -104,6 +107,7 @@
     inputModal = $('#modalInput');
     spanModal = $('#modalSpan');
     registerModal = $('#registerModal');
+    $('#itemTable').stickyTableHeaders();
     registerModal.addClass('fade');
     registerModal.on('hidden.bs.modal', function() {
       inputModal.val('');
@@ -111,8 +115,8 @@
       return btnModal.removeAttr('disabled');
     });
     btnModal.click(function() {
-      btnModal.attr('disabled', true);
       if (inputModal.val().trim().length !== 0) {
+        btnModal.attr('disabled', true);
         return requestForEmailRegistration(inputModal.val().trim(), spanModal);
       }
     });
@@ -164,7 +168,7 @@
     tagsBadges = item['tag'].map(function(e) {
       return "<span class=\"badge badge-default\">" + (unescape(e['name'])) + "</span>";
     }).join('&nbsp;');
-    return "<tr><td style='vertical-align: middle'>" + item['id'] + "</td><td style='vertical-align: middle'><a href='" + item['url'] + "'>" + (unescape(item['name'])) + "</a></td><td style='vertical-align: middle'>" + tagsBadges + "</td><td style='vertical-align: middle'>name</td><td style='font-size: 14px; vertical-align: middle'><a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i> 编辑</a></td></tr>";
+    return "<tr><td style='vertical-align: middle'>" + item['id'] + "</td><td style='vertical-align: middle'><a href='" + item['url'] + "'>" + (unescape(item['name'])) + "</a></td><td style='vertical-align: middle'>" + tagsBadges + "</td><td style='font-size: 14px; vertical-align: middle'><a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i> 编辑</a></td></tr>";
   };
 
 }).call(this);

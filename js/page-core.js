@@ -23,8 +23,7 @@
       dataType: 'json',
       crossDomain: true,
       success: successCallback,
-      crossOrigin: true,
-      error: function(request, status) {}
+      crossOrigin: true
     });
   };
 

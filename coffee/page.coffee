@@ -11,15 +11,22 @@ requestForEmailRegistration = (email, modalSpan) ->
   registerEmail(
     {mail: email}
     (result) ->
+      modalSpan.removeClass()
       if (result.code == 770)
         modalSpan.addClass('text-primary')
         modalSpan.text('验证邮件已发送至您的邮箱')
-      if (result.code == 771)
+      else if (result.code == 771)
         modalSpan.addClass('text-success')
         modalSpan.text('您已订阅过此文章列表')
-      if (result.code == 772)
+      else if (result.code == 772)
         modalSpan.addClass('text-warning')
-        modalSpan.text('近期已向您发送验证邮件，请稍后再试')
+        modalSpan.text('已向您发送过邮件，请稍后再试')
+
+      setTimeout(
+        ->
+          location.reload()
+        1500
+      )
   )
 
 # SENT 770 / EMAIL REGISTERED 771 / EMAIL STILL NOT VALIDATED 772
@@ -51,9 +58,10 @@ loadItems = (payload
       for item in result['object']['bookMarkItems']
         container.append(generateRow(item))
       bindListenerForEditHref()
+      window.scrollTo(0, 0)
     else
       if (result['code'] == 802)
-        console.log("802")
+        location.reload()
   )
 
 bindListenerForEditHref = ->
@@ -86,6 +94,8 @@ $ ->
   spanModal = $('#modalSpan')
   registerModal = $('#registerModal')
 
+  $('#itemTable').stickyTableHeaders()
+
   registerModal.addClass('fade')
 
   registerModal.on('hidden.bs.modal', ->
@@ -95,8 +105,8 @@ $ ->
   )
 
   btnModal.click(->
-    btnModal.attr('disabled', true)
     if (inputModal.val().trim().length != 0)
+      btnModal.attr('disabled', true)
       requestForEmailRegistration(
         inputModal.val().trim()
         spanModal)
@@ -166,5 +176,5 @@ generateRow = (item) ->
   "<tr><td style='vertical-align: middle'>#{item['id']}</td><td style='vertical-align: middle'>\
    <a href='#{item['url']}'>#{unescape(item['name'])}</a>\
    </td><td style='vertical-align: middle'>#{tagsBadges}\
-   </td><td style='vertical-align: middle'>name</td><td style='font-size: 14px; vertical-align: middle'>\
+   </td><td style='font-size: 14px; vertical-align: middle'>\
    <a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i> 编辑</a></td></tr>"

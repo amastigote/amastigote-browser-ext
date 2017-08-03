@@ -30,5 +30,3 @@ general_query = (item, urlEndPoint, query_method, success_callback) ->
         crossDomain: true
         crossOrigin: true
         success: success_callback
-        error: (request, status) ->
-# todo

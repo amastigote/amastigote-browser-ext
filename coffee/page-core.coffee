@@ -29,5 +29,4 @@ generalQuery = (payload, urlEndPoint, queryMethod, successCallback) ->
     crossDomain: true
     success: successCallback
     crossOrigin: true
-    error: (request, status) -> # todo
   }

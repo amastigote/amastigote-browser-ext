@@ -36,8 +36,7 @@
           dataType: 'json',
           crossDomain: true,
           crossOrigin: true,
-          success: success_callback,
-          error: function(request, status) {}
+          success: success_callback
         });
       }
     });
