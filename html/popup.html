@@ -27,6 +27,14 @@
             z-index: 1;
             left: 0;
         }
+
+        .non-selection-input {
+
+            /*
+             * only for moz-firefox's non-selection
+             */
+            -moz-user-select: none;
+        }
     </style>
 </head>
 
@@ -61,22 +69,22 @@
     <tr class="spacer"></tr>
     <tr>
         <td style="font-size: 12px; padding-left: 12px">标题:</td>
-        <td><label><input class="form-control" style="font-size: 12px; width: 250px" id="input_title"/></label></td>
+        <td><label><input class="form-control" style="font-size: 12px; width: 260px" id="input_title"/></label></td>
         <td style="top: 8px; right: 10px; position: absolute">
             <a href="javascript: void(0);">
                 <i class="fa fa-list-ul" id="img_page"></i></a>
             <a href="javascript: void(0);">
-                <i class="fa fa-cogs" id="img_settings" style="margin-right: 10px"></i></a>
+                <i class="fa fa-cogs" id="img_settings" style="margin-right: 4px"></i></a>
         </td>
     </tr>
     <tr>
         <td style="font-size: 12px; padding-left: 12px">链接:</td>
-        <td><label><input class="form-control" style="font-size: 12px; width: 250px" disabled id="input_url"/></label>
+        <td><label><input class="form-control non-selection-input" style="font-size: 12px; width: 260px" disabled id="input_url"/></label>
         </td>
     </tr>
     <tr>
         <td style="font-size: 12px; padding-left: 12px">标签:</td>
-        <td><label><input class="form-control" style="font-size: 12px; width: 250px" id="input_tag"/></label></td>
+        <td><label><input class="form-control" style="font-size: 12px; width: 260px" id="input_tag"/></label></td>
     </tr>
 </table>
 <div style="margin-top:4px; width: 100%; text-align: center">
