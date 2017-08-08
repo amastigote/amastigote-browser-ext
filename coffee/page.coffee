@@ -61,7 +61,8 @@ loadItems = (payload
       window.scrollTo(0, 0)
     else
       if (result['code'] == 802)
-        location.reload()
+        container.empty()
+        container.append("<tr style='font-weight: 600; font-size: 14px'><td colspan='3'>无任何结果可供显示</td></tr>")
   )
 
 bindListenerForEditHref = ->
