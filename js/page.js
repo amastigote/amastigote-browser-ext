@@ -67,8 +67,10 @@
         return window.scrollTo(0, 0);
       } else {
         if (result['code'] === 802) {
+          btnPre.attr('disabled', true);
+          btnSuc.attr('disabled', true);
           container.empty();
-          return container.append("<tr style='font-weight: 600; font-size: 14px'><td colspan='3'>无任何结果可供显示</td></tr>");
+          return container.append("<tr style='font-size: 14px'><td colspan='4'>无结果</td></tr>");
         }
       }
     });
