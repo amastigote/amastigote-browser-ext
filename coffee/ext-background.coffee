@@ -5,9 +5,9 @@ update_icon = (has_color, tab_id) ->
 
 check_current_page = (tab) ->
   get_item { url: tab.url }, (result) ->
-    if result.code == 700
+    if result['stat'] == Status.COMPLETE
       update_icon true, tab.id
-    else if result.code == 800
+    else if result['stat'] == Status.ERROR
       update_icon false, tab.id
 
 update_active_tab = ->
@@ -19,15 +19,15 @@ update_active_tab = ->
 
 
 update_tags = (result) ->
-  if result.code == 751
+  if result['stat'] == Status.COMPLETE
     browser.storage.local.set
-      tag_serial: result.message
+      serial: result.message
       tags: result.object
 
 browser.tabs.onUpdated.addListener update_active_tab
 browser.tabs.onActivated.addListener update_active_tab
 setInterval (->
-  tag_serial = browser.storage.local.get('tag_serial')
+  tag_serial = browser.storage.local.get('serial')
   tag_serial.then (result) ->
     get_tags result, update_tags
-), 30000
+), 60000

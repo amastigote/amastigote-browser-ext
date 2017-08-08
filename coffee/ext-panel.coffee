@@ -13,11 +13,11 @@ mask.css 'height', $(document).height()
 mask.css 'width', $(document).width()
 
 browser.storage.local.get('tags').then (result) ->
-  if result['tags'] == undefined
+  if !result['tags']?
     result = tags: []
 
   new Awesomplete(document.getElementById('input_tag'),
-    list: result.tags.map((e) ->
+    list: result['tags'].map((e) ->
       unescape e
     )
     filter: (text, input) ->
@@ -87,15 +87,15 @@ update_icon = (hasColor, tabId) ->
     tabId: tabId
 
 collect_item = ->
-  name: escape(title_input.val())
+  title: escape(title_input.val())
   url: url_input.val()
-  tag: tag_input.val().replace(/[， 、]/g, ',').split(',').map((e) ->
+  tags: tag_input.val().replace(/[， 、]/g, ',').split(',').map((e) ->
     e.trim()
   ).filter((e) ->
     e != ''
-  ).map (e) ->
+  ).map((e) ->
     escape e
-  auto_add_tag: true
+  )
 
 browser.tabs.query(
   currentWindow: true
@@ -105,14 +105,14 @@ browser.tabs.query(
       title_input.val removeSuffix(url, tabs[0].title)
       url_input.val url
       get_item { url: url_input.val() }, (result) ->
-        if result.code == 700
+        if result['stat'] == Status.COMPLETE
           mask.fadeOut()
           add_btn.prop 'disabled', true
-          title_input.val unescape(result.object.name)
-          tag_input.val result.object.tag.map((e) ->
+          title_input.val unescape(result['obj']['title'])
+          tag_input.val result['obj']['tags'].map((e) ->
             unescape e.name
           ).join(', ')
-        else if result.code == 800
+        else if result['stat'] == Status.ERROR
           mask.fadeOut()
           update_btn.prop 'disabled', true
           delete_btn.prop 'disabled', true

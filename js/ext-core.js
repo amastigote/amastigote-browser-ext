@@ -2,6 +2,12 @@
 (function() {
   var general_query;
 
+  this.Status = {
+    COMPLETE: 0x0,
+    ERROR: 0x1,
+    EXCEPTION: 0x2
+  };
+
   this.create = function(item, success_callback) {
     return general_query(JSON.stringify(item), 'item', 'POST', success_callback);
   };

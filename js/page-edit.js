@@ -87,16 +87,15 @@
 
   collectItem = function() {
     return {
-      name: escape(titleInputModal.val()),
+      title: escape(titleInputModal.val()),
       url: urlInputModal.val(),
-      tag: tagsInputModal.val().replace(new RegExp('，', 'g'), ',').split(',').map(function(e) {
+      tags: tagsInputModal.val().replace(new RegExp('，', 'g'), ',').split(',').map(function(e) {
         return e.trim();
       }).filter(function(e) {
         return e !== '';
       }).map(function(e) {
         return escape(e);
-      }),
-      auto_add_tag: true
+      })
     };
   };
 

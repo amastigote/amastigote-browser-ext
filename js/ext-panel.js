@@ -27,13 +27,13 @@
   mask.css('width', $(document).width());
 
   browser.storage.local.get('tags').then(function(result) {
-    if (result['tags'] === void 0) {
+    if (result['tags'] == null) {
       result = {
         tags: []
       };
     }
     return new Awesomplete(document.getElementById('input_tag'), {
-      list: result.tags.map(function(e) {
+      list: result['tags'].map(function(e) {
         return unescape(e);
       }),
       filter: function(text, input) {
@@ -130,16 +130,15 @@
 
   collect_item = function() {
     return {
-      name: escape(title_input.val()),
+      title: escape(title_input.val()),
       url: url_input.val(),
-      tag: tag_input.val().replace(/[， 、]/g, ',').split(',').map(function(e) {
+      tags: tag_input.val().replace(/[， 、]/g, ',').split(',').map(function(e) {
         return e.trim();
       }).filter(function(e) {
         return e !== '';
       }).map(function(e) {
         return escape(e);
-      }),
-      auto_add_tag: true
+      })
     };
   };
 
@@ -155,14 +154,14 @@
       return get_item({
         url: url_input.val()
       }, function(result) {
-        if (result.code === 700) {
+        if (result['stat'] === Status.COMPLETE) {
           mask.fadeOut();
           add_btn.prop('disabled', true);
-          title_input.val(unescape(result.object.name));
-          return tag_input.val(result.object.tag.map(function(e) {
+          title_input.val(unescape(result['obj']['title']));
+          return tag_input.val(result['obj']['tags'].map(function(e) {
             return unescape(e.name);
           }).join(', '));
-        } else if (result.code === 800) {
+        } else if (result['stat'] === Status.ERROR) {
           mask.fadeOut();
           update_btn.prop('disabled', true);
           return delete_btn.prop('disabled', true);

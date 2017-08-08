@@ -17,9 +17,9 @@
     return get_item({
       url: tab.url
     }, function(result) {
-      if (result.code === 700) {
+      if (result['stat'] === Status.COMPLETE) {
         return update_icon(true, tab.id);
-      } else if (result.code === 800) {
+      } else if (result['stat'] === Status.ERROR) {
         return update_icon(false, tab.id);
       }
     });
@@ -37,10 +37,10 @@
   };
 
   update_tags = function(result) {
-    if (result.code === 751) {
+    if (result['stat'] === Status.COMPLETE) {
       return browser.storage.local.set({
-        tag_serial: result.message,
-        tags: result.object
+        serial: result['msg'],
+        tags: result['obj']
       });
     }
   };
@@ -51,10 +51,10 @@
 
   setInterval((function() {
     var tag_serial;
-    tag_serial = browser.storage.local.get('tag_serial');
+    tag_serial = browser.storage.local.get('serial');
     return tag_serial.then(function(result) {
       return get_tags(result, update_tags);
     });
-  }), 30000);
+  }), 60000);
 
 }).call(this);

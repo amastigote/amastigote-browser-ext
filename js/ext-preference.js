@@ -31,7 +31,7 @@
     saveHint.text('设置保存成功');
     return setTimeout((function() {
       return location.reload();
-    }), 1000);
+    }), 1500);
   });
 
   clear_button.click(function() {

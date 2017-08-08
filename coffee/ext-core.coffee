@@ -1,3 +1,8 @@
+@Status =
+  COMPLETE  : 0x0
+  ERROR     : 0x1
+  EXCEPTION : 0x2
+
 @create = (item, success_callback) ->
   general_query JSON.stringify(item), 'item', 'POST', success_callback
 

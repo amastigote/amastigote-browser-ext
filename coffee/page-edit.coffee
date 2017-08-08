@@ -61,13 +61,12 @@ removeBtnModal.click ->
     location.reload()
 
 collectItem = ->
-  name: escape(titleInputModal.val())
+  title: escape(titleInputModal.val())
   url: urlInputModal.val()
-  tag: tagsInputModal.val().replace(new RegExp('，', 'g'), ',').split(',').map((e) ->
+  tags: tagsInputModal.val().replace(new RegExp('，', 'g'), ',').split(',').map((e) ->
     e.trim()
   ).filter((e) ->
     e != ''
   ).map((e) ->
     escape e
   )
-  auto_add_tag: true

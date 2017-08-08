@@ -21,7 +21,7 @@ save_button.click ->
   saveHint.text '设置保存成功'
   setTimeout (->
     location.reload()
-  ), 1000
+  ), 1500
 
 clear_button.click ->
   server_input.val ''

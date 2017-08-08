@@ -19,15 +19,12 @@
       mail: email
     }, function(result) {
       modalSpan.removeClass();
-      if (result.code === 770) {
+      if (result['stat'] === Status.COMPLETE) {
         modalSpan.addClass('text-primary');
         modalSpan.text('验证邮件已发送至您的邮箱');
-      } else if (result.code === 771) {
+      } else if (result['stat'] === Status.ERROR) {
         modalSpan.addClass('text-success');
         modalSpan.text('您已订阅过此文章列表');
-      } else if (result.code === 772) {
-        modalSpan.addClass('text-warning');
-        modalSpan.text('已向您发送过邮件，请稍后再试');
       }
       return setTimeout(function() {
         return location.reload();
@@ -44,21 +41,21 @@
       } else {
         filteredTagsSpan.append("<kbd>" + (filteredTags.join('</kbd> <kbd>')) + "</kbd>");
       }
-      if (result['code'] === 704) {
-        currentPage = result['object']['currentPage'];
-        if (result['object']['isFirst']) {
+      if (result['stat'] === Status.COMPLETE) {
+        currentPage = result['obj']['currentPage'];
+        if (result['obj']['isFirst']) {
           btnPre.attr('disabled', true);
         } else {
           btnPre.attr('disabled', false);
         }
-        if (result['object']['isLast']) {
+        if (result['obj']['isLast']) {
           btnSuc.attr('disabled', true);
         } else {
           btnSuc.attr('disabled', false);
         }
         pageIndicator.text(currentPage);
         container.empty();
-        ref = result['object']['bookMarkItems'];
+        ref = result['obj']['items'];
         for (i = 0, len = ref.length; i < len; i++) {
           item = ref[i];
           container.append(generateRow(item));
@@ -66,7 +63,7 @@
         bindListenerForEditHref();
         return window.scrollTo(0, 0);
       } else {
-        if (result['code'] === 802) {
+        if (result['stat'] === Status.ERROR) {
           btnPre.attr('disabled', true);
           btnSuc.attr('disabled', true);
           container.empty();
@@ -145,7 +142,7 @@
     });
     return getTags(function(result) {
       return new Awesomplete(document.getElementById('filterByTags'), {
-        list: result['object'].map(function(e) {
+        list: result['obj'].map(function(e) {
           return unescape(e.trim());
         }),
         filter: function(text, input) {
@@ -168,10 +165,10 @@
 
   generateRow = function(item) {
     var tagsBadges;
-    tagsBadges = item['tag'].map(function(e) {
+    tagsBadges = item['tags'].map(function(e) {
       return "<span class=\"badge badge-default\">" + (unescape(e['name'])) + "</span>";
     }).join('&nbsp;');
-    return "<tr><td style='vertical-align: middle'>" + item['id'] + "</td><td style='vertical-align: middle'><a href='" + item['url'] + "'>" + (unescape(item['name'])) + "</a></td><td style='vertical-align: middle'>" + tagsBadges + "</td><td style='font-size: 14px; vertical-align: middle'><a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i> 编辑</a></td></tr>";
+    return "<tr><td style='vertical-align: middle'>" + item['id'] + "</td><td style='vertical-align: middle'><a href='" + item['url'] + "'>" + (unescape(item['title'])) + "</a></td><td style='vertical-align: middle'>" + tagsBadges + "</td><td style='font-size: 14px; vertical-align: middle'><a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i> 编辑</a></td></tr>";
   };
 
 }).call(this);

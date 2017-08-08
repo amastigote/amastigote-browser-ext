@@ -12,24 +12,18 @@ requestForEmailRegistration = (email, modalSpan) ->
     {mail: email}
     (result) ->
       modalSpan.removeClass()
-      if (result.code == 770)
+      if (result['stat'] == Status.COMPLETE)
         modalSpan.addClass('text-primary')
         modalSpan.text('验证邮件已发送至您的邮箱')
-      else if (result.code == 771)
+      else if (result['stat'] == Status.ERROR)
         modalSpan.addClass('text-success')
         modalSpan.text('您已订阅过此文章列表')
-      else if (result.code == 772)
-        modalSpan.addClass('text-warning')
-        modalSpan.text('已向您发送过邮件，请稍后再试')
-
       setTimeout(
         ->
           location.reload()
         1500
       )
   )
-
-# SENT 770 / EMAIL REGISTERED 771 / EMAIL STILL NOT VALIDATED 772
 
 loadItems = (payload
   container
@@ -43,24 +37,24 @@ loadItems = (payload
       filteredTagsSpan.append('<kbd>all</kbd>')
     else
       filteredTagsSpan.append("<kbd>#{filteredTags.join('</kbd> <kbd>')}</kbd>")
-    if (result['code'] == 704)
-      currentPage = result['object']['currentPage']
-      if (result['object']['isFirst'])
+    if (result['stat'] == Status.COMPLETE)
+      currentPage = result['obj']['currentPage']
+      if (result['obj']['isFirst'])
         btnPre.attr('disabled', true)
       else
         btnPre.attr('disabled', false)
-      if (result['object']['isLast'])
+      if (result['obj']['isLast'])
         btnSuc.attr('disabled', true)
       else
         btnSuc.attr('disabled', false)
       pageIndicator.text(currentPage)
       container.empty()
-      for item in result['object']['bookMarkItems']
+      for item in result['obj']['items']
         container.append(generateRow(item))
       bindListenerForEditHref()
       window.scrollTo(0, 0)
     else
-      if (result['code'] == 802)
+      if (result['stat'] == Status.ERROR)
         btnPre.attr('disabled', true)
         btnSuc.attr('disabled', true)
         container.empty()
@@ -156,7 +150,7 @@ $ ->
     new Awesomplete(
       document.getElementById('filterByTags')
       {
-        list: result['object'].map((e) -> unescape(e.trim()))
+        list: result['obj'].map((e) -> unescape(e.trim()))
         filter: (text, input) ->
           Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0])
         item: (text, input) ->
@@ -171,12 +165,12 @@ $ ->
   )
 
 generateRow = (item) ->
-  tagsBadges = item['tag'].map((e) ->
+  tagsBadges = item['tags'].map((e) ->
     "<span class=\"badge badge-default\">#{unescape(e['name'])}</span>")
     .join('&nbsp;')
 
   "<tr><td style='vertical-align: middle'>#{item['id']}</td><td style='vertical-align: middle'>\
-   <a href='#{item['url']}'>#{unescape(item['name'])}</a>\
+   <a href='#{item['url']}'>#{unescape(item['title'])}</a>\
    </td><td style='vertical-align: middle'>#{tagsBadges}\
    </td><td style='font-size: 14px; vertical-align: middle'>\
    <a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i> 编辑</a></td></tr>"

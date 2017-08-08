@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "amastigote open-ver.",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Cooperative WebPage Archiving List for Groups/Teams/Individuals.\n\nThis is an open-source version, only for non-business deployment.\nFor database DDL and server app to be deployed, please move your steps to github.com/amastigote.\n\n© 2017 amastigote™ and hwding. All Rights Reserved.",
   "icons": {
     "48": "/pic/cn_1.png"
