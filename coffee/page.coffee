@@ -7,30 +7,14 @@ urlObject = new URL(urlString)
 @server = urlObject.searchParams.get('server')
 @port = urlObject.searchParams.get('port')
 
-requestForEmailRegistration = (email, modalSpan) ->
-  registerEmail(
-    {mail: email}
-    (result) ->
-      modalSpan.removeClass()
-      if (result['stat'] == Status.COMPLETE)
-        modalSpan.addClass('text-primary')
-        modalSpan.text('验证邮件已发送至您的邮箱')
-      else if (result['stat'] == Status.ERROR)
-        modalSpan.addClass('text-success')
-        modalSpan.text('您已订阅过此文章列表')
-      setTimeout(
-        ->
-          location.reload()
-        1500
-      )
-  )
-
 loadItems = (payload
   container
   btnPre
   btnSuc
   pageIndicator
   filteredTagsSpan) ->
+  pageIndicator.closest('div')
+    .css('visibility', 'hidden')
   listItems(payload, (result) ->
     filteredTagsSpan.empty()
     if filteredTags.length == 0
@@ -59,6 +43,8 @@ loadItems = (payload
         btnSuc.attr('disabled', true)
         container.empty()
         container.append("<tr style='font-size: 14px'><td colspan='4'>无结果</td></tr>")
+    pageIndicator.closest('div')
+      .css('visibility', 'visible')
   )
 
 bindListenerForEditHref = ->
@@ -85,28 +71,6 @@ $ ->
   btnClear = $('#btnClear')
   inputTags = $('#filterByTags')
   filteredTagsStrong = $('#filteredTags')
-  btnModal = $('#btnModal')
-  inputModal = $('#modalInput')
-  spanModal = $('#modalSpan')
-  registerModal = $('#registerModal')
-
-  $('#itemTable').stickyTableHeaders()
-
-  registerModal.addClass('fade')
-
-  registerModal.on('hidden.bs.modal', ->
-    inputModal.val('')
-    spanModal.text('')
-    btnModal.removeAttr('disabled')
-  )
-
-  btnModal.click(->
-    if (inputModal.val().trim().length != 0)
-      btnModal.attr('disabled', true)
-      requestForEmailRegistration(
-        inputModal.val().trim()
-        spanModal)
-  )
 
   btnPre.click(-> loadItems(
     {page: currentPage - 2}

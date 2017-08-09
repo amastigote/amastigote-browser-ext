@@ -10,10 +10,6 @@
     return generalQuery(payload, 'item/list', 'GET', successCallback);
   };
 
-  this.registerEmail = function(payload, successCallback) {
-    return generalQuery(JSON.stringify(payload), 'mail', 'POST', successCallback);
-  };
-
   generalQuery = function(payload, urlEndPoint, queryMethod, successCallback) {
     return $.ajax({
       type: queryMethod,

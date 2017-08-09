@@ -13,6 +13,7 @@ siteMap =
   chinaunix: ['blog.chinaunix.net/', '-ChinaUnix博客']
   iteye: ['iteye.com/', ' - ITeye博客']
   juejin: ['juejin.im/', ' - 掘金']
+  zhihu: ['zhihu.com/', ' - 知乎']
 
 @removeSuffix = (url, title) ->
   keys = Object.getOwnPropertyNames(siteMap)

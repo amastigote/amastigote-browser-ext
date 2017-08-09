@@ -12,13 +12,6 @@
     'GET'
     successCallback)
 
-@registerEmail = (payload, successCallback) ->
-  generalQuery(
-    JSON.stringify(payload)
-    'mail'
-    'POST'
-    successCallback)
-
 generalQuery = (payload, urlEndPoint, queryMethod, successCallback) ->
   $.ajax {
     type: queryMethod

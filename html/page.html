@@ -13,7 +13,7 @@
         text-decoration: none
     }</style>
 </head>
-<body style="padding: 20px; width: 1050px; margin: auto">
+<body style="padding: 20px; width: 1050px; margin: auto; min-height: 100%">
 
 <div class="modal" id="editModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -75,62 +75,34 @@
                         class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;&nbsp;清除
                 </button>
             </td>
-            <td>
-                <button type="button" style="margin-left: 10px" class="btn btn-primary" data-toggle="modal"
-                        data-target="#registerModal"><i class="fa fa-envelope"></i>&nbsp;&nbsp;订阅
-                </button>
-            </td>
         </tr>
     </table>
 </div>
 
-<div class="modal" id="registerModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span style="font-size: 18px" class="modal-title">每日推送服务</span>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <label for="modalInput">您的邮箱地址</label>
-                <input id="modalInput" class="form-control" placeholder="your@email.com"/>
-            </div>
-            <div class="modal-footer">
-                <strong id="modalSpan" style="margin-right: 10px"></strong>
-                <button id="btnModal" type="button" class="btn btn-primary">发送验证邮件</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <table id="itemTable" class="table table-striped">
-    <thead class="thead thead-inverse">
+    <thead class="thead">
     <tr>
         <th>#</th>
-        <th style="width: 600px">标题</th>
-        <th>标签</th>
+        <th style="width: 700px">标题</th>
+        <th style="width: 160px">标签</th>
         <th style="width: 80px">操作</th>
     </tr>
     </thead>
     <tbody id="tableBody">
     </tbody>
 </table>
-<div style="text-align: center">
+<div style="visibility: hidden; text-align: center">
     <div class="btn-group btn-group-sm" role="group"
-         style="margin: 0 auto;text-align: center;width: inherit;display: inline-block;">
-        <button type="button" class="btnPre btn btn-secondary">上一页</button>
+         style="margin: 0 auto">
+        <button type="button" class="btnPre btn btn- btn-secondary">上一页</button>
         <button type="button" class="pageIndicator btn btn-secondary" disabled>0</button>
         <button type="button" class="btnSuc btn btn-secondary">下一页</button>
     </div>
 </div>
-
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="../js/tether.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/awesomplete.min.js"></script>
-<script type="text/javascript" src="../js/jquery.stickytableheaders.js"></script>
 <script type="text/javascript" src="../js/page-core.js"></script>
 <script type="text/javascript" src="../js/ext-core.js"></script>
 <script type="text/javascript" src="../js/page-edit.js"></script>

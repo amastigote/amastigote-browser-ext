@@ -89,7 +89,7 @@
     return {
       title: escape(titleInputModal.val()),
       url: urlInputModal.val(),
-      tags: tagsInputModal.val().replace(new RegExp('，', 'g'), ',').split(',').map(function(e) {
+      tags: tagsInputModal.val().replace(/[， 、]/g, ',').split(',').map(function(e) {
         return e.trim();
       }).filter(function(e) {
         return e !== '';
