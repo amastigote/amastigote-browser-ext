@@ -21,8 +21,8 @@ update_active_tab = ->
 update_tags = (result) ->
   if result['stat'] == Status.COMPLETE
     browser.storage.local.set
-      serial: result.message
-      tags: result.object
+      serial: result['msg']
+      tags: result['obj']
 
 browser.tabs.onUpdated.addListener update_active_tab
 browser.tabs.onActivated.addListener update_active_tab
