@@ -15,7 +15,8 @@
     chinaunix: ['blog.chinaunix.net/', '-ChinaUnix博客'],
     iteye: ['iteye.com/', ' - ITeye博客'],
     juejin: ['juejin.im/', ' - 掘金'],
-    zhihu: ['zhihu.com/', ' - 知乎']
+    zhihu: ['zhihu.com/', ' - 知乎'],
+    jianshu: ['jianshu.com/', ' - 简书']
   };
 
   this.removeSuffix = function(url, title) {

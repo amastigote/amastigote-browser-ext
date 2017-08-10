@@ -48,7 +48,7 @@
         return this.input.value = before + text + ', ';
       },
       minChars: 1,
-      maxItems: 2,
+      maxItems: 1,
       autoFirst: true
     });
   });

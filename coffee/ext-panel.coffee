@@ -29,7 +29,7 @@ browser.storage.local.get('tags').then (result) ->
       @input.value = before + text + ', '
 
     minChars: 1
-    maxItems: 2
+    maxItems: 1
     autoFirst: true)
 
 browse_btn.click ->
