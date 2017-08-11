@@ -79,7 +79,10 @@
   submitBtnModal.click(function() {
     return update(collectItem(), function(result) {
       editModal.modal('hide');
-      return $(currentRow).html($($.parseHTML(generateRow(result['obj']))).html());
+      $(currentRow).html($($.parseHTML(generateRow(result['obj']))).html());
+      return $(currentRow).click(function() {
+        return showEditModal(this);
+      });
     });
   });
 

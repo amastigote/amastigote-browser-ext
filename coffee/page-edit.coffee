@@ -15,7 +15,7 @@ editModal.on('hidden.bs.modal', ->
   tagsInputModal.val ''
 )
 
-# fix awesomplete's compatibility with jQuery
+# fix Awesomplete's compatibility with jQuery
 editModal.on('shown.bs.modal', ->
   width = $('#standard').width()
   tagsInputModal.css('width', "#{width}px")
@@ -58,6 +58,9 @@ submitBtnModal.click ->
   update collectItem(), (result) ->
     editModal.modal 'hide'
     $(currentRow).html $($.parseHTML(generateRow(result['obj']))).html()
+    $(currentRow).click(->
+      showEditModal(this)
+    )
 
 removeBtnModal.click ->
   remove collectItem(), ->
