@@ -130,11 +130,11 @@ $ ->
 
 generateRow = (item) ->
   tagsBadges = item['tags'].map((e) ->
-    "<span class=\"badge badge-default\">#{unescape(e['name'])}</span>")
+    "<span class='badge badge-default' style='font-size: 12px;vertical-align: middle'>#{unescape(e['name'])}</span>")
     .join('&nbsp;')
 
   "<tr><td style='vertical-align: middle'>#{item['id']}</td><td style='vertical-align: middle'>\
    <a href='#{item['url']}'>#{unescape(item['title'])}</a>\
    </td><td style='vertical-align: middle'>#{tagsBadges}\
    </td><td style='font-size: 14px; vertical-align: middle'>\
-   <a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i> 编辑</a></td></tr>"
+   <a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>"
