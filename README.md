@@ -14,6 +14,8 @@ Please move steps to [amastigote-openserver](https://github.com/amastigote/amast
 a) Visit about:debugging
 b) Press 'Load Temporary Add-on'
 c) Choose manifest.json
+d) Open extension preference page through 'Menu - Add-ons' or extension panel
+e) Configure server ip/address & port(8080 in default)
 ```
 
 ## Screenshots
