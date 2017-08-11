@@ -4,6 +4,8 @@ tagsInputModal = $('#modalInputTags')
 removeBtnModal = $('#editModalBtnRemove')
 submitBtnModal = $('#editModalBtnSubmit')
 
+currentRow = null
+
 editModal = $('#editModal')
 editModal.addClass('fade')
 
@@ -13,12 +15,18 @@ editModal.on('hidden.bs.modal', ->
   tagsInputModal.val ''
 )
 
+# fix awesomplete's compatibility with jQuery
+editModal.on('shown.bs.modal', ->
+  width = $('#standard').width()
+  tagsInputModal.css('width', "#{width}px")
+)
+
 @showEditModal = (p) ->
   getTags((result) ->
     new Awesomplete(
       document.getElementById('modalInputTags')
       {
-        list: result['object'].map((e) -> unescape(e.trim()))
+        list: result['obj'].map((e) -> unescape(e.trim()))
         filter: (text, input) ->
           Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0])
         item: (text, input) ->
@@ -32,33 +40,29 @@ editModal.on('hidden.bs.modal', ->
       })
   )
 
-  tds = p.closest('tr').childNodes
-  title = tds[1].childNodes[0].text
-  url = tds[1].childNodes[0].getAttribute('href')
-  spans = tds[2].childNodes
+  currentRow = p.closest('tr')
+  title = currentRow.childNodes[1].childNodes[0].text
+  url = currentRow.childNodes[1].childNodes[0].getAttribute('href')
+  spans = currentRow.childNodes[2].childNodes
   tags = ($(spans.item(i)).text() for i in [0..spans.length - 1] when $(spans.item(i)).is 'span').join(', ')
 
   editModal.modal
     show: true
     backdrop: 'static'
 
-  # fix awesomplete's compatibility with jQuery
-  editModal.on('shown.bs.modal', ->
-    width = $('#standard').width()
-    tagsInputModal.css('width', "#{width}px")
-  )
-
   titleInputModal.val title
   urlInputModal.val url
   tagsInputModal.val tags
 
 submitBtnModal.click ->
-  update collectItem(), ->
-    location.reload()
+  update collectItem(), (result) ->
+    editModal.modal 'hide'
+    $(currentRow).html $($.parseHTML(generateRow(result['obj']))).html()
 
 removeBtnModal.click ->
   remove collectItem(), ->
-    location.reload()
+    editModal.modal 'hide'
+    $(currentRow).hide()
 
 collectItem = ->
   title: escape(titleInputModal.val())

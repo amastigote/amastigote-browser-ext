@@ -56,7 +56,8 @@ add_btn.click ->
 update_btn.click ->
   mask.fadeIn()
   update_btn.prop 'disabled', true
-  update collect_item(), ->
+  update collect_item(), (result) ->
+    updatePanel(result)
     mask.fadeOut()
     update_btn.prop 'disabled', false
 
@@ -108,11 +109,14 @@ browser.tabs.query(
         if result['stat'] == Status.COMPLETE
           mask.fadeOut()
           add_btn.prop 'disabled', true
-          title_input.val unescape(result['obj']['title'])
-          tag_input.val result['obj']['tags'].map((e) ->
-            unescape e.name
-          ).join(', ')
+          updatePanel(result)
         else if result['stat'] == Status.ERROR
           mask.fadeOut()
           update_btn.prop 'disabled', true
           delete_btn.prop 'disabled', true
+
+updatePanel = (result) ->
+  title_input.val unescape(result['obj']['title'])
+  tag_input.val result['obj']['tags'].map((e) ->
+    unescape e.name
+  ).join(', ')

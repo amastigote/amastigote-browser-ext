@@ -128,7 +128,7 @@ $ ->
       })
   )
 
-generateRow = (item) ->
+@generateRow = (item) ->
   tagsBadges = item['tags'].map((e) ->
     "<span class='badge badge-default' style='font-size: 12px;vertical-align: middle'>#{unescape(e['name'])}</span>")
     .join('&nbsp;')
