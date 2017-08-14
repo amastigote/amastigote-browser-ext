@@ -18,7 +18,7 @@ browser.storage.local.get('tags').then (result) ->
 
   new Awesomplete(document.getElementById('input_tag'),
     list: result['tags'].map((e) ->
-      unescape e
+      escapeChars(unescape e)
     )
     filter: (text, input) ->
       Awesomplete.FILTER_CONTAINS text, input.match(/[^,]*$/)[0]
@@ -97,6 +97,12 @@ collect_item = ->
   ).map((e) ->
     escape e
   )
+
+escapeChars = (string) ->
+  string
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
 
 browser.tabs.query(
   currentWindow: true

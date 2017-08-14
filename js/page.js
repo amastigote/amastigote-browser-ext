@@ -110,7 +110,7 @@
     return getTags(function(result) {
       return new Awesomplete(document.getElementById('filterByTags'), {
         list: result['obj'].map(function(e) {
-          return unescape(e.trim());
+          return escapeChars(unescape(e.trim()));
         }),
         filter: function(text, input) {
           return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);

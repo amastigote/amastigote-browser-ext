@@ -114,7 +114,7 @@ $ ->
     new Awesomplete(
       document.getElementById('filterByTags')
       {
-        list: result['obj'].map((e) -> unescape(e.trim()))
+        list: result['obj'].map((e) -> escapeChars(unescape(e.trim())))
         filter: (text, input) ->
           Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0])
         item: (text, input) ->
