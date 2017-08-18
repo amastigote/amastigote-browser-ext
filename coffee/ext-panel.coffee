@@ -13,7 +13,7 @@ mask.css 'height', $(document).height()
 mask.css 'width', $(document).width()
 
 browser.storage.local.get('tags').then (result) ->
-  if !result['tags']?
+  if result['tags'] == undefined
     result = tags: []
 
   new Awesomplete(document.getElementById('input_tag'),
@@ -43,7 +43,7 @@ browse_btn.click ->
 add_btn.click ->
   mask.fadeIn()
   add_btn.prop 'disabled', true
-  create collect_item(), ->
+  create collectItem(), ->
     mask.fadeOut()
     update_btn.prop 'disabled', false
     delete_btn.prop 'disabled', false
@@ -51,12 +51,12 @@ add_btn.click ->
       currentWindow: true
       active: true).then (tabs) ->
         if tabs[0]
-          update_icon true, tabs[0].id
+          updateIcon true, tabs[0].id
 
 update_btn.click ->
   mask.fadeIn()
   update_btn.prop 'disabled', true
-  update collect_item(), (result) ->
+  update collectItem(), (result) ->
     updatePanel(result)
     mask.fadeOut()
     update_btn.prop 'disabled', false
@@ -64,7 +64,7 @@ update_btn.click ->
 delete_btn.click ->
   mask.fadeIn()
   delete_btn.prop 'disabled', true
-  remove collect_item(), ->
+  remove collectItem(), ->
     mask.fadeOut()
     add_btn.prop 'disabled', false
     update_btn.prop 'disabled', true
@@ -72,7 +72,7 @@ delete_btn.click ->
       currentWindow: true
       active: true).then (tabs) ->
         if tabs[0]
-          update_icon false, tabs[0].id
+          updateIcon false, tabs[0].id
 
 img_settings.click ->
   browser.runtime.openOptionsPage()
@@ -82,12 +82,12 @@ settings_btn.click ->
   browser.runtime.openOptionsPage()
   window.close()
 
-update_icon = (hasColor, tabId) ->
+updateIcon = (hasColor, tabId) ->
   browser.browserAction.setIcon
     path: if hasColor then 48: '../pic/cn_1.png' else 48: '../pic/cn_0.png'
     tabId: tabId
 
-collect_item = ->
+collectItem = ->
   title: escape(title_input.val())
   url: url_input.val()
   tags: tag_input.val().replace(/[， 、]/g, ',').split(',').map((e) ->
