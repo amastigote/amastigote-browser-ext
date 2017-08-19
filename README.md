@@ -6,12 +6,24 @@ Basically functional browser extension for amastigote open version.
 
 Please move steps to [amastigote-openserver](https://github.com/amastigote/amastigote-openserver).
 
+## Install
+
+- Firefox 54.0 or higher(lower?) version is required.
+- Current version is not published, so you have to install without verification.
+```
+a) Download ZIP
+b) Visit 'about:config'
+c) Double click 'xpinstall.signatures.required' to set it to false
+d) Visit 'about:addons'
+e) Choose the downloaded ZIP in 'Install Addon From File'
+```
+
 ## Debug
 
 - Firefox 54.0 or higher(lower?) version is required.
 - Extension installed in debug mode needs reinstallation each time the browser is restarted.
 ```
-a) Visit about:debugging
+a) Visit 'about:debugging'
 b) Press 'Load Temporary Add-on'
 c) Choose manifest.json
 d) Open extension preference page through 'Menu - Add-ons' or extension panel
