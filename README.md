@@ -20,6 +20,8 @@ e) Choose {whatever}.zip in 'Install Addon From File'
 f) Configure server ip/address & port(running at 8080 in default)
 ```
 
+You can also `./pack.sh` to generate a minified installable ZIP.
+
 ## Debug
 
 - Firefox 54.0 or higher(lower?) version is required.
