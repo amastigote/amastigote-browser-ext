@@ -17,6 +17,7 @@ b) Visit 'about:config'
 c) Double click 'xpinstall.signatures.required' to set it to false
 d) Visit 'about:addons'
 e) Choose {whatever}.zip in 'Install Addon From File'
+f) Configure server ip/address & port(running at 8080 in default)
 ```
 
 ## Debug
@@ -28,7 +29,7 @@ a) Visit 'about:debugging'
 b) Press 'Load Temporary Add-on'
 c) Choose manifest.json
 d) Open extension preference page through 'Menu - Add-ons' or extension panel
-e) Configure server ip/address & port(8080 in default)
+e) Configure server ip/address & port(running at 8080 in default)
 ```
 
 ## Screenshots
