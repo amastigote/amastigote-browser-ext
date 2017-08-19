@@ -1,6 +1,6 @@
 # amastigote-browser-ext
 
-A basically functional browser extension for amastigote open version.
+Basically functional browser extension for amastigote open version.
 
 ## Server Installation/Deployment/Development
 
