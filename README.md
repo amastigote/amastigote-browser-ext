@@ -20,12 +20,12 @@ e) Choose {whatever}.zip in 'Install Addon From File'
 f) Configure server ip/address & port(running at 8080 in default)
 ```
 
-You can also `./pack.sh` to generate a minified installable ZIP.
+You can also `./pack.sh` to generate a minimized installable ZIP.
 
 ## Debug
 
 - Firefox 54.0 or higher(lower?) version is required.
-- Extension installed in debug mode needs reinstallation each time the browser is restarted.
+- Extension installed in debug mode needs re-installation each time the browser is restarted.
 ```
 a) Visit 'about:debugging'
 b) Press 'Load Temporary Add-on'
