@@ -139,7 +139,7 @@
     tagsBadges = item['tags'].map(function(e) {
       return "<span class='badge badge-default' style='font-size: 12px;vertical-align: middle'>" + (escapeChars(unescape(e['name']))) + "</span>";
     }).join('&nbsp;');
-    return "<tr><td style='vertical-align: middle'>" + item['id'] + "</td><td style='vertical-align: middle'><a href='" + item['url'] + "'>" + (escapeChars(unescape(item['title']))) + "</a></td><td style='vertical-align: middle'>" + tagsBadges + "</td><td style='font-size: 14px; vertical-align: middle'><a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>";
+    return "<tr><td style='vertical-align: middle'>" + item['id'] + "</td><td style='vertical-align: middle'><a href='" + item['url'] + "'>" + (escapeChars(unescape(item['title']))) + "</a></td><td style='vertical-align: middle'>" + tagsBadges + "</td><td style='font-size: 14px; vertical-align: middle'><a href='#' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>";
   };
 
 }).call(this);

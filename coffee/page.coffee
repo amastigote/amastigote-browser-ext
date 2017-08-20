@@ -143,4 +143,4 @@ escapeChars = (string) ->
    <a href='#{item['url']}'>#{escapeChars(unescape(item['title']))}</a>\
    </td><td style='vertical-align: middle'>#{tagsBadges}\
    </td><td style='font-size: 14px; vertical-align: middle'>\
-   <a href='javascript:;' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>"
+   <a href='#' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>"
