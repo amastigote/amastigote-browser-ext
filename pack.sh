@@ -2,9 +2,15 @@
 
 #AUTH hwding
 #DATE AUG/21/2017
-#DESC package a minimized extension for ama-open
+#DESC pack a minimized installable extension for ama-open ver.
 
-zip -r installable-ama-ext.zip . \
+target="installable-ama-ext.zip"
+
+if [ -a "$target" ]; then
+    rm "$target"
+fi
+
+zip -r "$target" . \
     -x art/\* \
     -x coffee/\* \
     -x README.md \
