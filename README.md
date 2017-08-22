@@ -20,7 +20,7 @@ e) Choose {whatever}.zip in 'Install Addon From File'
 f) Configure server ip/address & port(running at 8080 in default)
 ```
 
-You can also `./pack.sh` to generate a minimized installable ZIP.
+You can also `➜ ./pack.sh` to generate a minimized installable ZIP.
 
 ## Debug
 
