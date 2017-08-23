@@ -11,47 +11,40 @@ loadItems = (payload
   container
   btnPre
   btnSuc
+  btnFilter
   pageIndicator
-  filteredTagsSpan) ->
+  inputTags) ->
   pageIndicator.closest('div')
     .css('visibility', 'hidden')
   listItems(payload, (result) ->
-    filteredTagsSpan.empty()
-    if filteredTags.length == 0
-      filteredTagsSpan.append('<kbd>all</kbd>')
-    else
-      filteredTagsSpan.append("<kbd>#{filteredTags.join('</kbd> <kbd>')}</kbd>")
     if (result['stat'] == Status.COMPLETE)
       currentPage = result['obj']['currentPage']
-      if (result['obj']['isFirst'])
-        btnPre.attr('disabled', true)
-      else
-        btnPre.attr('disabled', false)
-      if (result['obj']['isLast'])
-        btnSuc.attr('disabled', true)
-      else
-        btnSuc.attr('disabled', false)
+      btnPre.attr('disabled', result['obj']['isFirst'])
+      btnSuc.attr('disabled', result['obj']['isLast'])
       pageIndicator.text(currentPage)
       container.empty()
       for item in result['obj']['items']
         container.append(generateRow(item))
-      bindListenerForEditHref()
+      bindRowListeners(inputTags, btnFilter)
       window.scrollTo(0, 0)
     else
       if (result['stat'] == Status.ERROR)
         btnPre.attr('disabled', true)
         btnSuc.attr('disabled', true)
         container.empty()
-        container.append("<tr style='font-size: 14px'><td colspan='4'>无结果</td></tr>")
+        container.append("<tr style='font-size: 15px'><td colspan='4'>无结果</td></tr>")
     pageIndicator.closest('div')
       .css('visibility', 'visible')
   )
 
-bindListenerForEditHref = ->
+bindRowListeners = (inputTags, btnFilter) ->
   $('.editHref').click ->
     showEditModal(this)
+  $('.tagHref').click ->
+    inputTags.val($(this.childNodes[0]).text())
+    btnFilter.trigger('click')
 
-packageFilterParam = (rawVal, page) ->
+packFilterParam = (rawVal, page) ->
   filteredTags = rawVal
     .replace(/[， 、]/g, ',')
     .split(',')
@@ -70,45 +63,49 @@ $ ->
   btnFilter = $('#btnFilter')
   btnClear = $('#btnClear')
   inputTags = $('#filterByTags')
-  filteredTagsStrong = $('#filteredTags')
 
   btnPre.click(-> loadItems(
-    {page: currentPage - 2}
+    packFilterParam(filteredTags, currentPage - 2)
     container
     btnPre
     btnSuc
+    btnFilter
     pageIndicator
-    filteredTagsStrong))
+    inputTags))
 
   btnSuc.click(-> loadItems(
-    {page: currentPage}
+    packFilterParam(filteredTags, currentPage)
     container
     btnPre
     btnSuc
+    btnFilter
     pageIndicator
-    filteredTagsStrong))
-
-  loadItems(
-    {page: 0}
-    container
-    btnPre
-    btnSuc
-    pageIndicator
-    filteredTagsStrong)
+    inputTags))
 
   btnFilter.click(->
     loadItems(
-      packageFilterParam(inputTags.val(), 0)
+      packFilterParam(inputTags.val(), 0)
       container
       btnPre
       btnSuc
+      btnFilter
       pageIndicator
-      filteredTagsStrong))
+      inputTags))
 
   btnClear.click(->
     inputTags.val('')
     btnFilter.trigger('click')
   )
+
+  inputTags.val('')
+  loadItems(
+    {page: 0}
+    container
+    btnPre
+    btnSuc
+    btnFilter
+    pageIndicator
+    inputTags)
 
   getTags((result) ->
     new Awesomplete(
@@ -136,11 +133,12 @@ escapeChars = (string) ->
 
 @generateRow = (item) ->
   tagsBadges = item['tags'].map((e) ->
-    "<span class='badge badge-default' style='font-size: 12px;vertical-align: middle'>#{escapeChars(unescape(e['name']))}</span>")
+    "<a class='tagHref' href='#'><span class='badge badge-primary' style='font-size: 12px; vertical-align: middle'>\
+    #{escapeChars(unescape(e['name']))}</span></a>")
     .join('&nbsp;')
 
-  "<tr><td style='vertical-align: middle'>#{item['id']}</td><td style='vertical-align: middle'>\
+  "<tr><td style='vertical-align: middle'>#{item['id']}</td><td style='vertical-align: middle; font-weight: bold; font-size: 15px'>\
    <a href='#{item['url']}'>#{escapeChars(unescape(item['title']))}</a>\
    </td><td style='vertical-align: middle'>#{tagsBadges}\
-   </td><td style='font-size: 14px; vertical-align: middle'>\
+   </td><td style='font-size: 15px; vertical-align: middle'>\
    <a href='#' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>"
