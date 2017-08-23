@@ -61,7 +61,7 @@
       var j, ref, results;
       results = [];
       for (i = j = 0, ref = spans.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-        if ($(spans.item(i)).is('span')) {
+        if ($(spans.item(i).childNodes[0]).is('span')) {
           results.push($(spans.item(i)).text());
         }
       }

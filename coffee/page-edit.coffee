@@ -15,7 +15,7 @@ editModal.on('hidden.bs.modal', ->
   tagsInputModal.val ''
 )
 
-# fix Awesomplete's compatibility with jQuery
+# fix Awesomplete's compatibility with Bootstrap
 editModal.on('shown.bs.modal', ->
   width = $('#standard').width()
   tagsInputModal.css('width', "#{width}px")
@@ -44,7 +44,7 @@ editModal.on('shown.bs.modal', ->
   title = currentRow.childNodes[1].childNodes[0].text
   url = currentRow.childNodes[1].childNodes[0].getAttribute('href')
   spans = currentRow.childNodes[2].childNodes
-  tags = ($(spans.item(i)).text() for i in [0..spans.length - 1] when $(spans.item(i)).is 'span').join(', ')
+  tags = ($(spans.item(i)).text() for i in [0..spans.length - 1] when $(spans.item(i).childNodes[0]).is 'span').join(', ')
 
   editModal.modal
     show: true
