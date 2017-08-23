@@ -13,25 +13,30 @@
 </head>
 <!-- Firefox Add-ons Manager's background color has an offset of -0x10101.
      Should be 0xFAFAFA in present. -->
-<body style="background-color: #FBFBFB">
+<body style="background-color: #FBFBFB; margin-left: 2px; width: 270px;">
 <form>
-    <div class="form-group">
-        <label style="font-size: 14px; font-weight: bold">服务器地址
+    <div class="form-group" style="width: 100%">
+        <label style="font-size: 14px; width: 100%">服务器地址
             <input class="form-control" placeholder="example.com" id="input_server"
-                   style="font-size: 12px; margin-top: 3px"/></label>
+                   style="font-size: 14px; margin-top: 2px; width: 100%"/></label>
     </div>
-    <div class="form-group" style="margin-top: -14px">
-        <label style="font-size: 14px; margin-top: 10px; font-weight: bold">服务器端口
-            <input class="form-control" max="5" placeholder="8080" id="input_port"
-                   style="font-size: 12px; width: 65px; margin-top: 3px" maxlength="5"/></label>
+    <div class="form-group" style="margin-top: -14px; width: 100%">
+        <label style="font-size: 14px; margin-top: 10px; width: 100%">服务器端口
+            <input class="form-control" placeholder="8080" id="input_port"
+                   style="font-size: 14px; margin-top: 2px; width: 100%" type="number" min="0" max="65535"/></label>
     </div>
 </form>
-<button class="btn btn-outline-primary btn-sm" id="buttonSave"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;保存&nbsp;
-</button>
-<button class="btn btn-outline-danger btn-sm" id="buttonClear"><i class="fa fa-times"></i>&nbsp;&nbsp;清除&nbsp;</button>
-<button class="btn btn-outline-success btn-sm" id="buttonGithub"><i class="fa fa-github"></i>&nbsp;&nbsp;GitHub&nbsp;
-</button>
-<div style="font-size: 12px; margin-top: 8px"><strong id="saveHint" style="color: green">&nbsp;</strong></div>
+<div style="width: 100%">
+    <button style="width: 28%" class="btn btn-outline-primary btn-sm" id="buttonSave"><i
+            class="fa fa-floppy-o"></i>&nbsp;&nbsp;保存&nbsp;
+    </button>
+    <button style="width: 28%; margin-left: 4px" class="btn btn-outline-danger btn-sm" id="buttonClear"><i
+            class="fa fa-times"></i>&nbsp;&nbsp;清除&nbsp;
+    </button>
+    <button style="width: 38%; margin-left: 4px" class="btn btn-outline-success btn-sm" id="buttonGithub"><i
+            class="fa fa-github"></i>&nbsp;&nbsp;GitHub&nbsp;
+    </button>
+</div>
 <script src="../js/jquery-3.2.1.min.js"></script>
 <script src="../js/tether.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>

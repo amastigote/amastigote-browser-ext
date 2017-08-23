@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "amastigote open-ver.",
-  "version": "0.2.2",
-  "description": "Cooperative Favourites List for Groups/Teams/Individuals.\n\nThis is an open source version, only for non-business deployment.\nFor the server to deploy, please move steps to 'github.com/amastigote/amastigote-openserver'.\n\n© 2017 amastigote™ and hwding. All Rights Reserved.",
+  "version": "0.3.3",
+  "description": "Cooperative Favourites List for Groups/Teams/Individuals.\n\nThis is an open source version, only for non-business use.\nFor more information and help please move steps to https://github.com/amastigote/\n\n© 2017 amastigote™ & hwding. All Rights Reserved.",
   "icons": {
     "48": "/pic/cn_1.png"
   },
