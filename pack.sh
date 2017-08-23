@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #AUTH hwding
-#DATE AUG/21/2017
-#DESC pack a minimized installable extension for ama-open ver.
+#DATE AUG/23/2017
+#DESC pack a minimized but installable extension for ama-open ver
 
 target="installable-ama-ext.zip"
 
@@ -14,5 +14,6 @@ zip -r "$target" . \
     -x art/\* \
     -x coffee/\* \
     -x README.md \
+    -x LICENSE \
     -x pack.sh \
     -x .git/\*
