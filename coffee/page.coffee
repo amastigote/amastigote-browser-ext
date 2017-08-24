@@ -38,8 +38,10 @@ loadItems = (payload
   )
 
 bindRowListeners = (inputTags, btnFilter) ->
-  $('.editHref').click ->
+  $('.editHref').click (e) ->
+    e.preventDefault()
     showEditModal(this)
+    false
   $('.tagHref').click ->
     inputTags.val($(this.childNodes[0]).text())
     btnFilter.trigger('click')
@@ -133,7 +135,7 @@ escapeChars = (string) ->
 
 @generateRow = (item) ->
   tagsBadges = item['tags'].map((e) ->
-    "<a class='tagHref' href='#'><span class='badge badge-primary' style='font-size: 12px; vertical-align: middle'>\
+    "<a class='tagHref' href='#'><span class='badge badge-dark' style='font-size: 11px; vertical-align: middle'>\
     #{escapeChars(unescape(e['name']))}</span></a>")
     .join('&nbsp;')
 

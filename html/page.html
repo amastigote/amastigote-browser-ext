@@ -18,102 +18,105 @@
         .awesomplete {
             font-size: 16px;
         }
+
     </style>
 </head>
-<body style="padding: 20px; width: 1050px; margin: auto; min-height: 100%">
-
-<div class="modal" id="editModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span style="font-size: 18px" class="modal-title">编辑本条列表项</span>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group" id="standard">
-                        <label for="modalInputTitle" style="font-size: 16px; font-weight: 600"><i
-                                class="fa fa-bars"></i>&nbsp;&nbsp;标题</label>
-                        <input style="font-size: 14px" id="modalInputTitle" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="modalInputUrl" style="font-size: 16px; font-weight: 600"><i
-                                class="fa fa-link"></i>&nbsp;&nbsp;链接</label>
-                        <input disabled style="font-size: 14px" id="modalInputUrl" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <div style="display: block">
-                            <label for="modalInputTags" style="font-size: 16px; font-weight: 600"><i
-                                    class="fa fa-tags"></i>&nbsp;&nbsp;标签</label></div>
-                        <input style="font-size: 14px; display: table; width: 100%" id="modalInputTags"
-                               class="form-control" placeholder="No Tags"/>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button id='editModalBtnRemove' type="button" class="btn btn-danger btn-sm"><i
-                        class="fa fa-trash-o"></i>&nbsp;&nbsp;从列表中移除
-                </button>
-                <button id="editModalBtnSubmit" type="button" class="btn btn-primary btn-sm"><i class="fa fa-check"></i>&nbsp;&nbsp;提交修改
-                </button>
+<body style="width: 100%; margin: auto; min-height: 100%; padding-top: 20px; padding-bottom: 20px">
+<div style="width: 1030px; margin:0 auto">
+    <div class="modal fade" id="editModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span style="font-size: 18px" class="modal-title">编辑本条列表项</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group" id="standard">
+                            <label for="modalInputTitle" style="font-size: 16px; font-weight: 600"><i
+                                    class="fa fa-bars"></i>&nbsp;&nbsp;标题</label>
+                            <input style="font-size: 14px" id="modalInputTitle" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalInputUrl" style="font-size: 16px; font-weight: 600"><i
+                                    class="fa fa-link"></i>&nbsp;&nbsp;链接</label>
+                            <input disabled style="font-size: 14px" id="modalInputUrl" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <div style="display: block">
+                                <label for="modalInputTags" style="font-size: 16px; font-weight: 600"><i
+                                        class="fa fa-tags"></i>&nbsp;&nbsp;标签</label></div>
+                            <input style="font-size: 14px; display: table; width: 100%" id="modalInputTags"
+                                   class="form-control" placeholder="No Tags"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id='editModalBtnRemove' type="button" class="btn btn-danger btn-sm"><i
+                            class="fa fa-trash-o"></i>&nbsp;&nbsp;从列表中移除
+                    </button>
+                    <button id="editModalBtnSubmit" type="button" class="btn btn-primary btn-sm"><i
+                            class="fa fa-check"></i>&nbsp;&nbsp;提交修改
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="alert" class="alert alert-success" role="alert" style="width: auto">
-    <div style="margin-bottom: 8px">
-        <i class="fa fa-tags"></i>&nbsp;&nbsp;填写一个或多个标签来过滤文章列表
+    <div id="alert" class="alert alert-success" role="alert" style="width: auto">
+        <div style="margin-bottom: 8px">
+            <i class="fa fa-tags"></i>&nbsp;&nbsp;填写一个或多个标签来过滤文章列表
+        </div>
+        <table style="text-align: left; table-layout: fixed">
+            <tr>
+                <td>
+                    <input style="width: 500px" class="form-control" id="filterByTags"
+                           placeholder="No Tags">
+                </td>
+                <td>
+                    <button id="btnFilter" style="margin-left: 10px" type="button"
+                            class="btn btn-success"><i class="fa fa-check"></i>&nbsp;&nbsp;应用
+                    </button>
+                </td>
+                <td>
+                    <button id="btnClear" style="margin-left: 10px" type="button"
+                            class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;&nbsp;清除
+                    </button>
+                </td>
+            </tr>
+        </table>
     </div>
-    <table style="text-align: left; table-layout: fixed">
+
+    <table id="itemTable" class="table table-striped">
+        <thead class="thead">
         <tr>
-            <td>
-                <input style="width: 500px" class="form-control" id="filterByTags"
-                       placeholder="No Tags">
-            </td>
-            <td>
-                <button id="btnFilter" style="margin-left: 10px" type="button"
-                        class="btn btn-success"><i class="fa fa-check"></i>&nbsp;&nbsp;应用
-                </button>
-            </td>
-            <td>
-                <button id="btnClear" style="margin-left: 10px" type="button"
-                        class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;&nbsp;清除
-                </button>
-            </td>
+            <th>#</th>
+            <th style="width: 695px">标题</th>
+            <th style="width: 160px">标签</th>
+            <th style="width: 80px">操作</th>
         </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
     </table>
-</div>
-
-<table id="itemTable" class="table table-striped">
-    <thead class="thead">
-    <tr>
-        <th>#</th>
-        <th style="width: 695px">标题</th>
-        <th style="width: 160px">标签</th>
-        <th style="width: 80px">操作</th>
-    </tr>
-    </thead>
-    <tbody id="tableBody">
-    </tbody>
-</table>
-<div style="visibility: hidden; text-align: center">
-    <div class="btn-group btn-group-sm" role="group"
-         style="margin: 0 auto">
-        <button type="button" class="btnPre btn btn- btn-secondary">上一页</button>
-        <button type="button" class="pageIndicator btn btn-secondary" disabled>0</button>
-        <button type="button" class="btnSuc btn btn-secondary">下一页</button>
+    <div style="visibility: hidden; text-align: center">
+        <div class="btn-group btn-group-sm" role="group"
+             style="margin: 0 auto">
+            <button type="button" class="btnPre btn btn- btn-secondary">上一页</button>
+            <button type="button" class="pageIndicator btn btn-secondary" disabled>0</button>
+            <button type="button" class="btnSuc btn btn-secondary">下一页</button>
+        </div>
     </div>
+    <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../js/tether.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/awesomplete.min.js"></script>
+    <script type="text/javascript" src="../js/page-core.js"></script>
+    <script type="text/javascript" src="../js/ext-core.js"></script>
+    <script type="text/javascript" src="../js/page-edit.js"></script>
+    <script type="text/javascript" src="../js/page.js"></script>
 </div>
-<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="../js/tether.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../js/awesomplete.min.js"></script>
-<script type="text/javascript" src="../js/page-core.js"></script>
-<script type="text/javascript" src="../js/ext-core.js"></script>
-<script type="text/javascript" src="../js/page-edit.js"></script>
-<script type="text/javascript" src="../js/page.js"></script>
 </body>
 </html>

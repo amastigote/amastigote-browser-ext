@@ -4,7 +4,8 @@
 
   siteMap = {
     v2ex: ['v2ex.com/', ' - V2EX'],
-    csdn: ['blog.csdn.net/', ' - CSDN博客'],
+    csdnblog: ['blog.csdn.net/', ' - CSDN博客'],
+    csdnnet: ['www.csdn.net/', '-CSDN.NET'],
     cnblogs: ['cnblogs.com/', ' - 博客园'],
     stackoverflow: ['stackoverflow.com/', ' - Stack Overflow'],
     oschina: ['oschina.net/', ' - 开源中国社区'],
@@ -16,7 +17,8 @@
     iteye: ['iteye.com/', ' - ITeye博客'],
     juejin: ['juejin.im/', ' - 掘金'],
     zhihu: ['zhihu.com/', ' - 知乎'],
-    jianshu: ['jianshu.com/', ' - 简书']
+    jianshu: ['jianshu.com/', ' - 简书'],
+    jobbole: ['blog.jobbole.com/', ' - 文章 - 伯乐在线']
   };
 
   this.removeSuffix = function(url, title) {

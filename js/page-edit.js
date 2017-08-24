@@ -16,8 +16,6 @@
 
   editModal = $('#editModal');
 
-  editModal.addClass('fade');
-
   editModal.on('hidden.bs.modal', function() {
     titleInputModal.val('');
     urlInputModal.val('');
@@ -57,16 +55,20 @@
     title = currentRow.childNodes[1].childNodes[0].text;
     url = currentRow.childNodes[1].childNodes[0].getAttribute('href');
     spans = currentRow.childNodes[2].childNodes;
-    tags = ((function() {
-      var j, ref, results;
-      results = [];
-      for (i = j = 0, ref = spans.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-        if ($(spans.item(i).childNodes[0]).is('span')) {
-          results.push($(spans.item(i)).text());
+    if (spans.length === 0) {
+      tags = '';
+    } else {
+      tags = ((function() {
+        var j, ref, results;
+        results = [];
+        for (i = j = 0, ref = spans.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+          if ($(spans.item(i).childNodes[0]).is('span')) {
+            results.push($(spans.item(i)).text());
+          }
         }
-      }
-      return results;
-    })()).join(', ');
+        return results;
+      })()).join(', ');
+    }
     editModal.modal({
       show: true,
       backdrop: 'static'

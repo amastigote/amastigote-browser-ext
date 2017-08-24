@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
     <!--suppress CssUnusedSymbol -->
     <style>
+        a, a:hover, a:active, a:visited, a:link {
+            color: rebeccapurple;
+        }
+
         body {
             font-family: monospace;
             /* only for moz-firefox's non-selection */
@@ -47,9 +51,9 @@
                         <span style="font-weight: bold"><i class="fa fa-plug fa-1"></i>&nbsp;正在与服务器通信...</span>
                         <div style="color: white; font-size: 10px; font-weight: 600">(若长时间未响应，请检查服务器设置)</div>
                     </div>
-                    <button style="display: table-cell; margin-top: 20px" id="btn_settings" type="button"
+                    <button style="display: table-cell; margin-top: 16px" id="btn_settings" type="button"
                             class="btn btn-outline-light btn-sm"><i
-                            class="fa fa-cogs"></i>&nbsp;&nbsp;前往设置
+                            class="fa fa-cogs"></i>&nbsp;前往设置
                     </button>
                 </td>
             </tr>
@@ -82,18 +86,19 @@
     </tr>
     <tr>
         <td style="font-size: 12px; padding-left: 12px">标签:</td>
-        <td><label><input placeholder="No Tags" class="form-control" style="font-size: 12px; width: 260px" id="input_tag"/></label></td>
+        <td><label><input placeholder="No Tags" class="form-control" style="font-size: 12px; width: 260px"
+                          id="input_tag"/></label></td>
     </tr>
 </table>
 <div style="margin-top:5px; width: 100%; text-align: center; margin-bottom: 15px">
     <button style="width: 28.5%" id="btn_add" type="button" class="btn btn-outline-success btn-sm">
-        <i class="fa fa-plus"></i>&nbsp;&nbsp;添加
+        <i class="fa fa-plus"></i>&nbsp;添加
     </button>
     <button style="width: 28.5%" id="btn_update" class="btn btn-outline-primary btn-sm">
-        <i class="fa fa-refresh"></i>&nbsp;&nbsp;更新
+        <i class="fa fa-refresh"></i>&nbsp;更新
     </button>
     <button style="width: 28.5%" id="btn_delete" class="btn btn-outline-danger btn-sm">
-        <i class="fa fa-trash"></i>&nbsp;&nbsp;移除
+        <i class="fa fa-trash"></i>&nbsp;移除
     </button>
 </div>
 </body>

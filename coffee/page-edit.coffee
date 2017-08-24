@@ -7,7 +7,6 @@ submitBtnModal = $('#editModalBtnSubmit')
 currentRow = null
 
 editModal = $('#editModal')
-editModal.addClass('fade')
 
 editModal.on('hidden.bs.modal', ->
   titleInputModal.val ''
@@ -44,7 +43,10 @@ editModal.on('shown.bs.modal', ->
   title = currentRow.childNodes[1].childNodes[0].text
   url = currentRow.childNodes[1].childNodes[0].getAttribute('href')
   spans = currentRow.childNodes[2].childNodes
-  tags = ($(spans.item(i)).text() for i in [0..spans.length - 1] when $(spans.item(i).childNodes[0]).is 'span').join(', ')
+  if spans.length == 0
+    tags = ''
+  else
+    tags = ($(spans.item(i)).text() for i in [0..spans.length - 1] when $(spans.item(i).childNodes[0]).is 'span').join(', ')
 
   editModal.modal
     show: true
