@@ -1,6 +1,7 @@
 # amastigote-browser-ext
+**Use amastigote to collect valuable links in a cooperative way.**
 
-Basically functional browser extension for amastigote open version.
+This is a firefox extension for amastigote open-src version.
 
 ## Server Installation/Deployment/Development
 
