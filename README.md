@@ -9,7 +9,7 @@ Please move steps to [amastigote-openserver](https://github.com/amastigote/amast
 ## Install
 FireFox 54.0 or higher version is required.
 * Visit ***about:config*** then double click ***xpinstall.signatures.required*** to set it to **`false`**
-* `$ ./pack.sh` to generate a minimized installable ZIP
+* Do `./pack.sh` to generate a minimized installable ZIP
 * Install Extension From File
 
 ## Screenshots
