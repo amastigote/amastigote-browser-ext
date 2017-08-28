@@ -1,38 +1,17 @@
 # amastigote-browser-ext
+**Use amastigote to collect valuable links in a cooperative way.**
 
-Basically functional browser extension for amastigote open version.
+This is a firefox extension for amastigote open-src version.
 
 ## Server Installation/Deployment/Development
 
 Please move steps to [amastigote-openserver](https://github.com/amastigote/amastigote-openserver).
 
 ## Install
-
-- Firefox 54.0 or higher(lower?) version is required.
-- Current version is not published, so you have to install without verification.
-```
-a) Download and unzip the ZIP file
-b) Compress amastigote-browser-ext-master/ as {whatever}.zip (make sure the ZIP file directly contains several extension files instead of a directory)
-b) Visit 'about:config'
-c) Double click 'xpinstall.signatures.required' to set it to false
-d) Visit 'about:addons'
-e) Choose {whatever}.zip in 'Install Addon From File'
-f) Configure server ip/address & port(running at 8080 in default)
-```
-
-You can also `➜ ./pack.sh` to generate a minimized installable ZIP.
-
-## Debug
-
-- Firefox 54.0 or higher(lower?) version is required.
-- Extension installed in debug mode needs re-installation each time the browser is restarted.
-```
-a) Visit 'about:debugging'
-b) Press 'Load Temporary Add-on'
-c) Choose manifest.json
-d) Open extension preference page through 'Menu - Add-ons' or extension panel
-e) Configure server ip/address & port(running at 8080 in default)
-```
+FireFox 54.0 or higher version is required.
+* Visit ***about:config*** then double click ***xpinstall.signatures.required*** to set it to **`false`**
+* Do `./pack.sh` to generate a minimized installable ZIP
+* Install Extension From File
 
 ## Screenshots
 ### Extension Panel
