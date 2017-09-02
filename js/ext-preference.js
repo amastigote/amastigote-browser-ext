@@ -45,7 +45,7 @@
   });
 
   github_button.click(function() {
-    return window.open('https://github.com/amastigote');
+    return window.open('https://github.com/amastigote/amastigote-browser-ext');
   });
 
 }).call(this);

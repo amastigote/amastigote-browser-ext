@@ -32,4 +32,4 @@ clear_button.click ->
   port_input.val ''
 
 github_button.click ->
-  window.open 'https://github.com/amastigote'
+  window.open 'https://github.com/amastigote/amastigote-browser-ext'
