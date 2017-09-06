@@ -7,35 +7,35 @@
     <title>文章列表 - amastigote™ open version</title>
     <link rel="shortcut icon" type="image/png" href="../pic/cn_1.png"/>
     <link rel="stylesheet" href="../css/tether.min.css"/>
-    <link rel="stylesheet" href="../css/awesomplete.min.css"/>
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-ui.min.css"/>
     <!--suppress CssUnusedSymbol -->
     <style>
         a, a:hover, a:active, a:visited, a:link {
             text-decoration: none
         }
 
-        .awesomplete {
-            font-size: 16px;
+        .ui-autocomplete {
+            max-height: 100px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
         }
     </style>
 </head>
 <body style="width: 100%; margin: auto; min-height: 100%; padding-bottom: 20px">
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rebeccapurple">
-    <a class="navbar-brand text-light">文章列表 Powered by amastigote</a>
-    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
-            <!--aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-        <!--<span class="navbar-toggler-icon"></span>-->
-    <!--</button>-->
-
+    <span class="navbar-brand text-light" style="font-family: sans-serif; -moz-user-select: none">文章列表 - amastigote™ open version<a
+            class="fa fa-github text-light" style="margin-left: 15px" href="https://github.com/amastigote/amastigote-browser-ext"></a></span>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"></ul>
         <form class="form-inline">
-            <div class="input-group" style="width: 470px">
-                <span style="background-color: #4e2674" class="input-group-addon text-light"><i
-                        class="fa fa-tags"></i></span>
-                <input style="background-color: rgb(158,122,201)" type="text" id="filterByTags" class="form-control text-light" title="tag-filter">
+            <div class="input-group" style="width: 540px">
+                <span style="background-color: #4e2674; -moz-user-select: none" class="input-group-addon text-light"><i
+                        class="fa fa-tags"></i>&nbsp;标签过滤器</span>
+                <input style="background-color: rgb(158,122,201)" type="text" id="filterByTags"
+                       class="form-control text-light" title="输入一组标签来过滤显示结果">
                 <button id="btnFilter" style="margin-left: 15px" type="button"
                         class="btn btn-outline-light"><i class="fa fa-check"></i>&nbsp;&nbsp;应用
                 </button>
@@ -63,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button id='errorModalBtnSendReport' type="button" class="btn btn-dark btn-sm"><i
-                        class="fa fa-github-alt"></i>&nbsp;&nbsp;提交ISSUE
+                        class="fa fa-github-alt"></i>&nbsp;&nbsp;反馈问题
                 </button>
             </div>
         </div>
@@ -112,31 +112,7 @@
         </div>
     </div>
 
-    <!--<div id="alert" class="alert alert-success" role="alert" style="width: auto">-->
-        <!--<div style="margin-bottom: 8px">-->
-            <!--<i class="fa fa-filter"></i>&nbsp;&nbsp;填写一个或多个标签来过滤文章列表-->
-        <!--</div>-->
-        <!--<table style="text-align: left; table-layout: fixed">-->
-            <!--<tr>-->
-                <!--<td>-->
-                    <!--<input style="width: 500px" class="form-control" id="filterByTags"-->
-                           <!--placeholder="No Tags">-->
-                <!--</td>-->
-                <!--<td>-->
-                    <!--<button id="btnFilter" style="margin-left: 10px" type="button"-->
-                            <!--class="btn btn-success"><i class="fa fa-check"></i>&nbsp;&nbsp;应用-->
-                    <!--</button>-->
-                <!--</td>-->
-                <!--<td>-->
-                    <!--<button id="btnClear" style="margin-left: 10px" type="button"-->
-                            <!--class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;&nbsp;清除-->
-                    <!--</button>-->
-                <!--</td>-->
-            <!--</tr>-->
-        <!--</table>-->
-    <!--</div>-->
-
-    <table id="itemTable" class="table table-striped" style="margin-top: 100px">
+    <table id="itemTable" class="table table-striped" style="margin-top: 85px">
         <thead class="thead">
         <tr>
             <th style="font-size: 14px">#</th>
@@ -159,7 +135,7 @@
     <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../js/tether.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/awesomplete.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../js/page-core.js"></script>
     <script type="text/javascript" src="../js/ext-core.js"></script>
     <script type="text/javascript" src="../js/page-edit.js"></script>

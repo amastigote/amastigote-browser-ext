@@ -22,33 +22,36 @@
     return tagsInputModal.val('');
   });
 
-  editModal.on('shown.bs.modal', function() {
-    var width;
-    width = $('#standard').width();
-    return tagsInputModal.css('width', width + "px");
-  });
-
   this.showEditModal = function(p) {
     var i, spans, tags, title, url;
     getTags(function(result) {
-      return new Awesomplete(document.getElementById('modalInputTags'), {
-        list: result['obj'].map(function(e) {
-          return unescape(e.trim());
-        }),
-        filter: function(text, input) {
-          return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
+      var extractLast, split;
+      split = function(val) {
+        return val.split(/,\s*/);
+      };
+      extractLast = function(term) {
+        return split(term).pop();
+      };
+      return $('#modalInputTags').autocomplete({
+        minLength: 1,
+        source: function(request, response) {
+          return response($.ui.autocomplete.filter(result['obj'].map(function(e) {
+            return escapeChars(unescape(e.trim()));
+          }), extractLast(request.term)));
+        }
+      }, {
+        focus: function() {
+          return false;
         },
-        item: function(text, input) {
-          return Awesomplete.ITEM(text, input.match(/[^,]*$/)[0]);
-        },
-        replace: function(text) {
-          var before;
-          before = this.input.value.match(/^.+,\s*|/)[0];
-          return this.input.value = before + text + ", ";
-        },
-        minChars: 1,
-        maxItems: 5,
-        autoFirst: true
+        select: function(event, ui) {
+          var terms;
+          terms = split(this.value);
+          terms.pop();
+          terms.push(ui.item.value);
+          terms.push("");
+          this.value = terms.join(", ");
+          return false;
+        }
       });
     });
     currentRow = p.closest('tr');

@@ -14,29 +14,30 @@ editModal.on('hidden.bs.modal', ->
   tagsInputModal.val ''
 )
 
-# fix Awesomplete's compatibility with Bootstrap
-editModal.on('shown.bs.modal', ->
-  width = $('#standard').width()
-  tagsInputModal.css('width', "#{width}px")
-)
-
 @showEditModal = (p) ->
   getTags((result) ->
-    new Awesomplete(
-      document.getElementById('modalInputTags')
-      {
-        list: result['obj'].map((e) -> unescape(e.trim()))
-        filter: (text, input) ->
-          Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0])
-        item: (text, input) ->
-          Awesomplete.ITEM(text, input.match(/[^,]*$/)[0])
-        replace: (text) ->
-          before = this.input.value.match(/^.+,\s*|/)[0]
-          this.input.value = before + text + ", "
-        minChars: 1
-        maxItems: 5
-        autoFirst: true
-      })
+    split = (val) ->
+      val.split(/,\s*/)
+
+    extractLast = (term) ->
+      split(term).pop()
+
+    $('#modalInputTags').autocomplete({
+      minLength: 1,
+      source: (request, response) ->
+        response($.ui.autocomplete.filter(
+          result['obj'].map((e) -> escapeChars(unescape(e.trim()))), extractLast(request.term)));
+    },
+      focus: ->
+        false
+      select: (event, ui) ->
+        terms = split(this.value)
+        terms.pop()
+        terms.push(ui.item.value)
+        terms.push("");
+        this.value = terms.join(", ")
+        false
+    );
   )
 
   currentRow = p.closest('tr')

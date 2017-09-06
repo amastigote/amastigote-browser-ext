@@ -12,25 +12,49 @@ mask = $('#mask')
 mask.css 'height', $(document).height()
 mask.css 'width', $(document).width()
 
+#noinspection JSUnresolvedVariable
 browser.storage.local.get('tags').then (result) ->
   if result['tags'] == undefined
     result = tags: []
 
-  new Awesomplete(document.getElementById('input_tag'),
-    list: result['tags'].map((e) ->
-      escapeChars(unescape e)
-    )
-    filter: (text, input) ->
-      Awesomplete.FILTER_CONTAINS text, input.match(/[^,]*$/)[0]
-    item: (text, input) ->
-      Awesomplete.ITEM text, input.match(/[^,]*$/)[0]
-    replace: (text) ->
-      before = @input.value.match(/^.+,\s*|/)[0]
-      @input.value = before + text + ', '
+  split = (val) ->
+    val.split(/,\s*/)
 
-    minChars: 1
-    maxItems: 1
-    autoFirst: true)
+  extractLast = (term) ->
+    split(term).pop()
+
+  $('#input_tag').autocomplete({
+    minLength: 1,
+    source: (request, response) ->
+      response($.ui.autocomplete.filter(
+        result['tags'].map((e) -> escapeChars(unescape(e.trim()))), extractLast(request.term)));
+  },
+    focus: ->
+      false
+    select: (event, ui) ->
+      terms = split(this.value)
+      terms.pop()
+      terms.push(ui.item.value)
+      terms.push("");
+      this.value = terms.join(", ")
+      false
+  );
+
+#  new Awesomplete(document.getElementById('input_tag'),
+#    list: result['tags'].map((e) ->
+#      escapeChars(unescape e)
+#    )
+#    filter: (text, input) ->
+#      Awesomplete.FILTER_CONTAINS text, input.match(/[^,]*$/)[0]
+#    item: (text, input) ->
+#      Awesomplete.ITEM text, input.match(/[^,]*$/)[0]
+#    replace: (text) ->
+#      before = @input.value.match(/^.+,\s*|/)[0]
+#      @input.value = before + text + ', '
+#
+#    minChars: 1
+#    maxItems: 1
+#    autoFirst: true)
 
 browse_btn.click ->
   browser.storage.local.get([
@@ -47,6 +71,7 @@ add_btn.click ->
     mask.fadeOut()
     update_btn.prop 'disabled', false
     delete_btn.prop 'disabled', false
+    #noinspection JSUnresolvedVariable
     browser.tabs.query(
       currentWindow: true
       active: true).then (tabs) ->
@@ -104,6 +129,7 @@ escapeChars = (string) ->
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 
+#noinspection JSUnresolvedVariable
 browser.tabs.query(
   currentWindow: true
   active: true).then (tabs) ->
@@ -122,7 +148,7 @@ browser.tabs.query(
           delete_btn.prop 'disabled', true
 
 updatePanel = (result) ->
-  title_input.val unescape(result['obj']['title'])
+  title_input.val escapeChars unescape(result['obj']['title'])
   tag_input.val result['obj']['tags'].map((e) ->
-    unescape e.name
+    escapeChars unescape e.name
   ).join(', ')

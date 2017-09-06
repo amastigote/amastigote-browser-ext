@@ -12,7 +12,9 @@ window.onerror = (errorMessage, scriptURI, lineNumber, columnNumber, error) ->
   $('#errorModal').modal
     show: true
 
+#noinspection JSUnresolvedVariable
 @server = urlObject.searchParams.get('server')
+#noinspection JSUnresolvedVariable
 @port = urlObject.searchParams.get('port')
 
 loadItems = (payload
@@ -74,6 +76,11 @@ $ ->
   btnClear = $('#btnClear')
   inputTags = $('#filterByTags')
 
+  $('.form-inline').submit (e) ->
+    e.preventDefault();
+    btnFilter.trigger('click')
+    false
+
   btnPre.click(-> loadItems(
     packFilterParam(filteredTags, currentPage - 2)
     container
@@ -118,24 +125,31 @@ $ ->
     inputTags)
 
   getTags((result) ->
-    new Awesomplete(
-      document.getElementById('filterByTags')
-      {
-        list: result['obj'].map((e) -> escapeChars(unescape(e.trim())))
-        filter: (text, input) ->
-          Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0])
-        item: (text, input) ->
-          Awesomplete.ITEM(text, input.match(/[^,]*$/)[0])
-        replace: (text) ->
-          before = this.input.value.match(/^.+,\s*|/)[0]
-          this.input.value = before + text + ", "
-        minChars: 1
-        maxItems: 5
-        autoFirst: true
-      })
+    split = (val) ->
+      val.split(/,\s*/)
+
+    extractLast = (term) ->
+      split(term).pop()
+
+    $('#filterByTags').autocomplete({
+      minLength: 1,
+      source: (request, response) ->
+        response($.ui.autocomplete.filter(
+          result['obj'].map((e) -> escapeChars(unescape(e.trim()))), extractLast(request.term)));
+    },
+      focus: ->
+        false
+      select: (event, ui) ->
+        terms = split(this.value)
+        terms.pop()
+        terms.push(ui.item.value)
+        terms.push("");
+        this.value = terms.join(", ")
+        false
+    );
   )
 
-escapeChars = (string) ->
+@escapeChars = (string) ->
   string
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')

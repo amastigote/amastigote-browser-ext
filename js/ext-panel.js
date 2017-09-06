@@ -27,29 +27,38 @@
   mask.css('width', $(document).width());
 
   browser.storage.local.get('tags').then(function(result) {
+    var extractLast, split;
     if (result['tags'] === void 0) {
       result = {
         tags: []
       };
     }
-    return new Awesomplete(document.getElementById('input_tag'), {
-      list: result['tags'].map(function(e) {
-        return escapeChars(unescape(e));
-      }),
-      filter: function(text, input) {
-        return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
+    split = function(val) {
+      return val.split(/,\s*/);
+    };
+    extractLast = function(term) {
+      return split(term).pop();
+    };
+    return $('#input_tag').autocomplete({
+      minLength: 1,
+      source: function(request, response) {
+        return response($.ui.autocomplete.filter(result['tags'].map(function(e) {
+          return escapeChars(unescape(e.trim()));
+        }), extractLast(request.term)));
+      }
+    }, {
+      focus: function() {
+        return false;
       },
-      item: function(text, input) {
-        return Awesomplete.ITEM(text, input.match(/[^,]*$/)[0]);
-      },
-      replace: function(text) {
-        var before;
-        before = this.input.value.match(/^.+,\s*|/)[0];
-        return this.input.value = before + text + ', ';
-      },
-      minChars: 1,
-      maxItems: 1,
-      autoFirst: true
+      select: function(event, ui) {
+        var terms;
+        terms = split(this.value);
+        terms.pop();
+        terms.push(ui.item.value);
+        terms.push("");
+        this.value = terms.join(", ");
+        return false;
+      }
     });
   });
 
@@ -173,9 +182,9 @@
   });
 
   updatePanel = function(result) {
-    title_input.val(unescape(result['obj']['title']));
+    title_input.val(escapeChars(unescape(result['obj']['title'])));
     return tag_input.val(result['obj']['tags'].map(function(e) {
-      return unescape(e.name);
+      return escapeChars(unescape(e.name));
     }).join(', '));
   };
 
