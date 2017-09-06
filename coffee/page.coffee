@@ -4,6 +4,14 @@ filteredTags = []
 urlString = window.location.href
 urlObject = new URL(urlString)
 
+#noinspection SpellCheckingInspection
+window.onerror = (errorMessage, scriptURI, lineNumber, columnNumber, error) ->
+  $('#errMessage').text(errorMessage)
+  $('#errLocation').text("#{scriptURI}:#{lineNumber}:#{columnNumber}")
+  $('#errObject').text(JSON.stringify(error))
+  $('#errorModal').modal
+    show: true
+
 @server = urlObject.searchParams.get('server')
 @port = urlObject.searchParams.get('port')
 
@@ -142,5 +150,5 @@ escapeChars = (string) ->
   "<tr><td style='vertical-align: middle'>#{item['id']}</td><td style='vertical-align: middle; font-weight: bold; font-size: 15px'>\
    <a href='#{item['url']}'>#{escapeChars(unescape(item['title']))}</a>\
    </td><td style='vertical-align: middle'>#{tagsBadges}\
-   </td><td style='font-size: 15px; vertical-align: middle'>\
+   </td><td style='font-size: 13px; vertical-align: middle'>\
    <a href='#' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>"

@@ -10,6 +10,15 @@
 
   urlObject = new URL(urlString);
 
+  window.onerror = function(errorMessage, scriptURI, lineNumber, columnNumber, error) {
+    $('#errMessage').text(errorMessage);
+    $('#errLocation').text(scriptURI + ":" + lineNumber + ":" + columnNumber);
+    $('#errObject').text(JSON.stringify(error));
+    return $('#errorModal').modal({
+      show: true
+    });
+  };
+
   this.server = urlObject.searchParams.get('server');
 
   this.port = urlObject.searchParams.get('port');
@@ -127,7 +136,7 @@
     tagsBadges = item['tags'].map(function(e) {
       return "<a class='tagHref' href='#'><span class='badge badge-dark' style='font-size: 11px; vertical-align: middle'>" + (escapeChars(unescape(e['name']))) + "</span></a>";
     }).join('&nbsp;');
-    return "<tr><td style='vertical-align: middle'>" + item['id'] + "</td><td style='vertical-align: middle; font-weight: bold; font-size: 15px'><a href='" + item['url'] + "'>" + (escapeChars(unescape(item['title']))) + "</a></td><td style='vertical-align: middle'>" + tagsBadges + "</td><td style='font-size: 15px; vertical-align: middle'><a href='#' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>";
+    return "<tr><td style='vertical-align: middle'>" + item['id'] + "</td><td style='vertical-align: middle; font-weight: bold; font-size: 15px'><a href='" + item['url'] + "'>" + (escapeChars(unescape(item['title']))) + "</a></td><td style='vertical-align: middle'>" + tagsBadges + "</td><td style='font-size: 13px; vertical-align: middle'><a href='#' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>";
   };
 
 }).call(this);

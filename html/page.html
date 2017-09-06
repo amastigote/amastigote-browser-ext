@@ -21,7 +21,54 @@
         }
     </style>
 </head>
-<body style="width: 100%; margin: auto; min-height: 100%; padding-top: 20px; padding-bottom: 20px">
+<body style="width: 100%; margin: auto; min-height: 100%; padding-bottom: 20px">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rebeccapurple">
+    <a class="navbar-brand text-light">文章列表 Powered by amastigote</a>
+    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
+            <!--aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+        <!--<span class="navbar-toggler-icon"></span>-->
+    <!--</button>-->
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto"></ul>
+        <form class="form-inline">
+            <div class="input-group" style="width: 470px">
+                <span style="background-color: #4e2674" class="input-group-addon text-light"><i
+                        class="fa fa-tags"></i></span>
+                <input style="background-color: rgb(158,122,201)" type="text" id="filterByTags" class="form-control text-light" title="tag-filter">
+                <button id="btnFilter" style="margin-left: 15px" type="button"
+                        class="btn btn-outline-light"><i class="fa fa-check"></i>&nbsp;&nbsp;应用
+                </button>
+                <button id="btnClear" style="margin-left: 10px" type="button"
+                        class="btn btn-outline-light"><i class="fa fa-close"></i>&nbsp;&nbsp;清除
+                </button>
+            </div>
+        </form>
+    </div>
+</nav>
+<div class="modal fade" id="errorModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span style="font-size: 18px" class="modal-title">JavaScript 错误</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="font-size: 14px"><strong>原因: </strong><code id="errMessage"></code></div>
+                <div style="margin-top: 7px; font-size: 14px"><strong>定位: </strong><code id="errLocation"></code></div>
+                <div style="margin-top: 7px; font-size: 14px"><strong>对象: </strong><code id="errObject"></code></div>
+                <div style="margin-top: 20px; font-size: 14px">请检查插件设置或将插件/服务器升级到最新版本</div>
+            </div>
+            <div class="modal-footer">
+                <button id='errorModalBtnSendReport' type="button" class="btn btn-dark btn-sm"><i
+                        class="fa fa-github-alt"></i>&nbsp;&nbsp;提交ISSUE
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <div style="width: 1030px; margin:0 auto">
     <div class="modal fade" id="editModal" role="dialog">
         <div class="modal-dialog" role="document">
@@ -65,37 +112,37 @@
         </div>
     </div>
 
-    <div id="alert" class="alert alert-success" role="alert" style="width: auto">
-        <div style="margin-bottom: 8px">
-            <i class="fa fa-tags"></i>&nbsp;&nbsp;填写一个或多个标签来过滤文章列表
-        </div>
-        <table style="text-align: left; table-layout: fixed">
-            <tr>
-                <td>
-                    <input style="width: 500px" class="form-control" id="filterByTags"
-                           placeholder="No Tags">
-                </td>
-                <td>
-                    <button id="btnFilter" style="margin-left: 10px" type="button"
-                            class="btn btn-success"><i class="fa fa-check"></i>&nbsp;&nbsp;应用
-                    </button>
-                </td>
-                <td>
-                    <button id="btnClear" style="margin-left: 10px" type="button"
-                            class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;&nbsp;清除
-                    </button>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <!--<div id="alert" class="alert alert-success" role="alert" style="width: auto">-->
+        <!--<div style="margin-bottom: 8px">-->
+            <!--<i class="fa fa-filter"></i>&nbsp;&nbsp;填写一个或多个标签来过滤文章列表-->
+        <!--</div>-->
+        <!--<table style="text-align: left; table-layout: fixed">-->
+            <!--<tr>-->
+                <!--<td>-->
+                    <!--<input style="width: 500px" class="form-control" id="filterByTags"-->
+                           <!--placeholder="No Tags">-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<button id="btnFilter" style="margin-left: 10px" type="button"-->
+                            <!--class="btn btn-success"><i class="fa fa-check"></i>&nbsp;&nbsp;应用-->
+                    <!--</button>-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<button id="btnClear" style="margin-left: 10px" type="button"-->
+                            <!--class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;&nbsp;清除-->
+                    <!--</button>-->
+                <!--</td>-->
+            <!--</tr>-->
+        <!--</table>-->
+    <!--</div>-->
 
-    <table id="itemTable" class="table table-striped">
+    <table id="itemTable" class="table table-striped" style="margin-top: 100px">
         <thead class="thead">
         <tr>
-            <th>#</th>
-            <th style="width: 695px">标题</th>
-            <th style="width: 160px">标签</th>
-            <th style="width: 80px">操作</th>
+            <th style="font-size: 14px">#</th>
+            <th style="width: 695px; font-size: 14px">标题</th>
+            <th style="width: 160px; font-size: 14px">标签</th>
+            <th style="width: 80px; font-size: 14px">操作</th>
         </tr>
         </thead>
         <tbody id="tableBody">
