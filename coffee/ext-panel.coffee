@@ -40,22 +40,6 @@ browser.storage.local.get('tags').then (result) ->
       false
   );
 
-#  new Awesomplete(document.getElementById('input_tag'),
-#    list: result['tags'].map((e) ->
-#      escapeChars(unescape e)
-#    )
-#    filter: (text, input) ->
-#      Awesomplete.FILTER_CONTAINS text, input.match(/[^,]*$/)[0]
-#    item: (text, input) ->
-#      Awesomplete.ITEM text, input.match(/[^,]*$/)[0]
-#    replace: (text) ->
-#      before = @input.value.match(/^.+,\s*|/)[0]
-#      @input.value = before + text + ', '
-#
-#    minChars: 1
-#    maxItems: 1
-#    autoFirst: true)
-
 browse_btn.click ->
   browser.storage.local.get([
     'cnServer'
