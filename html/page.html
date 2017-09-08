@@ -17,24 +17,32 @@
         }
 
         .ui-autocomplete {
-            max-height: 100px;
+            max-height: 150px;
             overflow-y: auto;
             /* prevent horizontal scrollbar */
             overflow-x: hidden;
         }
+        .modal-open {
+            padding-right: 0 !important;
+        }
+        html {
+            overflow-y: scroll !important;
+        }
+
     </style>
 </head>
-<body style="width: 100%; margin: auto; min-height: 100%; padding-bottom: 20px">
+<body style="margin: auto; min-height: 100%; padding-bottom: 20px">
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rebeccapurple">
     <span class="navbar-brand text-light" style="font-family: sans-serif; -moz-user-select: none">文章列表 - amastigote™ open version<a
-            class="fa fa-github text-light" style="margin-left: 15px" href="https://github.com/amastigote/amastigote-browser-ext"></a></span>
+            class="fa fa-github text-light" style="margin-left: 15px"
+            href="https://github.com/amastigote/amastigote-browser-ext"></a></span>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"></ul>
         <form class="form-inline">
             <div class="input-group" style="width: 540px">
                 <span style="background-color: #4e2674; -moz-user-select: none" class="input-group-addon text-light"><i
                         class="fa fa-tags"></i>&nbsp;标签过滤器</span>
-                <input style="background-color: rgb(158,122,201)" type="text" id="filterByTags"
+                <input style="background-color: rgb(158,122,201)" id="filterByTags"
                        class="form-control text-light" title="输入一组标签来过滤显示结果">
                 <button id="btnFilter" style="margin-left: 15px" type="button"
                         class="btn btn-outline-light"><i class="fa fa-check"></i>&nbsp;&nbsp;应用
@@ -80,23 +88,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group" id="standard">
-                            <label for="modalInputTitle" style="font-size: 16px; font-weight: 600"><i
-                                    class="fa fa-bars"></i>&nbsp;&nbsp;标题</label>
-                            <input style="font-size: 14px" id="modalInputTitle" class="form-control"/>
+                    <form class="form-inline">
+                        <div class="input-group" style="width: 100%;">
+                            <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
+                                    class="fa fa-list"></i>&nbsp;&nbsp;标题</span>
+                            <input style="font-size: 14px" id="modalInputTitle" class="form-control" title="标题"/>
                         </div>
-                        <div class="form-group">
-                            <label for="modalInputUrl" style="font-size: 16px; font-weight: 600"><i
-                                    class="fa fa-link"></i>&nbsp;&nbsp;链接</label>
-                            <input disabled style="font-size: 14px" id="modalInputUrl" class="form-control"/>
+                        <div class="input-group" style="width: 100%; margin-top: 15px">
+                            <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
+                                    class="fa fa-link"></i>&nbsp;&nbsp;链接</span>
+                            <input disabled style="font-size: 14px" id="modalInputUrl" class="form-control" title="链接"/>
                         </div>
-                        <div class="form-group">
-                            <div style="display: block">
-                                <label for="modalInputTags" style="font-size: 16px; font-weight: 600"><i
-                                        class="fa fa-tags"></i>&nbsp;&nbsp;标签</label></div>
-                            <input style="font-size: 14px; display: table; width: 100%" id="modalInputTags"
-                                   class="form-control" placeholder="No Tags"/>
+                        <div class="input-group" style="width: 100%; margin-top: 15px">
+                            <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
+                                    class="fa fa-tags"></i>&nbsp;&nbsp;标签</span>
+                            <input style="font-size: 14px" id="modalInputTags" class="form-control" placeholder="无标签"/>
                         </div>
                     </form>
                 </div>

@@ -9,13 +9,18 @@ window.onerror = (errorMessage, scriptURI, lineNumber, columnNumber, error) ->
   $('#errMessage').text(errorMessage)
   $('#errLocation').text("#{scriptURI}:#{lineNumber}:#{columnNumber}")
   $('#errObject').text(JSON.stringify(error))
+  $('#buttonGithubIssue').click ->
+    window.open 'https://github.com/amastigote/amastigote-browser-ext/issues'
   $('#errorModal').modal
     show: true
 
 #noinspection JSUnresolvedVariable
-@server = urlObject.searchParams.get('server')
+@server = unescape(urlObject.searchParams.get('server'))
 #noinspection JSUnresolvedVariable
-@port = urlObject.searchParams.get('port')
+@port = unescape(urlObject.searchParams.get('port'))
+
+if (!@server && !@port)
+  throw "server or port is not defined in url"
 
 loadItems = (payload
   container

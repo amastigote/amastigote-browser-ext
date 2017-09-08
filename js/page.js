@@ -14,14 +14,21 @@
     $('#errMessage').text(errorMessage);
     $('#errLocation').text(scriptURI + ":" + lineNumber + ":" + columnNumber);
     $('#errObject').text(JSON.stringify(error));
+    $('#errorModalBtnSendReport').click(function() {
+      return window.open('https://github.com/amastigote/amastigote-browser-ext/issues');
+    });
     return $('#errorModal').modal({
       show: true
     });
   };
 
-  this.server = urlObject.searchParams.get('server');
+  this.server = unescape(urlObject.searchParams.get('server'));
 
-  this.port = urlObject.searchParams.get('port');
+  this.port = unescape(urlObject.searchParams.get('port'));
+
+  if (!this.server && !this.port) {
+    throw "server or port is not defined in url";
+  }
 
   loadItems = function(payload, container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags) {
     pageIndicator.closest('div').css('visibility', 'hidden');

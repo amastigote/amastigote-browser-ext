@@ -45,7 +45,7 @@ browse_btn.click ->
     'cnServer'
     'cnPort'
   ]).then (result) ->
-    browser.tabs.create 'url': '/html/page.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
+    browser.tabs.create 'url': '/html/page.html?server=' + escape(result['cnServer']) + '&port=' + escape(result['cnPort'])
     window.close()
 
 add_btn.click ->

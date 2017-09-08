@@ -4,14 +4,18 @@ save_button = $('#buttonSave')
 clear_button = $('#buttonClear')
 github_button = $('#buttonGithub')
 
+__serverKey = 'cnServer'
+__portKey = 'cnPort'
+
+#noinspection JSUnresolvedVariable
 browser.storage.local.get([
-  'cnServer'
-  'cnPort'
+  __serverKey
+  __portKey
 ]).then (result) ->
-  if result['cnServer'] and result['cnServer'] != ''
-    server_input.val result['cnServer']
-  if result['cnPort'] and result['cnPort'] != ''
-    port_input.val result['cnPort']
+  if result[__serverKey] and result[__serverKey] != ''
+    server_input.val result[__serverKey]
+  if result[__portKey] and result[__portKey] != ''
+    port_input.val result[__portKey]
 
 save_button.tooltip
   template: '<div class="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'

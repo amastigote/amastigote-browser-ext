@@ -65,7 +65,7 @@
   browse_btn.click(function() {
     return browser.storage.local.get(['cnServer', 'cnPort']).then(function(result) {
       browser.tabs.create({
-        'url': '/html/page.html?server=' + result['cnServer'] + '&port=' + result['cnPort']
+        'url': '/html/page.html?server=' + escape(result['cnServer']) + '&port=' + escape(result['cnPort'])
       });
       return window.close();
     });

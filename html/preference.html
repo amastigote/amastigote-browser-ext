@@ -14,26 +14,26 @@
 <!-- Firefox Add-ons Manager's background color has an offset of -0x10101.
      Should be 0xFAFAFA in present. -->
 <body style="background-color: rgba(251,251,251,0); margin-left: 3px; margin-bottom: 3px; width: 270px;">
-<form>
-    <div class="form-group" style="width: 100%">
-        <label style="font-size: 14px; width: 100%">服务器地址
-            <input class="form-control" placeholder="example.com" id="input_server"
-                   style="font-size: 14px; margin-top: 2px; width: 100%"/></label>
+<form class="form-inline">
+    <div class="input-group" style="width: 100%">
+                            <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
+                                    class="fa fa-home"></i>&nbsp;&nbsp;地址</span>
+        <input style="font-size: 14px" id="input_server" class="form-control" title="地址"/>
     </div>
-    <div class="form-group" style="margin-top: -14px; width: 100%">
-        <label style="font-size: 14px; margin-top: 10px; width: 100%">服务器端口
-            <input class="form-control" placeholder="8080" id="input_port"
-                   style="font-size: 14px; margin-top: 2px; width: 100%" type="number" min="0" max="65535"/></label>
+    <div class="input-group" style="width: 100%; margin-top: 15px; margin-bottom: 15px">
+                            <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
+                                    class="fa fa-plug"></i>&nbsp;&nbsp;端口</span>
+        <input style="font-size: 14px" id="input_port" class="form-control" title="端口"/>
     </div>
 </form>
 <div style="width: 100%">
-    <button class="btn btn-outline-primary btn-sm" id="buttonSave"><i
+    <button style="width: 30%;" class="btn btn-outline-primary btn-sm" id="buttonSave"><i
             class="fa fa-floppy-o"></i>&nbsp;&nbsp;保存&nbsp;
     </button>
-    <button class="btn btn-outline-danger btn-sm" id="buttonClear"><i
+    <button style="width: 30%;" class="btn btn-outline-danger btn-sm" id="buttonClear"><i
             class="fa fa-times"></i>&nbsp;&nbsp;清除&nbsp;
     </button>
-    <button class="btn btn-outline-success btn-sm" id="buttonGithub"><i
+    <button style="width: 30%;" class="btn btn-outline-success btn-sm" id="buttonGithub"><i
             class="fa fa-github-alt"></i>&nbsp;&nbsp;源码&nbsp;
     </button>
 </div>

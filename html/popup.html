@@ -46,7 +46,7 @@
 </head>
 
 <body>
-<div id="mask" class="mask" style="text-align: center; display: table">
+<div id="mask" class="mask" style="text-align: center; display: table; z-index: 1000">
     <div style="display: table-cell; height: 100%">
         <table style="vertical-align: middle; width: 100%; height: 100%">
             <tr style="text-align: center">
@@ -64,36 +64,32 @@
         </table>
     </div>
 </div>
-<table style="width: 320px">
-    <tr style="height: 30px">
-        <td colspan="2"
-            style="font-size: 14px; position: absolute; top: 9px; left: 10px;color: rebeccapurple; font-weight: bold">
-            amastigote™
-        </td>
-    </tr>
-    <tr class="spacer"></tr>
-    <tr>
-        <td style="font-size: 12px; padding-left: 12px">标题:</td>
-        <td><label><input class="form-control" style="font-size: 12px; width: 260px" id="input_title"/></label></td>
-        <td style="top: 8px; right: 10px; position: absolute">
-            <a href="javascript: void(0);">
-                <i class="fa fa-list-ul" id="img_page"></i></a>
-            <a href="javascript: void(0);">
-                <i class="fa fa-cogs" id="img_settings" style="margin-right: 4px"></i></a>
-        </td>
-    </tr>
-    <tr>
-        <td style="font-size: 12px; padding-left: 12px">链接:</td>
-        <td><label><input class="form-control non-selection-input" style="font-size: 12px; width: 260px" disabled
-                          id="input_url"/></label>
-        </td>
-    </tr>
-    <tr>
-        <td style="font-size: 12px; padding-left: 12px">标签:</td>
-        <td><label><input placeholder="No Tags" class="form-control" style="font-size: 12px; width: 260px"
-                          id="input_tag"/></label></td>
-    </tr>
-</table>
+<div style="font-size: 14px; position: absolute; top: 10px; left: 15px;color: rebeccapurple; font-weight: bold">
+    amastigote™
+</div>
+<div style="top: 9px; right: 10px; position: absolute">
+    <a href="javascript: void(0);">
+        <i class="fa fa-list-ul" id="img_page"></i></a>
+    <a href="javascript: void(0);">
+        <i class="fa fa-cogs" id="img_settings" style="margin-right: 4px"></i></a></div>
+<form class="form-inline"
+      style="width: 320px; margin: 45px 15px 17px;">
+    <div class="input-group" style="width: 100%;">
+                            <span style="-moz-user-select: none; font-size: 12px" class="input-group-addon"><i
+                                    class="fa fa-list"></i>&nbsp;标题</span>
+        <input style="font-size: 12px" id="input_title" class="form-control" title="标题"/>
+    </div>
+    <div class="input-group" style="width: 100%; margin-top: 15px">
+                            <span style="-moz-user-select: none; font-size: 12px" class="input-group-addon"><i
+                                    class="fa fa-link"></i>&nbsp;链接</span>
+        <input disabled style="font-size: 12px" id="input_url" class="form-control" title="链接"/>
+    </div>
+    <div class="input-group" style="width: 100%; margin-top: 12px">
+                            <span style="-moz-user-select: none; font-size: 12px" class="input-group-addon"><i
+                                    class="fa fa-tags"></i>&nbsp;标签</span>
+        <input style="font-size: 12px" id="input_tag" class="form-control" placeholder="无标签"/>
+    </div>
+</form>
 <div style="margin-top:5px; width: 100%; text-align: center; margin-bottom: 15px">
     <button style="width: 28.5%" id="btn_add" type="button" class="btn btn-outline-success btn-sm">
         <i class="fa fa-plus"></i>&nbsp;添加
