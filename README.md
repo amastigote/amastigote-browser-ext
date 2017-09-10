@@ -18,4 +18,4 @@ FireFox 54.0 or higher version is required.
 ![](https://github.com/amastigote/amastigote-browser-ext/blob/master/art/ext-panel.png)
 
 ### Bundled Web UI
-![](https://github.com/amastigote/amastigote-browser-ext/blob/master/art/page.png)
+![](https://github.com/amastigote/amastigote-browser-ext/blob/ng-categories/art/page.png)
