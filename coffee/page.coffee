@@ -43,7 +43,6 @@ loadCategories = (
     if (result['stat'] == Status.COMPLETE)
       for item in result['obj']
         categoryContainer.append(generateItem(item))
-      # FIXME we use method 2.2 to active a category
       if result['obj'].length > 0
         currentCategory = unescape(result['obj'][0]['name'])
         bindCategoryListeners(
@@ -120,7 +119,6 @@ bindCategoryListeners = (
   pageIndicator
   inputTags
 ) ->
-  # TODO
   for item in categoryContainer.children()
     $(item).removeClass('active')
     if (currentCategory == item.text)
@@ -206,14 +204,6 @@ $ ->
 
   inputTags.val('')
 
-  #  loadItems(
-  #    {page: 0}
-  #    container
-  #    btnPre
-  #    btnSuc
-  #    btnFilter
-  #    pageIndicator
-  #    inputTags)
   loadCategories(
     categoryContainer
     container
