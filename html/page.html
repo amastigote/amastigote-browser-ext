@@ -13,7 +13,16 @@
     <!--suppress CssUnusedSymbol -->
     <style>
         a, a:hover, a:active, a:visited, a:link {
-            text-decoration: none
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #9244d6;
+        }
+
+        a {
+            outline: 0;
+            color: rebeccapurple;
         }
 
         .ui-autocomplete {
@@ -42,38 +51,51 @@
             border-color: #f8f9fa
         }
 
+        .list-group-item.active {
+            border-color: #9244d6;
+            background-color: #9244d6
+        }
+
+        .form-control:focus {
+            border-color: #9244d6;
+        }
     </style>
 </head>
 <body style="margin: auto; min-height: 100%; padding-bottom: 20px">
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rebeccapurple">
-    <span class="navbar-brand text-light" style="font-size: 18px; font-family: sans-serif; -moz-user-select: none">文章列表 ❤ amastigote™<a
-            class="fa fa-github text-light" style="margin-left: 15px"
-            href="https://github.com/amastigote/amastigote-browser-ext"></a></span>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto"></ul>
-        <form class="form-inline">
-            <div class="input-group input-group-sm" style="width: 440px">
+    <div class="container-fluid" style="width: 1245px; margin:0 auto">
+    <span class="navbar-brand text-light"
+          style="margin-left: -10px; font-size: 18px; font-family: sans-serif; -moz-user-select: none">文章列表 ❤ amastigote™<a
+            class="fa fa-github text-light" style="margin-left: 25px"
+            href="https://github.com/amastigote/amastigote-browser-ext"></a><a
+            class="fa fa-twitter text-light" style="margin-left: 15px"
+            href="https://twitter.com/hwdin9"></a></span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: -3px">
+            <ul class="navbar-nav mr-auto"></ul>
+            <form class="form-inline">
+                <div class="input-group input-group-sm" style="width: 400px">
                 <span style="color: #e7e7e7; -moz-user-select: none; background-color: #582a82"
                       class="input-group-addon"><i
-                        class="fa fa-tags"></i>&nbsp;标签过滤器&nbsp;</span>
-                <input style="background-color: rgb(158,122,201)" id="filterByTags"
-                       class="form-control text-light" title="输入一组标签来过滤显示结果">
-                <span class="input-group-btn">
+                        class="fa fa-tags"></i>&nbsp;标签过滤&nbsp;</span>
+                    <input style="background-color: rgb(158,122,201)" id="filterByTags"
+                           class="form-control text-light" title="输入一组标签来过滤显示结果">
+                    <span class="input-group-btn">
                 <button id="btnFilter" type="button" style="color: #4e2674"
-                        class="btn btn-light text-light"><i class="fa fa-check"></i>&nbsp;&nbsp;应用
+                        class="btn btn-light text-light">&nbsp;<i class="fa fa-check"></i>&nbsp;
                 </button>
                 <button id="btnClear" type="button" style="color: #4e2674"
-                        class="btn btn-light text-light"><i class="fa fa-close"></i>&nbsp;&nbsp;清除
+                        class="btn btn-light text-light">&nbsp;<i class="fa fa-close"></i>&nbsp;
                 </button></span>
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
     </div>
 </nav>
 <div class="modal fade" id="errorModal" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <span style="font-size: 18px" class="modal-title">JavaScript 错误</span>
+                <span style="font-size: 18px" class="modal-title; -moz-user-select: none">JavaScript 错误</span>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span>&times;</span>
                 </button>
@@ -92,12 +114,13 @@
         </div>
     </div>
 </div>
-<div style="width: 1030px; margin:0 auto">
+
+<div style="width: 1235px; margin:0 auto">
     <div class="modal fade" id="editModal" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span style="font-size: 18px" class="modal-title">编辑本条列表项</span>
+                    <span style="font-size: 18px; -moz-user-select: none" class="modal-title">编辑列表项</span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span>&times;</span>
                     </button>
@@ -123,7 +146,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id='editModalBtnRemove' type="button" class="btn btn-danger btn-sm"><i
-                            class="fa fa-trash-o"></i>&nbsp;&nbsp;从列表中移除
+                            class="fa fa-trash-o"></i>&nbsp;&nbsp;移除该项
                     </button>
                     <button id="editModalBtnSubmit" type="button" class="btn btn-primary btn-sm"><i
                             class="fa fa-check"></i>&nbsp;&nbsp;提交修改
@@ -132,27 +155,50 @@
             </div>
         </div>
     </div>
-
-    <table id="itemTable" class="table table-striped" style="margin-top: 85px">
-        <thead class="thead">
+    <table style="margin-top: 90px">
         <tr>
-            <th style="font-size: 14px">#</th>
-            <th style="width: 695px; font-size: 14px">标题</th>
-            <th style="width: 160px; font-size: 14px">标签</th>
-            <th style="width: 80px; font-size: 14px">操作</th>
+            <td valign="top" width="250px" style="-moz-user-select: none">
+                <div class="list-group" style="padding-right: 45px;text-align: center">
+                    <a href="#" class="list-group-item list-group-item-action" style="margin-bottom: 25px"><i
+                            class="fa fa-archive"></i>&nbsp;&nbsp;管理分类</a>
+                </div>
+                <div class="list-group" style="padding-right: 45px">
+                    <a href="#" class="list-group-item list-group-item-action active">Java</a>
+                    <a href="#" class="list-group-item list-group-item-action">Linux</a>
+                    <a href="#" class="list-group-item list-group-item-action">HTML/CSS</a>
+                    <a href="#" class="list-group-item list-group-item-action">JavaScript</a>
+                    <a href="#" class="list-group-item list-group-item-action">Rust/C</a>
+                    <a href="#" class="list-group-item list-group-item-action">Security</a>
+                    <a href="#" class="list-group-item list-group-item-action">Distributed</a>
+                    <a href="#" class="list-group-item list-group-item-action">Miscellaneous</a>
+                    <a href="#" class="list-group-item list-group-item-action">Archived 2016</a>
+                    <a href="#" class="list-group-item list-group-item-action">Archived 2015</a>
+                    <a href="#" class="list-group-item list-group-item-action">Archived 2014</a>
+                </div>
+            </td>
+            <td valign="top">
+                <table id="itemTable" class="table table-striped" style="-moz-user-select: none">
+                    <thead class="thead">
+                    <tr>
+                        <th style="min-width: 49px; font-size: 14px">#</th>
+                        <th style="width: 695px; font-size: 14px">标题</th>
+                        <th style="width: 160px; font-size: 14px">标签</th>
+                        <th style="width: 75px; font-size: 14px">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+                <div style="visibility: hidden; text-align: center; margin-top: 20px">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button type="button" class="btnPre btn btn- btn-secondary">上一页</button>
+                        <button type="button" class="pageIndicator btn btn-secondary" disabled>0</button>
+                        <button type="button" class="btnSuc btn btn-secondary">下一页</button>
+                    </div>
+                </div>
+            </td>
         </tr>
-        </thead>
-        <tbody id="tableBody">
-        </tbody>
     </table>
-    <div style="visibility: hidden; text-align: center">
-        <div class="btn-group btn-group-sm" role="group"
-             style="margin: 0 auto">
-            <button type="button" class="btnPre btn btn- btn-secondary">上一页</button>
-            <button type="button" class="pageIndicator btn btn-secondary" disabled>0</button>
-            <button type="button" class="btnSuc btn btn-secondary">下一页</button>
-        </div>
-    </div>
     <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../js/tether.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
