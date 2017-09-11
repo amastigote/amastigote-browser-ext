@@ -7,6 +7,7 @@ title_input = $('#input_title')
 url_input = $('#input_url')
 tag_input = $('#input_tag')
 img_settings = $('#img_settings')
+categoryContainer = $('#select_category')
 
 mask = $('#mask')
 mask.css 'height', $(document).height()
@@ -42,25 +43,28 @@ browser.storage.local.get('tags').then (result) ->
 
 browse_btn.click ->
   browser.storage.local.get([
-    'cnServer'
-    'cnPort'
+    __serverKey
+    __portKey
   ]).then (result) ->
-    browser.tabs.create 'url': '/html/page.html?server=' + escape(result['cnServer']) + '&port=' + escape(result['cnPort'])
+    browser.tabs.create 'url': '/html/page.html?server=' + escape(result[__serverKey]) + '&port=' + escape(result[__portKey])
     window.close()
 
 add_btn.click ->
   mask.fadeIn()
   add_btn.prop 'disabled', true
-  create collectItem(), ->
+  create collectItem(), (result) ->
     mask.fadeOut()
-    update_btn.prop 'disabled', false
-    delete_btn.prop 'disabled', false
-    #noinspection JSUnresolvedVariable
-    browser.tabs.query(
-      currentWindow: true
-      active: true).then (tabs) ->
-        if tabs[0]
-          updateIcon true, tabs[0].id
+    if (result['stat'] == Status.COMPLETE)
+      update_btn.prop 'disabled', false
+      delete_btn.prop 'disabled', false
+      #noinspection JSUnresolvedVariable
+      browser.tabs.query(
+        currentWindow: true
+        active: true).then (tabs) ->
+          if tabs[0]
+            updateIcon true, tabs[0].id
+    else
+      add_btn.prop 'disabled', false
 
 update_btn.click ->
   mask.fadeIn()
@@ -106,6 +110,7 @@ collectItem = ->
   ).map((e) ->
     escape e
   )
+  category: escape categoryContainer.children(":selected").text()
 
 escapeChars = (string) ->
   string
@@ -123,16 +128,27 @@ browser.tabs.query(
       url_input.val url
       get_item { url: url_input.val() }, (result) ->
         if result['stat'] == Status.COMPLETE
-          mask.fadeOut()
           add_btn.prop 'disabled', true
           updatePanel(result)
+          thisCategory = result['obj']['category']['name']
+          loadCategories(categoryContainer, thisCategory)
         else if result['stat'] == Status.ERROR
-          mask.fadeOut()
           update_btn.prop 'disabled', true
           delete_btn.prop 'disabled', true
+          loadCategories(categoryContainer)
 
 updatePanel = (result) ->
   title_input.val escapeChars unescape(result['obj']['title'])
   tag_input.val result['obj']['tags'].map((e) ->
     escapeChars unescape e.name
   ).join(', ')
+
+loadCategories = (container, thisCategory) ->
+  get_category((result) ->
+    for item in result['obj']
+      itemHtml = "<option>#{item['name']}</option>"
+      if (item['name'] == thisCategory)
+        itemHtml = $($.parseHTML(itemHtml)).prop('selected', 'selected')
+      container.append(itemHtml)
+    mask.fadeOut()
+  )

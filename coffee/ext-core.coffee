@@ -1,5 +1,5 @@
-__serverKey = 'cnServer'
-__portKey = 'cnPort'
+@__serverKey = 'cnServer'
+@__portKey = 'cnPort'
 
 __itemPath = 'item'
 __tagPath = 'tag'

@@ -10,6 +10,7 @@
     <style>
         a, a:hover, a:active, a:visited, a:link {
             color: rebeccapurple;
+            outline: 0;
         }
 
         body {
@@ -84,7 +85,15 @@
                                     class="fa fa-link"></i>&nbsp;链接</span>
         <input disabled style="font-size: 12px" id="input_url" class="form-control" title="链接"/>
     </div>
-    <div class="input-group" style="width: 100%; margin-top: 12px">
+    <div class="input-group" style="width: 100%; margin-top: 15px">
+                            <span style="-moz-user-select: none; font-size: 12px" class="input-group-addon"><i
+                                    class="fa fa-archive"></i>&nbsp;分类</span>
+        <select size="1" style="height: 33px; font-size: 12px; width: 100%" id="select_category" title="分类"
+                class="custom-select input-group-addon"></select>
+        <button id="edit-category" style="font-size: 12px; height: 33px" class="input-group-addon"><i
+                class="fa fa-pencil"></i></button>
+    </div>
+    <div class="input-group" style="width: 100%; margin-top: 15px">
                             <span style="-moz-user-select: none; font-size: 12px" class="input-group-addon"><i
                                     class="fa fa-tags"></i>&nbsp;标签</span>
         <input style="font-size: 12px" id="input_tag" class="form-control" placeholder="无标签"/>

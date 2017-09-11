@@ -33,10 +33,11 @@
   });
 
   save_button.click(function() {
-    browser.storage.local.set({
-      cnServer: server_input.val().trim(),
-      cnPort: port_input.val().trim()
-    });
+    var conf;
+    conf = {};
+    conf[__serverKey] = server_input.val().trim();
+    conf[__portKey] = port_input.val().trim();
+    browser.storage.local.set(conf);
     save_button.tooltip('show');
     return setTimeout((function() {
       return save_button.tooltip('hide');

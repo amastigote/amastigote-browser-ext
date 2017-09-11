@@ -4,6 +4,7 @@ save_button = $('#buttonSave')
 clear_button = $('#buttonClear')
 github_button = $('#buttonGithub')
 
+# we use independent key vars for that ext-core is not loaded in preference page
 __serverKey = 'cnServer'
 __portKey = 'cnPort'
 
@@ -23,9 +24,11 @@ save_button.tooltip
   trigger: 'manual'
   placement: 'right'
 save_button.click ->
-  browser.storage.local.set
-    cnServer: server_input.val().trim()
-    cnPort: port_input.val().trim()
+  conf = {}
+  conf[__serverKey] = server_input.val().trim()
+  conf[__portKey] = port_input.val().trim()
+  #noinspection JSUnresolvedVariable
+  browser.storage.local.set conf
   save_button.tooltip 'show'
   setTimeout (->
     save_button.tooltip 'hide'
