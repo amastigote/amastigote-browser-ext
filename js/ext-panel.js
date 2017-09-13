@@ -203,7 +203,7 @@
       ref = result['obj'];
       for (i = 0, len = ref.length; i < len; i++) {
         item = ref[i];
-        itemHtml = "<option>" + item['name'] + "</option>";
+        itemHtml = "<option>" + (unescape(item['name'])) + "</option>";
         if (item['name'] === thisCategory) {
           itemHtml = $($.parseHTML(itemHtml)).prop('selected', 'selected');
         }

@@ -19,7 +19,7 @@ editListItem.click (e) ->
   e.preventDefault()
   get_category((result) ->
     for item in result['obj']
-      itemHtml = "<option>#{item['name']}</option>"
+      itemHtml = "<option>#{unescape(item['name'])}</option>"
       editModalCategorySelect.append(itemHtml)
   )
   editModal.modal
@@ -80,5 +80,5 @@ collectItemForCreateModal = ->
   newName: ''
 
 collectItemForEditModal = ->
-  name: editModalCategorySelect.children(":selected").text()
-  newName: editModalNameInput.val().trim()
+  name: escape(editModalCategorySelect.children(":selected").text())
+  newName: escape(editModalNameInput.val().trim())

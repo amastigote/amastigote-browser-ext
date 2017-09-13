@@ -54,7 +54,7 @@ loadCategories = (categoryContainer
         loadItems(
           {
             page: 0
-            category: escape(unescape(result['obj'][0]['name']))
+            categoryName: escape(unescape(result['obj'][0]['name']))
           }
           container
           btnPre
@@ -135,6 +135,7 @@ bindCategoryListeners = (selectedCategory
       $(item).addClass('active')
     $(item).click (e) ->
       e.preventDefault()
+      currentPage = 0
       inputTags.val('')
       for item0 in categoryContainer.children() then $(item0).removeClass('active')
       $(this).addClass('active')
@@ -142,7 +143,7 @@ bindCategoryListeners = (selectedCategory
       loadItems(
         {
           page: 0
-          category: escape(this.text)
+          categoryName: escape(this.text)
         }
         container
         btnPre
@@ -155,7 +156,7 @@ bindCategoryListeners = (selectedCategory
       )
     false
 
-packFilterParam = (rawVal, page) ->
+packFilterParam = (rawVal, page, category) ->
   filteredTags = rawVal
     .replace(/[， 、]/g, ',')
     .split(',')
@@ -165,6 +166,7 @@ packFilterParam = (rawVal, page) ->
 
   page: page
   tag: filteredTags
+  categoryName: category
 
 $ ->
   container = $('#tableBody')
@@ -255,7 +257,7 @@ rebindGlobalButtons = (selectedCategory
 
   btnPre.unbind 'click'
   btnPre.click(-> loadItems(
-    packFilterParam(filteredTags, currentPage - 2)
+    packFilterParam(filteredTags, currentPage - 2, selectedCategory)
     container
     btnPre
     btnSuc
@@ -268,7 +270,7 @@ rebindGlobalButtons = (selectedCategory
 
   btnSuc.unbind 'click'
   btnSuc.click(-> loadItems(
-    packFilterParam(filteredTags, currentPage)
+    packFilterParam(filteredTags, currentPage, selectedCategory)
     container
     btnPre
     btnSuc
@@ -282,7 +284,7 @@ rebindGlobalButtons = (selectedCategory
   btnFilter.unbind 'click'
   btnFilter.click(->
     loadItems(
-      packFilterParam(inputTags.val(), 0)
+      packFilterParam(inputTags.val(), 0, selectedCategory)
       container
       btnPre
       btnSuc

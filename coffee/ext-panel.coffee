@@ -151,7 +151,7 @@ updatePanel = (result) ->
 loadCategories = (container, thisCategory) ->
   get_category((result) ->
     for item in result['obj']
-      itemHtml = "<option>#{item['name']}</option>"
+      itemHtml = "<option>#{unescape(item['name'])}</option>"
       if (item['name'] == thisCategory)
         itemHtml = $($.parseHTML(itemHtml)).prop('selected', 'selected')
       container.append(itemHtml)

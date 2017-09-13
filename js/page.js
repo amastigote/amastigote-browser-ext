@@ -44,7 +44,7 @@
           bindCategoryListeners(unescape(result['obj'][0]['name']), categoryContainer, container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags);
           return loadItems({
             page: 0,
-            category: escape(unescape(result['obj'][0]['name']))
+            categoryName: escape(unescape(result['obj'][0]['name']))
           }, container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags, categoryContainer, unescape(result['obj'][0]['name']));
         } else {
           categoryContainer.append("<a href='#' class='list-group-item list-group-item-action disabled' style='background-color:rgba(0,0,0,.075)'>暂无分类</a>");
@@ -114,6 +114,7 @@
       $(item).click(function(e) {
         var item0, k, len1, ref1;
         e.preventDefault();
+        currentPage = 0;
         inputTags.val('');
         ref1 = categoryContainer.children();
         for (k = 0, len1 = ref1.length; k < len1; k++) {
@@ -124,7 +125,7 @@
         selectedCategory = this.text;
         return loadItems({
           page: 0,
-          category: escape(this.text)
+          categoryName: escape(this.text)
         }, container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags, categoryContainer, selectedCategory);
       });
       results.push(false);
@@ -132,7 +133,7 @@
     return results;
   };
 
-  packFilterParam = function(rawVal, page) {
+  packFilterParam = function(rawVal, page, category) {
     filteredTags = rawVal.replace(/[， 、]/g, ',').split(',').map(function(e) {
       return e.trim();
     }).filter(function(e) {
@@ -142,7 +143,8 @@
     });
     return {
       page: page,
-      tag: filteredTags
+      tag: filteredTags,
+      categoryName: category
     };
   };
 
@@ -218,15 +220,15 @@
   rebindGlobalButtons = function(selectedCategory, categoryContainer, container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags) {
     btnPre.unbind('click');
     btnPre.click(function() {
-      return loadItems(packFilterParam(filteredTags, currentPage - 2), container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags, categoryContainer, selectedCategory);
+      return loadItems(packFilterParam(filteredTags, currentPage - 2, selectedCategory), container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags, categoryContainer, selectedCategory);
     });
     btnSuc.unbind('click');
     btnSuc.click(function() {
-      return loadItems(packFilterParam(filteredTags, currentPage), container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags, categoryContainer, selectedCategory);
+      return loadItems(packFilterParam(filteredTags, currentPage, selectedCategory), container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags, categoryContainer, selectedCategory);
     });
     btnFilter.unbind('click');
     return btnFilter.click(function() {
-      return loadItems(packFilterParam(inputTags.val(), 0), container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags, categoryContainer, selectedCategory);
+      return loadItems(packFilterParam(inputTags.val(), 0, selectedCategory), container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags, categoryContainer, selectedCategory);
     });
   };
 

@@ -38,7 +38,7 @@
       results = [];
       for (i = 0, len = ref.length; i < len; i++) {
         item = ref[i];
-        itemHtml = "<option>" + item['name'] + "</option>";
+        itemHtml = "<option>" + (unescape(item['name'])) + "</option>";
         results.push(editModalCategorySelect.append(itemHtml));
       }
       return results;
@@ -109,8 +109,8 @@
 
   collectItemForEditModal = function() {
     return {
-      name: editModalCategorySelect.children(":selected").text(),
-      newName: editModalNameInput.val().trim()
+      name: escape(editModalCategorySelect.children(":selected").text()),
+      newName: escape(editModalNameInput.val().trim())
     };
   };
 
