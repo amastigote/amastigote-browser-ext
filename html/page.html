@@ -139,6 +139,14 @@
                         </div>
                         <div class="input-group" style="width: 100%; margin-top: 15px">
                             <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
+                                    class="fa fa-archive"></i>&nbsp;&nbsp;分类</span>
+                            <select size="1" style="font-size: 14px; width: 100%; height: 35.5px; text-align: left" id="modalSelectCategory" title="分类"
+                                    class="custom-select input-group-addon"></select>
+                            <button id="edit-category" style="font-size: 14px; height: 35.5px" class="input-group-addon"><i
+                                    class="fa fa-pencil"></i></button>
+                        </div>
+                        <div class="input-group" style="width: 100%; margin-top: 15px">
+                            <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
                                     class="fa fa-tags"></i>&nbsp;&nbsp;标签</span>
                             <input style="font-size: 14px" id="modalInputTags" class="form-control" placeholder="无标签"/>
                         </div>
@@ -155,13 +163,65 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="edit-category-modal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span style="font-size: 18px" class="modal-title; -moz-user-select: none">管理列表分类</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div style="font-size: 14px"><strong>原因: </strong><code id="errMessage"></code></div>
+                    <div style="margin-top: 7px; font-size: 14px"><strong>定位: </strong><code id="errLocation"></code></div>
+                    <div style="margin-top: 7px; font-size: 14px"><strong>对象: </strong><code id="errObject"></code></div>
+                    <div style="margin-top: 20px; font-size: 14px">请检查插件设置或将插件/服务器升级到最新版本</div>
+                </div>
+                <div class="modal-footer">
+                    <button id='errorModalBtnSendReport' type="button" class="btn btn-dark btn-sm"><i
+                            class="fa fa-github-alt"></i>&nbsp;&nbsp;反馈问题
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="add-category-modal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span style="font-size: 18px" class="modal-title; -moz-user-select: none">添加列表分类</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group" style="width: 100%">
+                            <span style="-moz-user-select: none; font-size: 12px" class="input-group-addon"><i
+                                    class="fa fa-archive"></i>&nbsp;名称</span>
+                        <input style="font-size: 12px" id="ac-modal-name-input" class="form-control" title="分类名称"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id='ac-modal-create-button' type="button" class="btn btn-primary btn-sm"><i
+                            class="fa fa-plus"></i>&nbsp;&nbsp;创建分类
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <table style="margin-top: 90px">
         <tr>
             <td valign="top" width="250px" style="-moz-user-select: none">
                 <div class="list-group" style="padding-right: 45px;text-align: center">
                     <a href="#" class="list-group-item list-group-item-action"
-                       style="margin-bottom: 25px; font-weight: bold; border-color: #9438cc; color: #582a82"><i
-                            class="fa fa-archive"></i>&nbsp;&nbsp;管理分类</a>
+                       id="create-category-li"
+                       style="font-weight: bold"><i
+                            class="fa fa-plus-square"></i>&nbsp;&nbsp;添加分类</a>
+                    <a href="#" class="list-group-item list-group-item-action"
+                       style="margin-bottom: 25px; font-weight: bold"><i
+                            class="fa fa-pencil-square"></i>&nbsp;&nbsp;管理分类</a>
+
                 </div>
                 <div class="list-group" style="padding-right: 45px" id="category-container"></div>
             </td>
@@ -195,6 +255,7 @@
     <script type="text/javascript" src="../js/page-core.js"></script>
     <script type="text/javascript" src="../js/ext-core.js"></script>
     <script type="text/javascript" src="../js/page-edit.js"></script>
+    <script type="text/javascript" src="../js/page-categories.js"></script>
     <script type="text/javascript" src="../js/page.js"></script>
 </div>
 </body>

@@ -155,7 +155,7 @@
       }).map(function(e) {
         return escape(e);
       }),
-      category: escape(categoryContainer.children(":selected").text())
+      categoryName: escape(categoryContainer.children(":selected").text())
     };
   };
 

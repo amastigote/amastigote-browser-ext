@@ -110,7 +110,7 @@ collectItem = ->
   ).map((e) ->
     escape e
   )
-  category: escape categoryContainer.children(":selected").text()
+  categoryName: escape categoryContainer.children(":selected").text()
 
 escapeChars = (string) ->
   string

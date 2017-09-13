@@ -3,6 +3,7 @@ urlInputModal = $('#modalInputUrl')
 tagsInputModal = $('#modalInputTags')
 removeBtnModal = $('#editModalBtnRemove')
 submitBtnModal = $('#editModalBtnSubmit')
+categorySltModal = $('#modalSelectCategory')
 
 currentRow = null
 
@@ -14,7 +15,8 @@ editModal.on('hidden.bs.modal', ->
   tagsInputModal.val ''
 )
 
-@showEditModal = (p) ->
+@showEditModal = (p0, p1) ->
+  selectedCategory = p0.getAttribute('itemprop')
   getTags((result) ->
     split = (val) ->
       val.split(/,\s*/)
@@ -40,7 +42,7 @@ editModal.on('hidden.bs.modal', ->
     );
   )
 
-  currentRow = p.closest('tr')
+  currentRow = p0.closest('tr')
   title = currentRow.childNodes[1].childNodes[0].text
   url = currentRow.childNodes[1].childNodes[0].getAttribute('href')
   spans = currentRow.childNodes[2].childNodes
@@ -49,26 +51,29 @@ editModal.on('hidden.bs.modal', ->
   else
     tags = ($(spans.item(i)).text() for i in [0..spans.length - 1] when $(spans.item(i).childNodes[0]).is 'span').join(', ')
 
-  editModal.modal
-    show: true
-    backdrop: 'static'
+  categorySltModal.empty()
+  for e in p1
+    itemHtml = "<option>#{e}</option>"
+    if (e == selectedCategory)
+      itemHtml = $($.parseHTML(itemHtml)).prop('selected', 'selected')
+    categorySltModal.append(itemHtml)
 
   titleInputModal.val title
   urlInputModal.val url
   tagsInputModal.val tags
 
+  editModal.modal
+    show: true
+
 submitBtnModal.click ->
   update collectItem(), (result) ->
-    editModal.modal 'hide'
-    $(currentRow).html $($.parseHTML(generateRow(result['obj']))).html()
-    $(currentRow).click(->
-      showEditModal(this)
-    )
+    if result['stat'] == Status.COMPLETE
+      location.reload()
 
 removeBtnModal.click ->
-  remove collectItem(), ->
-    editModal.modal 'hide'
-    $(currentRow).hide()
+  remove collectItem(), (result) ->
+    if result['stat'] == Status.COMPLETE
+      location.reload()
 
 collectItem = ->
   title: escape(titleInputModal.val())
@@ -80,3 +85,4 @@ collectItem = ->
   ).map((e) ->
     escape e
   )
+  categoryName: escape categorySltModal.children(":selected").text()

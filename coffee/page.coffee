@@ -5,7 +5,6 @@
 #    2.2. set the first category to active
 
 currentPage = 0
-currentCategory = undefined
 filteredTags = []
 
 urlString = window.location.href
@@ -29,23 +28,21 @@ window.onerror = (errorMessage, scriptURI, lineNumber, columnNumber, error) ->
 if (!@server && !@port)
   throw "server or port is not defined in url"
 
-loadCategories = (
-  categoryContainer
+loadCategories = (categoryContainer
   container
   btnPre
   btnSuc
   btnFilter
   pageIndicator
-  inputTags
-) ->
+  inputTags) ->
   get_category((result) ->
     categoryContainer.empty()
     if (result['stat'] == Status.COMPLETE)
       for item in result['obj']
         categoryContainer.append(generateItem(item))
       if result['obj'].length > 0
-        currentCategory = unescape(result['obj'][0]['name'])
         bindCategoryListeners(
+          unescape(result['obj'][0]['name'])
           categoryContainer
           container
           btnPre
@@ -57,7 +54,7 @@ loadCategories = (
         loadItems(
           {
             page: 0
-            category: escape(currentCategory)
+            category: escape(unescape(result['obj'][0]['name']))
           }
           container
           btnPre
@@ -65,12 +62,14 @@ loadCategories = (
           btnFilter
           pageIndicator
           inputTags
+          categoryContainer
+          unescape(result['obj'][0]['name'])
         )
       else
         categoryContainer.append("<a href='#' class='list-group-item list-group-item-action disabled' style='background-color:rgba(0,0,0,.075)'>暂无分类</a>")
-        container.append("<tr style='font-size: 15px'><td colspan='4' style='color: #858D95'>暂无结果</td></tr>")
+        container.append("<tr style='font-size: 15px; height: 49px'><td colspan='4' style='color: #858D95'>暂无结果</td></tr>")
     else if (result['stat'] == Status.ERROR)
-      container.append("<tr style='font-size: 15px'><td colspan='4' style='color: #858D95'>暂无结果</td></tr>")
+      container.append("<tr style='font-size: 15px; height: 49px'><td colspan='4' style='color: #858D95'>暂无结果</td></tr>")
   )
 
 loadItems = (payload
@@ -79,7 +78,9 @@ loadItems = (payload
   btnSuc
   btnFilter
   pageIndicator
-  inputTags) ->
+  inputTags
+  categoryContainer
+  category) ->
   pageIndicator.closest('div')
     .css('visibility', 'hidden')
   listItems(payload, (result) ->
@@ -90,50 +91,58 @@ loadItems = (payload
       btnSuc.attr('disabled', result['obj']['isLast'])
       pageIndicator.text(currentPage)
       for item in result['obj']['items']
-        container.append(generateRow(item))
-      bindRowListeners(inputTags, btnFilter)
-      window.scrollTo(0, 0)
+        container.append(generateRow(item, category))
+      bindRowListeners(inputTags, btnFilter, categoryContainer)
     else
       if (result['stat'] == Status.ERROR)
         btnPre.attr('disabled', true)
         btnSuc.attr('disabled', true)
-        container.append("<tr style='font-size: 15px'><td colspan='4' style='color: #858D95'>暂无结果</td></tr>")
+        container.append("<tr style='font-size: 15px; height: 49px'><td colspan='4' style='color: #858D95'>暂无结果</td></tr>")
     pageIndicator.closest('div').css('visibility', 'visible')
+    rebindGlobalButtons(
+      category
+      categoryContainer
+      container
+      btnPre
+      btnSuc
+      btnFilter
+      pageIndicator
+      inputTags
+    )
+    $("html, body").animate({scrollTop: 0}, 500);
   )
 
-bindRowListeners = (inputTags, btnFilter) ->
+bindRowListeners = (inputTags, btnFilter, categoryContainer) ->
   $('.editHref').click (e) ->
     e.preventDefault()
-    showEditModal(this)
+    showEditModal(this, categoryContainer.children().map((i, e) -> $(e).text()))
     false
   $('.tagHref').click ->
     inputTags.val($(this.childNodes[0]).text())
     btnFilter.trigger('click')
 
-bindCategoryListeners = (
+bindCategoryListeners = (selectedCategory
   categoryContainer
   container
   btnPre
   btnSuc
   btnFilter
   pageIndicator
-  inputTags
-) ->
+  inputTags) ->
   for item in categoryContainer.children()
     $(item).removeClass('active')
-    if (currentCategory == item.text)
+    if (selectedCategory == item.text)
       $(item).addClass('active')
-    $(item).click ->
-      console.log this.text
-      currentCategory = this.text
-      for item0 in categoryContainer.children()
-        $(item0).removeClass('active')
-        if (currentCategory == item0.text)
-          $(item0).addClass('active')
+    $(item).click (e) ->
+      e.preventDefault()
+      inputTags.val('')
+      for item0 in categoryContainer.children() then $(item0).removeClass('active')
+      $(this).addClass('active')
+      selectedCategory = this.text
       loadItems(
         {
           page: 0
-          category: escape(currentCategory)
+          category: escape(this.text)
         }
         container
         btnPre
@@ -141,7 +150,10 @@ bindCategoryListeners = (
         btnFilter
         pageIndicator
         inputTags
+        categoryContainer
+        selectedCategory
       )
+    false
 
 packFilterParam = (rawVal, page) ->
   filteredTags = rawVal
@@ -165,37 +177,9 @@ $ ->
   categoryContainer = $('#category-container')
 
   $('.form-inline').submit (e) ->
-    e.preventDefault();
+    e.preventDefault()
     btnFilter.trigger('click')
     false
-
-  btnPre.click(-> loadItems(
-    packFilterParam(filteredTags, currentPage - 2)
-    container
-    btnPre
-    btnSuc
-    btnFilter
-    pageIndicator
-    inputTags))
-
-  btnSuc.click(-> loadItems(
-    packFilterParam(filteredTags, currentPage)
-    container
-    btnPre
-    btnSuc
-    btnFilter
-    pageIndicator
-    inputTags))
-
-  btnFilter.click(->
-    loadItems(
-      packFilterParam(inputTags.val(), 0)
-      container
-      btnPre
-      btnSuc
-      btnFilter
-      pageIndicator
-      inputTags))
 
   btnClear.click(->
     inputTags.val('')
@@ -245,7 +229,7 @@ $ ->
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 
-@generateRow = (item) ->
+@generateRow = (item, category) ->
   tagsBadges = item['tags'].map((e) ->
     "<a class='tagHref' href='#'><span class='badge badge-dark' style='font-size: 11px; vertical-align: middle'>\
     #{escapeChars(unescape(e['name']))}</span></a>")
@@ -255,7 +239,56 @@ $ ->
    <a href='#{item['url']}'>#{escapeChars(unescape(item['title']))}</a>\
    </td><td style='vertical-align: middle'>#{tagsBadges}\
    </td><td style='font-size: 13px; vertical-align: middle'>\
-   <a href='#' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>"
+   <a href='#' itemprop='#{category}' class='editHref'><i class='fa fa-pencil fa-1'></i>&nbsp;编辑</a></td></tr>"
 
 @generateItem = (item) ->
   "<a href='#' class='list-group-item list-group-item-action'>#{escapeChars(unescape(item['name']))}</a>"
+
+rebindGlobalButtons = (selectedCategory
+  categoryContainer
+  container
+  btnPre
+  btnSuc
+  btnFilter
+  pageIndicator
+  inputTags) ->
+
+  btnPre.unbind 'click'
+  btnPre.click(-> loadItems(
+    packFilterParam(filteredTags, currentPage - 2)
+    container
+    btnPre
+    btnSuc
+    btnFilter
+    pageIndicator
+    inputTags
+    categoryContainer
+    selectedCategory
+  ))
+
+  btnSuc.unbind 'click'
+  btnSuc.click(-> loadItems(
+    packFilterParam(filteredTags, currentPage)
+    container
+    btnPre
+    btnSuc
+    btnFilter
+    pageIndicator
+    inputTags
+    categoryContainer
+    selectedCategory
+  ))
+
+  btnFilter.unbind 'click'
+  btnFilter.click(->
+    loadItems(
+      packFilterParam(inputTags.val(), 0)
+      container
+      btnPre
+      btnSuc
+      btnFilter
+      pageIndicator
+      inputTags
+      categoryContainer
+      selectedCategory
+    ))
