@@ -76,8 +76,8 @@ removeBtnModal.click ->
       location.reload()
 
 collectItem = ->
-  title: escape(titleInputModal.val())
-  url: urlInputModal.val()
+  title: escape(titleInputModal.val().trim())
+  url: urlInputModal.val().trim()
   tags: tagsInputModal.val().replace(/[， 、]/g, ',').split(',').map((e) ->
     e.trim()
   ).filter((e) ->

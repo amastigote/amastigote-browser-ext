@@ -16,7 +16,8 @@ mask.css 'width', $(document).width()
 #noinspection JSUnresolvedVariable
 browser.storage.local.get('tags').then (result) ->
   if result['tags'] == undefined
-    result = tags: []
+    result =
+      tags: []
 
   split = (val) ->
     val.split(/,\s*/)
@@ -46,7 +47,8 @@ browse_btn.click ->
     __serverKey
     __portKey
   ]).then (result) ->
-    browser.tabs.create 'url': '/html/page.html?server=' + escape(result[__serverKey]) + '&port=' + escape(result[__portKey])
+    browser.tabs.create
+      'url': '/html/page.html?server=' + escape(result[__serverKey]) + '&port=' + escape(result[__portKey])
     window.close()
 
 add_btn.click ->
@@ -60,9 +62,10 @@ add_btn.click ->
       #noinspection JSUnresolvedVariable
       browser.tabs.query(
         currentWindow: true
-        active: true).then (tabs) ->
-          if tabs[0]
-            updateIcon true, tabs[0].id
+        active: true
+      ).then (tabs) ->
+        if tabs[0]
+          updateIcon true, tabs[0].id
     else
       add_btn.prop 'disabled', false
 
@@ -83,9 +86,10 @@ delete_btn.click ->
     update_btn.prop 'disabled', true
     browser.tabs.query(
       currentWindow: true
-      active: true).then (tabs) ->
-        if tabs[0]
-          updateIcon false, tabs[0].id
+      active: true
+    ).then (tabs) ->
+      if tabs[0]
+        updateIcon false, tabs[0].id
 
 img_settings.click ->
   browser.runtime.openOptionsPage()
@@ -121,21 +125,22 @@ escapeChars = (string) ->
 #noinspection JSUnresolvedVariable
 browser.tabs.query(
   currentWindow: true
-  active: true).then (tabs) ->
-    if tabs[0]
-      url = tabs[0].url
-      title_input.val removeSuffix(url, tabs[0].title)
-      url_input.val url
-      get_item { url: url_input.val() }, (result) ->
-        if result['stat'] == Status.COMPLETE
-          add_btn.prop 'disabled', true
-          updatePanel(result)
-          thisCategory = result['obj']['category']['name']
-          loadCategories(categoryContainer, thisCategory)
-        else if result['stat'] == Status.ERROR
-          update_btn.prop 'disabled', true
-          delete_btn.prop 'disabled', true
-          loadCategories(categoryContainer)
+  active: true
+).then (tabs) ->
+  if tabs[0]
+    url = tabs[0].url
+    title_input.val removeSuffix(url, tabs[0].title)
+    url_input.val url
+    get_item {url: url_input.val()}, (result) ->
+      if result['stat'] == Status.COMPLETE
+        add_btn.prop 'disabled', true
+        updatePanel(result)
+        thisCategory = result['obj']['category']['name']
+        loadCategories(categoryContainer, thisCategory)
+      else if result['stat'] == Status.ERROR
+        update_btn.prop 'disabled', true
+        delete_btn.prop 'disabled', true
+        loadCategories(categoryContainer)
 
 updatePanel = (result) ->
   title_input.val escapeChars unescape(result['obj']['title'])

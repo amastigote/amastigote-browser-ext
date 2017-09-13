@@ -110,8 +110,8 @@
 
   collectItem = function() {
     return {
-      title: escape(titleInputModal.val()),
-      url: urlInputModal.val(),
+      title: escape(titleInputModal.val().trim()),
+      url: urlInputModal.val().trim(),
       tags: tagsInputModal.val().replace(/[， 、]/g, ',').split(',').map(function(e) {
         return e.trim();
       }).filter(function(e) {

@@ -43,6 +43,10 @@
             overflow-x: hidden;
             font-size: 12px;
         }
+
+        .form-control:focus, .custom-select:focus {
+            border-color: #9244d6;
+        }
     </style>
 </head>
 
@@ -90,7 +94,7 @@
                                     class="fa fa-archive"></i>&nbsp;分类</span>
         <select size="1" style="height: 33px; font-size: 12px; width: 100%; text-align: left" id="select_category" title="分类"
                 class="custom-select input-group-addon"></select>
-        <button id="edit-category" style="font-size: 12px; height: 33px" class="input-group-addon"><i
+        <button id="edit-category" style="font-size: 12px; height: 33px" class="input-group-addon btn"><i
                 class="fa fa-pencil"></i></button>
     </div>
     <div class="input-group" style="width: 100%; margin-top: 15px">

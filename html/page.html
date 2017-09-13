@@ -56,7 +56,7 @@
             background-color: #9244d6
         }
 
-        .form-control:focus {
+        .form-control:focus, .custom-select:focus {
             border-color: #9244d6;
         }
     </style>
@@ -65,7 +65,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rebeccapurple">
     <div class="container-fluid" style="width: 1245px; margin:0 auto">
     <span class="navbar-brand text-light"
-          style="margin-left: -10px; font-size: 18px; font-family: sans-serif; -moz-user-select: none">文章列表 ❤ amastigote™<a
+          style="margin-left: -10px; font-size: 18px; font-family: sans-serif; -moz-user-select: none">amastigote™ ❤ 文章列表<a
             class="fa fa-github text-light" style="margin-left: 25px"
             href="https://github.com/amastigote/amastigote-browser-ext"></a><a
             class="fa fa-twitter text-light" style="margin-left: 15px"
@@ -95,7 +95,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <span style="font-size: 18px" class="modal-title; -moz-user-select: none">JavaScript 错误</span>
+                <span style="font-size: 18px; -moz-user-select: none" class="modal-title">JavaScript 错误</span>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span>&times;</span>
                 </button>
@@ -140,9 +140,11 @@
                         <div class="input-group" style="width: 100%; margin-top: 15px">
                             <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
                                     class="fa fa-archive"></i>&nbsp;&nbsp;分类</span>
-                            <select size="1" style="font-size: 14px; width: 100%; height: 35.5px; text-align: left" id="modalSelectCategory" title="分类"
+                            <select size="1" style="font-size: 14px; width: 100%; height: 35.5px; text-align: left"
+                                    id="modalSelectCategory" title="分类"
                                     class="custom-select input-group-addon"></select>
-                            <button id="edit-category" style="font-size: 14px; height: 35.5px" class="input-group-addon"><i
+                            <button id="edit-category" style="font-size: 14px; height: 35.5px"
+                                    class="input-group-addon"><i
                                     class="fa fa-pencil"></i></button>
                         </div>
                         <div class="input-group" style="width: 100%; margin-top: 15px">
@@ -167,20 +169,33 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span style="font-size: 18px" class="modal-title; -moz-user-select: none">管理列表分类</span>
+                    <span style="font-size: 18px; -moz-user-select: none" class="modal-title">编辑列表分类</span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span>&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div style="font-size: 14px"><strong>原因: </strong><code id="errMessage"></code></div>
-                    <div style="margin-top: 7px; font-size: 14px"><strong>定位: </strong><code id="errLocation"></code></div>
-                    <div style="margin-top: 7px; font-size: 14px"><strong>对象: </strong><code id="errObject"></code></div>
-                    <div style="margin-top: 20px; font-size: 14px">请检查插件设置或将插件/服务器升级到最新版本</div>
+                    <div class="input-group" style="width: 100%">
+                            <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
+                                    class="fa fa-hand-o-right"></i>&nbsp;选择分类</span>
+                        <select size="1" style="height: 35.5px; font-size: 14px; width: 100%; text-align: left"
+                                id="ec-modal-category-select" title="选择分类"
+                                class="custom-select input-group-addon"></select>
+                    </div>
+                    <div class="input-group" style="width: 100%; margin-top: 15px">
+                            <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
+                                    class="fa fa-archive"></i>&nbsp;新分类名</span>
+                        <input style="height: 35.5px; font-size: 14px; width: 100%"
+                               id="ec-modal-name-input" title="新分类名"
+                               class="form-control"/>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button id='errorModalBtnSendReport' type="button" class="btn btn-dark btn-sm"><i
-                            class="fa fa-github-alt"></i>&nbsp;&nbsp;反馈问题
+                    <button id='ec-modal-delete-button' type="button" class="btn btn-danger btn-sm"><i
+                            class="fa fa-trash-o"></i>&nbsp;&nbsp;删除(同时删除该分类文章)
+                    </button>
+                    <button id='ec-modal-submit-button' type="button" class="btn btn-primary btn-sm"><i
+                            class="fa fa-check"></i>&nbsp;&nbsp;提交修改
                     </button>
                 </div>
             </div>
@@ -190,16 +205,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span style="font-size: 18px" class="modal-title; -moz-user-select: none">添加列表分类</span>
+                    <span style="font-size: 18px; -moz-user-select: none" class="modal-title">添加列表分类</span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span>&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="input-group" style="width: 100%">
-                            <span style="-moz-user-select: none; font-size: 12px" class="input-group-addon"><i
+                            <span style="-moz-user-select: none; font-size: 14px" class="input-group-addon"><i
                                     class="fa fa-archive"></i>&nbsp;名称</span>
-                        <input style="font-size: 12px" id="ac-modal-name-input" class="form-control" title="分类名称"/>
+                        <input style="font-size: 14px" id="ac-modal-name-input" class="form-control" title="分类名称"/>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -219,8 +234,9 @@
                        style="font-weight: bold"><i
                             class="fa fa-plus-square"></i>&nbsp;&nbsp;添加分类</a>
                     <a href="#" class="list-group-item list-group-item-action"
+                       id="edit-category-li"
                        style="margin-bottom: 25px; font-weight: bold"><i
-                            class="fa fa-pencil-square"></i>&nbsp;&nbsp;管理分类</a>
+                            class="fa fa-pencil-square"></i>&nbsp;&nbsp;编辑分类</a>
 
                 </div>
                 <div class="list-group" style="padding-right: 45px" id="category-container"></div>
