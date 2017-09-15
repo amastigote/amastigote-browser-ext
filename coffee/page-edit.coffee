@@ -17,7 +17,7 @@ editModal.on('hidden.bs.modal', ->
 
 @showEditModal = (p0, p1) ->
   selectedCategory = p0.getAttribute('itemprop')
-  getTags((result) ->
+  get_tags((result) ->
     split = (val) ->
       val.split(/,\s*/)
 

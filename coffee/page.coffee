@@ -1,9 +1,3 @@
-# 1. load categories
-# 2. choose one category to load its items
-#    2.1. fetch last active category name and set it to active
-#         ff api is a must in this case
-#    2.2. set the first category to active
-
 currentPage = 0
 filteredTags = []
 
@@ -19,14 +13,6 @@ window.onerror = (errorMessage, scriptURI, lineNumber, columnNumber, error) ->
     window.open 'https://github.com/amastigote/amastigote-browser-ext/issues'
   $('#errorModal').modal
     show: true
-
-#noinspection JSUnresolvedVariable
-@server = unescape(urlObject.searchParams.get('server'))
-#noinspection JSUnresolvedVariable
-@port = unescape(urlObject.searchParams.get('port'))
-
-if (!@server && !@port)
-  throw "server or port is not defined in url"
 
 loadCategories = (categoryContainer
   container
@@ -83,7 +69,7 @@ loadItems = (payload
   category) ->
   pageIndicator.closest('div')
     .css('visibility', 'hidden')
-  listItems(payload, (result) ->
+  list_items(payload, (result) ->
     container.empty()
     if (result['stat'] == Status.COMPLETE)
       currentPage = result['obj']['currentPage']
@@ -200,7 +186,7 @@ $ ->
     inputTags
   )
 
-  getTags((result) ->
+  get_tags((result) ->
     split = (val) ->
       val.split(/,\s*/)
 
@@ -254,7 +240,6 @@ rebindGlobalButtons = (selectedCategory
   btnFilter
   pageIndicator
   inputTags) ->
-
   btnPre.unbind 'click'
   btnPre.click(-> loadItems(
     packFilterParam(filteredTags, currentPage - 2, selectedCategory)

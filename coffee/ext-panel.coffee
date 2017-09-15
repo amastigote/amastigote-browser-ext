@@ -13,35 +13,6 @@ mask = $('#mask')
 mask.css 'height', $(document).height()
 mask.css 'width', $(document).width()
 
-#noinspection JSUnresolvedVariable
-browser.storage.local.get('tags').then (result) ->
-  if result['tags'] == undefined
-    result =
-      tags: []
-
-  split = (val) ->
-    val.split(/,\s*/)
-
-  extractLast = (term) ->
-    split(term).pop()
-
-  $('#input_tag').autocomplete({
-    minLength: 1,
-    source: (request, response) ->
-      response($.ui.autocomplete.filter(
-        result['tags'].map((e) -> escapeChars(unescape(e.trim()))), extractLast(request.term)));
-  },
-    focus: ->
-      false
-    select: (event, ui) ->
-      terms = split(this.value)
-      terms.pop()
-      terms.push(ui.item.value)
-      terms.push("");
-      this.value = terms.join(", ")
-      false
-  );
-
 browse_btn.click ->
   browser.storage.local.get([
     __serverKey
@@ -150,10 +121,39 @@ updatePanel = (result) ->
 
 loadCategories = (container, thisCategory) ->
   get_category((result) ->
-    for item in result['obj']
-      itemHtml = "<option>#{unescape(item['name'])}</option>"
-      if (item['name'] == thisCategory)
-        itemHtml = $($.parseHTML(itemHtml)).prop('selected', 'selected')
-      container.append(itemHtml)
-    mask.fadeOut()
+    if (result['stat'] == Status.COMPLETE)
+      for item in result['obj']
+        itemHtml = "<option>#{unescape(item['name'])}</option>"
+        if (item['name'] == thisCategory)
+          itemHtml = $($.parseHTML(itemHtml)).prop('selected', 'selected')
+        container.append(itemHtml)
+      loadTags()
+  )
+
+loadTags = () ->
+  get_tags((result) ->
+    if (result['stat'] == Status.COMPLETE)
+      split = (val) ->
+        val.split(/,\s*/)
+
+      extractLast = (term) ->
+        split(term).pop()
+
+      $('#input_tag').autocomplete({
+        minLength: 1,
+        source: (request, response) ->
+          response($.ui.autocomplete.filter(
+            result['obj'].map((e) -> escapeChars(unescape(e.trim()))), extractLast(request.term)));
+      },
+        focus: ->
+          false
+        select: (event, ui) ->
+          terms = split(this.value)
+          terms.pop()
+          terms.push(ui.item.value)
+          terms.push("");
+          this.value = terms.join(", ")
+          false
+      );
+      mask.fadeOut()
   )

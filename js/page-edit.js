@@ -27,7 +27,7 @@
   this.showEditModal = function(p0, p1) {
     var e, i, itemHtml, j, len, selectedCategory, spans, tags, title, url;
     selectedCategory = p0.getAttribute('itemprop');
-    getTags(function(result) {
+    get_tags(function(result) {
       var extractLast, split;
       split = function(val) {
         return val.split(/,\s*/);

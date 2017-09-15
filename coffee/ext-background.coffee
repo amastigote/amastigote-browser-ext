@@ -17,20 +17,7 @@ updateActiveTab = ->
       if tabs[0]
         checkCurrentPage tabs[0]
 
-updateTags = (result) ->
-  if result['stat'] == Status.COMPLETE
-    browser.storage.local.set
-      serial: result['msg']
-      tags: result['obj']
-
-fetchTagStat = ->
-  tagSerial = browser.storage.local.get('serial')
-  tagSerial.then (result) ->
-    get_tags result, updateTags
-
+#noinspection JSUnresolvedVariable
 browser.tabs.onUpdated.addListener updateActiveTab
+#noinspection JSUnresolvedVariable
 browser.tabs.onActivated.addListener updateActiveTab
-fetchTagStat()
-setInterval (->
-  fetchTagStat()
-), 60000

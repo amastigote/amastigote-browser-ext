@@ -2,6 +2,7 @@
 @__portKey = 'cnPort'
 
 __itemPath = 'item'
+__itemListPath = "#{__itemPath}/list"
 __tagPath = 'tag'
 __categoryPath = 'category'
 
@@ -39,23 +40,22 @@ __REMOVE = 'DELETE'
 @remove_category = (payload, success_callback) ->
   dispatchQuery JSON.stringify(payload), __categoryPath, __REMOVE, success_callback
 
-@get_tags = (tag_serial, success_callback) ->
-  dispatchQuery tag_serial, __tagPath, __FETCH, success_callback
+@get_tags = (success_callback) ->
+  dispatchQuery undefined, __tagPath, __FETCH, success_callback
+
+@list_items = (payload, success_callback) ->
+  dispatchQuery payload, __itemListPath, __FETCH, success_callback
 
 dispatchQuery = (payload, urlEndPoint, query_method, success_callback) ->
-  # When in page mode, server and port are available as global vars, fetch directly
-  if (@server && @port)
-    generalQuery(payload, urlEndPoint, query_method, success_callback, server, port)
-  # When in panel mode, use an async way to fetch server and port from browser storage
-  else if (browser)
-    browser.storage.local.get([
-      __serverKey
-      __portKey
-    ]).then (result) ->
-      if result[__serverKey] != undefined and result[__portKey] != undefined
-        server = result[__serverKey]
-        port = result[__portKey]
-        generalQuery(payload, urlEndPoint, query_method, success_callback, server, port)
+  browser.storage.local.get([
+    __serverKey
+    __portKey
+  ]).then (result) ->
+    if result[__serverKey] != undefined and result[__portKey] != undefined
+      server = result[__serverKey]
+      port = result[__portKey]
+      generalQuery(payload, urlEndPoint, query_method, success_callback, server, port)
+    else throw "server or port not configured"
 
 generalQuery = (payload, urlEndPoint, query_method, success_callback, server, port) ->
   $.ajax

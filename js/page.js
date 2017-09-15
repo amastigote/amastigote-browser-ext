@@ -22,14 +22,6 @@
     });
   };
 
-  this.server = unescape(urlObject.searchParams.get('server'));
-
-  this.port = unescape(urlObject.searchParams.get('port'));
-
-  if (!this.server && !this.port) {
-    throw "server or port is not defined in url";
-  }
-
   loadCategories = function(categoryContainer, container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags) {
     return get_category(function(result) {
       var item, j, len, ref;
@@ -58,7 +50,7 @@
 
   loadItems = function(payload, container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags, categoryContainer, category) {
     pageIndicator.closest('div').css('visibility', 'hidden');
-    return listItems(payload, function(result) {
+    return list_items(payload, function(result) {
       var item, j, len, ref;
       container.empty();
       if (result['stat'] === Status.COMPLETE) {
@@ -169,7 +161,7 @@
     });
     inputTags.val('');
     loadCategories(categoryContainer, container, btnPre, btnSuc, btnFilter, pageIndicator, inputTags);
-    return getTags(function(result) {
+    return get_tags(function(result) {
       var extractLast, split;
       split = function(val) {
         return val.split(/,\s*/);
