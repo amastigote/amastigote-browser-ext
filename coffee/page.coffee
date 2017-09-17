@@ -103,9 +103,11 @@ bindRowListeners = (inputTags, btnFilter, categoryContainer) ->
     e.preventDefault()
     showEditModal(this, categoryContainer.children().map((i, e) -> $(e).text()))
     false
-  $('.tagHref').click ->
+  $('.tagHref').click (e) ->
+    e.preventDefault()
     inputTags.val($(this.childNodes[0]).text())
     btnFilter.trigger('click')
+    false
 
 bindCategoryListeners = (selectedCategory
   categoryContainer

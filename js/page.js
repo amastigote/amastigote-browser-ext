@@ -87,9 +87,11 @@
       }));
       return false;
     });
-    return $('.tagHref').click(function() {
+    return $('.tagHref').click(function(e) {
+      e.preventDefault();
       inputTags.val($(this.childNodes[0]).text());
-      return btnFilter.trigger('click');
+      btnFilter.trigger('click');
+      return false;
     });
   };
 
